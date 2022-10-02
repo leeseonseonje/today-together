@@ -26,4 +26,15 @@ describe('ActivityController (e2e)', () => {
             })
             .expect(201);
     });
+
+    it('e2e', () => {
+        console.log(app.getHttpServer());
+        return request(app.getHttpServer())
+            .post('/activity')
+            .send({
+                'type': ActivityType.EDUCATION,
+                'participants': 999999999,
+            })
+            .expect(400);
+    });
 });

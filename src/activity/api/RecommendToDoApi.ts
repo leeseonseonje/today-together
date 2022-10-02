@@ -16,11 +16,11 @@ export class RecommendToDoApi {
 
     async apiCall(params: RequestActivityDto) {
         const request = this.url + this.paramBuild(params);
-        const response = await this.httpService.axiosRef.get(request)
-            .catch(()=> {
-                throw new BadRequestException('할 게 없습니다.')
-            });
+        const response = await this.httpService.axiosRef.get(request);
 
+        if (response.data.error !== undefined) {
+            throw new BadRequestException('할 게 없습니다.');
+        }
         return response.data as RecommendToDoApiResponse;
     }
 

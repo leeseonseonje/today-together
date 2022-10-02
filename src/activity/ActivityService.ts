@@ -34,6 +34,6 @@ export class ActivityService {
         const translatorActivity = await this.translatorApi.apiCall(activity.activity);
 
         const createActivity = Activity.create(activity.key, translatorActivity);
-        return  await this.activityRepository.save(createActivity);
+        return await this.activityRepository.save(createActivity);
     }
 }
