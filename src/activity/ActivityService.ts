@@ -21,10 +21,10 @@ export class ActivityService {
     async recommendToDo(request: RequestActivityDto) {
         const apiResponse = await this.recommendTodoApi.apiCall(request);
 
-        return await this.checkLocalActivityData(apiResponse) as Activity;
+        return await this.getActivity(apiResponse) as Activity;
     }
 
-    private async checkLocalActivityData(apiResponse: RecommendToDoApiResponse) {
+    private async getActivity(apiResponse: RecommendToDoApiResponse) {
         const activity = await this.activityRepository.findOneBy({key: apiResponse.key});
 
         return activity === null ? this.translator(apiResponse) : activity;

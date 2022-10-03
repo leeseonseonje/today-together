@@ -1,8 +1,13 @@
 import {ActivityType} from "./ActivityType";
+import {IsEnum, IsNumber} from "class-validator";
 
 export class RequestActivityDto {
-    readonly type: ActivityType = ActivityType.ETC;
-    readonly participants: number = 1;
+
+    @IsEnum(ActivityType)
+    readonly type: ActivityType;
+
+    @IsNumber()
+    readonly participants;
 
     constructor(type: ActivityType, participants: number) {
         this.type = type;
