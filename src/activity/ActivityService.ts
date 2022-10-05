@@ -27,7 +27,7 @@ export class ActivityService {
     private async getActivity(apiResponse: RecommendToDoApiResponse) {
         const activity = await this.activityRepository.findOneBy({key: apiResponse.key});
 
-        return activity === null ? this.translator(apiResponse) : activity;
+        return activity ? this.translator(apiResponse) : activity;
     }
 
     private async translator(activity: RecommendToDoApiResponse) {
