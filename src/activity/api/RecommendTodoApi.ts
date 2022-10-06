@@ -1,12 +1,12 @@
 import {BadRequestException, Injectable} from "@nestjs/common";
-import {RecommendToDoApiResponse} from "./dto/RecommendToDoApiResponse";
+import {RecommendTodoApiResponse} from "./dto/RecommendTodoApiResponse";
 import {HttpService} from "@nestjs/axios";
 import {map, tap} from "rxjs";
 import {log} from "util";
 import {RequestActivityDto} from "../RequestActivityDto";
 
 @Injectable()
-export class RecommendToDoApi {
+export class RecommendTodoApi {
 
     private readonly url: string = 'https://www.boredapi.com/api/activity'
     constructor(
@@ -21,7 +21,7 @@ export class RecommendToDoApi {
         if (response.data.error !== undefined) {
             throw new BadRequestException('할 게 없습니다.');
         }
-        return response.data as RecommendToDoApiResponse;
+        return response.data as RecommendTodoApiResponse;
     }
 
     private paramBuild(params: RequestActivityDto) {

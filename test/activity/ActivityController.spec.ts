@@ -3,6 +3,7 @@ import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import {ActivityType} from "../../src/activity/ActivityType";
 import {AppModule} from "../../src/app.module";
+import {getConnection} from "typeorm";
 
 describe('ActivityController (e2e)', () => {
     let app: INestApplication;

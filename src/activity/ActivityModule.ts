@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import {ActivityService} from "./ActivityService";
-import {RecommendToDoApi} from "./api/RecommendToDoApi";
+import {RecommendTodoApi} from "./api/RecommendTodoApi";
 import {Activity} from "./Activity";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {PapagoApi} from "./api/translator/PapagoApi";
@@ -12,7 +12,7 @@ import {TranslatorApi} from "./api/translator/TranslatorApi";
     imports: [TypeOrmModule.forFeature([Activity]), HttpModule],
     controllers: [ActivityController],
     providers: [
-        ActivityService, RecommendToDoApi,
+        ActivityService, RecommendTodoApi,
         {provide: 'TranslatorApi', useClass: PapagoApi}
     ],
 })

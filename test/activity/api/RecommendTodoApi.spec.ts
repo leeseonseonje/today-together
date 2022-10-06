@@ -1,21 +1,21 @@
 import {Test, TestingModule} from "@nestjs/testing";
-import {RecommendToDoApi} from "../../../src/activity/api/RecommendToDoApi";
+import {RecommendTodoApi} from "../../../src/activity/api/RecommendTodoApi";
 import {RequestActivityDto} from "../../../src/activity/RequestActivityDto";
 import {ActivityType} from "../../../src/activity/ActivityType";
 import {HttpModule} from "@nestjs/axios";
 import {BadRequestException} from "@nestjs/common";
 
-describe('RecommendToDoApi', () => {
+describe('RecommendTodoApi', () => {
 
-    let api: RecommendToDoApi;
+    let api: RecommendTodoApi;
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             imports: [HttpModule],
-            providers: [RecommendToDoApi]
+            providers: [RecommendTodoApi]
         }).compile();
 
-        api = module.get<RecommendToDoApi>(RecommendToDoApi);
+        api = module.get<RecommendTodoApi>(RecommendTodoApi);
     });
 
     it('apiCall', async () => {

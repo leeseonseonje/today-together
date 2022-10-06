@@ -14,7 +14,7 @@ export class ActivityController {
 
     @Post()
     async recommendToDo(@Body() request: RequestActivityDto) {
-        const result = await this.activityService.recommendToDo(request);
+        const result = await this.activityService.recommendTodo(request);
         return result.activity;
     }
 }

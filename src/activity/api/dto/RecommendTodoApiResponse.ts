@@ -1,4 +1,4 @@
-export class RecommendToDoApiResponse {
+export class RecommendTodoApiResponse {
     readonly activity: string;
     readonly accessibility: number;
     readonly type: string;
