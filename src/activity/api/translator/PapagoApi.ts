@@ -19,8 +19,8 @@ export class PapagoApi implements TranslatorApi {
             {},
             this.setHeader())
             .catch(error => {
-            throw new InternalServerErrorException(error);
-        });
+                throw new InternalServerErrorException(error);
+            });
 
         return response.data.message.result.translatedText;
     }
