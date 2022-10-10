@@ -1,7 +1,5 @@
 import {ActivityService} from "../../src/activity/ActivityService";
-import {Test, TestingModule} from "@nestjs/testing";
 import {RequestActivityDto} from "../../src/activity/RequestActivityDto";
-import {getRepositoryToken} from "@nestjs/typeorm";
 import {Activity} from "../../src/activity/Activity";
 import {ActivityType} from "../../src/activity/ActivityType";
 import {RecommendTodoApi} from "../../src/activity/api/RecommendTodoApi";
