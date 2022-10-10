@@ -1,4 +1,4 @@
 export enum PapagoInfo {
-    ID,
-    SECRET,
+  ID,
+  SECRET,
 }

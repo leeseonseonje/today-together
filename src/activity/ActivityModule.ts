@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import {Module} from '@nestjs/common';
 import {ActivityService} from "./ActivityService";
 import {RecommendTodoApi} from "./api/RecommendTodoApi";
 import {Activity} from "./Activity";
@@ -8,11 +8,12 @@ import {HttpModule} from "@nestjs/axios";
 import {ActivityController} from "./ActivityController";
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Activity]), HttpModule],
-    controllers: [ActivityController],
-    providers: [
-        ActivityService, RecommendTodoApi,
-        {provide: 'TranslatorApi', useClass: PapagoApi}
-    ],
+  imports: [TypeOrmModule.forFeature([Activity]), HttpModule],
+  controllers: [ActivityController],
+  providers: [
+    ActivityService, RecommendTodoApi,
+    {provide: 'TranslatorApi', useClass: PapagoApi}
+  ],
 })
-export class ActivityModule {}
+export class ActivityModule {
+}

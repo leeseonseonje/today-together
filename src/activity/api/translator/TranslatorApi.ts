@@ -2,5 +2,5 @@ import {Injectable} from "@nestjs/common";
 
 export interface TranslatorApi {
 
-    apiCall(activity: string);
+  apiCall(activity: string);
 }

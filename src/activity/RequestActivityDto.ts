@@ -3,18 +3,18 @@ import {IsEnum, IsNumber} from "class-validator";
 
 export class RequestActivityDto {
 
-    @IsEnum(ActivityType)
-    readonly type: ActivityType;
+  @IsEnum(ActivityType)
+  readonly type: ActivityType;
 
-    @IsNumber()
-    readonly participants;
+  @IsNumber()
+  readonly participants;
 
-    constructor(type: ActivityType, participants: number) {
-        this.type = type;
-        this.participants = participants;
-    }
+  constructor(type: ActivityType, participants: number) {
+    this.type = type;
+    this.participants = participants;
+  }
 
-    static create(dto: RequestActivityDto) {
-        return new RequestActivityDto(dto.type, dto.participants);
-    }
+  static create(dto: RequestActivityDto) {
+    return new RequestActivityDto(dto.type, dto.participants);
+  }
 }

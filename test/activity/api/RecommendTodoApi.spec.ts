@@ -7,27 +7,27 @@ import {BadRequestException} from "@nestjs/common";
 
 describe('RecommendTodoApi', () => {
 
-    let api: RecommendTodoApi;
+  let api: RecommendTodoApi;
 
-    beforeEach(async () => {
-        const module: TestingModule = await Test.createTestingModule({
-            imports: [HttpModule],
-            providers: [RecommendTodoApi]
-        }).compile();
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [HttpModule],
+      providers: [RecommendTodoApi]
+    }).compile();
 
-        api = module.get<RecommendTodoApi>(RecommendTodoApi);
-    });
+    api = module.get<RecommendTodoApi>(RecommendTodoApi);
+  });
 
-    it('apiCall', async () => {
-        const activityDto = new RequestActivityDto(ActivityType.EDUCATION, 1);
-        let result = await api.apiCall(activityDto);
-        expect(result.type).toBe("education");
-        expect(result.participants).toBe(1);
-    });
+  it('apiCall', async () => {
+    const activityDto = new RequestActivityDto(ActivityType.EDUCATION, 1);
+    let result = await api.apiCall(activityDto);
+    expect(result.type).toBe("education");
+    expect(result.participants).toBe(1);
+  });
 
-    it('apiError', async () => {
-        const activityDto = new RequestActivityDto(ActivityType.EDUCATION, 1000);
-        await expect(async () => await api.apiCall(activityDto))
-            .rejects.toThrowError(BadRequestException);
-    });
+  it('apiError', async () => {
+    const activityDto = new RequestActivityDto(ActivityType.EDUCATION, 1000);
+    await expect(async () => await api.apiCall(activityDto))
+      .rejects.toThrowError(BadRequestException);
+  });
 });
