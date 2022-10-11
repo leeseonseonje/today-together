@@ -1,11 +1,11 @@
-import {Inject, Injectable} from '@nestjs/common';
-import {InjectRepository} from '@nestjs/typeorm';
-import {Activity} from './Activity';
-import {Repository} from 'typeorm';
-import {RecommendTodoApi} from './api/RecommendTodoApi';
-import {TranslatorApi} from './api/translator/TranslatorApi';
-import {RequestActivityDto} from './RequestActivityDto';
-import {RecommendTodoApiResponse} from './api/dto/RecommendTodoApiResponse';
+import { Inject, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Activity } from './Activity';
+import { Repository } from 'typeorm';
+import { RecommendTodoApi } from './api/RecommendTodoApi';
+import { TranslatorApi } from './api/translator/TranslatorApi';
+import { RequestActivityDto } from './RequestActivityDto';
+import { RecommendTodoApiResponse } from './api/dto/RecommendTodoApiResponse';
 
 @Injectable()
 export class ActivityService {
@@ -15,8 +15,7 @@ export class ActivityService {
     private readonly recommendTodoApi: RecommendTodoApi,
     @Inject('TranslatorApi')
     private readonly translatorApi: TranslatorApi,
-  ) {
-  }
+  ) {}
 
   async recommendTodo(request: RequestActivityDto) {
     const apiResponse = await this.recommendTodoApi.apiCall(request);
