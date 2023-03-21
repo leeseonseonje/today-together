@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { RecommendTodoApi } from '../../../src/activity/api/RecommendTodoApi';
-import { RequestActivityDto } from '../../../src/activity/RequestActivityDto';
-import { ActivityType } from '../../../src/activity/ActivityType';
+import { RecommendTodoApi } from '../../../src/api/recommend_todo/RecommendTodoApi';
+import { RequestActivityDto } from '../../../src/activity/web/dto/RequestActivityDto';
+import { ActivityType } from '../../../src/activity/domain/ActivityType';
 import { HttpModule } from '@nestjs/axios';
 import { BadRequestException } from '@nestjs/common';
 

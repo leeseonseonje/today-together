@@ -1,5 +1,5 @@
-import { RequestActivityDto } from '../../src/activity/RequestActivityDto';
-import { ActivityType } from '../../src/activity/ActivityType';
+import { RequestActivityDto } from '../../src/activity/web/dto/RequestActivityDto';
+import { ActivityType } from '../../src/activity/domain/ActivityType';
 
 describe('RequestActivityDto', () => {
   it('parameterBuild', async () => {

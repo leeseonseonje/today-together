@@ -1,7 +1,7 @@
 import {Test, TestingModule} from '@nestjs/testing';
 import {INestApplication} from '@nestjs/common';
 import * as request from 'supertest';
-import {ActivityType} from '../../src/activity/ActivityType';
+import {ActivityType} from '../../src/activity/domain/ActivityType';
 import {AppModule} from '../../src/app.module';
 
 describe('ActivityController (e2e)', () => {

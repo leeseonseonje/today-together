@@ -1,11 +1,11 @@
 import {Module} from '@nestjs/common';
-import {ActivityService} from "./ActivityService";
-import {RecommendTodoApi} from "./api/RecommendTodoApi";
-import {Activity} from "./Activity";
+import {ActivityService} from "./service/ActivityService";
+import {RecommendTodoApi} from "../api/recommend_todo/RecommendTodoApi";
+import {Activity} from "./domain/Activity";
 import {TypeOrmModule} from "@nestjs/typeorm";
-import {PapagoApi} from "./api/translator/PapagoApi";
+import {PapagoApi} from "../api/translator/PapagoApi";
 import {HttpModule} from "@nestjs/axios";
-import {ActivityController} from "./ActivityController";
+import {ActivityController} from "./web/ActivityController";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Activity]), HttpModule],

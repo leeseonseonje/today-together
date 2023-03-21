@@ -1,4 +1,4 @@
-import {ActivityType} from "./ActivityType";
+import {ActivityType} from "../../domain/ActivityType";
 import {IsEnum, IsNumber} from "class-validator";
 
 export class RequestActivityDto {
@@ -16,9 +16,5 @@ export class RequestActivityDto {
 
   static create(type: ActivityType, participants: number) {
     return new RequestActivityDto(type, participants);
-  }
-
-  paramBuild() {
-    return `?type=${this.type}&participants=${this.participants}`;
   }
 }

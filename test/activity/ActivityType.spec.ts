@@ -1,4 +1,4 @@
-import { ActivityType } from '../../src/activity/ActivityType';
+import { ActivityType } from '../../src/activity/domain/ActivityType';
 import e from 'express';
 
 describe('ActivityType', () => {

@@ -1,12 +1,12 @@
-import { ActivityService } from '../../src/activity/ActivityService';
-import { RequestActivityDto } from '../../src/activity/RequestActivityDto';
-import { Activity } from '../../src/activity/Activity';
-import { ActivityType } from '../../src/activity/ActivityType';
-import { RecommendTodoApi } from '../../src/activity/api/RecommendTodoApi';
+import { ActivityService } from '../../src/activity/service/ActivityService';
+import { RequestActivityDto } from '../../src/activity/web/dto/RequestActivityDto';
+import { Activity } from '../../src/activity/domain/Activity';
+import { ActivityType } from '../../src/activity/domain/ActivityType';
+import { RecommendTodoApi } from '../../src/api/recommend_todo/RecommendTodoApi';
 import { anything, instance, mock, verify, when } from 'ts-mockito';
 import { Repository } from 'typeorm';
-import { PapagoApi } from '../../src/activity/api/translator/PapagoApi';
-import { RecommendTodoApiResponse } from '../../src/activity/api/dto/RecommendTodoApiResponse';
+import { PapagoApi } from '../../src/api/translator/PapagoApi';
+import { RecommendTodoApiResponse } from '../../src/api/recommend_todo/dto/RecommendTodoApiResponse';
 
 describe('ActivityService', () => {
   let response;

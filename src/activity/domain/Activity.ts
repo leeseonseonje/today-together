@@ -4,10 +4,10 @@ import {Column, Entity, PrimaryColumn} from "typeorm";
 export class Activity {
 
   @PrimaryColumn()
-  key: number;
+  readonly key: number;
 
   @Column()
-  activity: string;
+  readonly activity: string;
 
   private constructor(key: number, activity: string) {
     this.key = key;
