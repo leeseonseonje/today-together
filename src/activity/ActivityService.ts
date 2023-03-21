@@ -12,7 +12,9 @@ export class ActivityService {
   constructor(
     @InjectRepository(Activity)
     private readonly activityRepository: Repository<Activity>,
+
     private readonly recommendTodoApi: RecommendTodoApi,
+
     @Inject('TranslatorApi')
     private readonly translatorApi: TranslatorApi,
   ) {}
@@ -32,9 +34,9 @@ export class ActivityService {
   }
 
   private async translator(activity: RecommendTodoApiResponse) {
-    const translatorActivity = await this.translatorApi.apiCall(activity.activity);
+    // const translatorActivity = await this.translatorApi.apiCall(activity.activity);
 
-    const createActivity = Activity.create(activity.key, translatorActivity);
+    const createActivity = Activity.create(activity.key, activity.activity);
     return await this.activityRepository.save(createActivity);
   }
 }

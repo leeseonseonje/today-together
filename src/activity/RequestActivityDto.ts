@@ -9,12 +9,16 @@ export class RequestActivityDto {
   @IsNumber()
   readonly participants;
 
-  constructor(type: ActivityType, participants: number) {
+  private constructor(type: ActivityType, participants: number) {
     this.type = type;
     this.participants = participants;
   }
 
-  static create(dto: RequestActivityDto) {
+  static create(type: ActivityType, participants: number) {
     return new RequestActivityDto(dto.type, dto.participants);
+  }
+
+  paramBuild() {
+    return `?type=${this.type}&participants=${this.participants}`;
   }
 }

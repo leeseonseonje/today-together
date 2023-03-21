@@ -1,8 +1,8 @@
-import {Test, TestingModule} from '@nestjs/testing';
-import {TranslatorApi} from '../../../../src/activity/api/translator/TranslatorApi';
-import {HttpModule} from '@nestjs/axios';
-import {PapagoApi} from '../../../../src/activity/api/translator/PapagoApi';
-import {InternalServerErrorException} from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { TranslatorApi } from '../../../../src/activity/api/translator/TranslatorApi';
+import { HttpModule } from '@nestjs/axios';
+import { PapagoApi } from '../../../../src/activity/api/translator/PapagoApi';
+import { InternalServerErrorException } from '@nestjs/common';
 
 describe('papagoApi', () => {
   let api: TranslatorApi;
@@ -22,8 +22,6 @@ describe('papagoApi', () => {
   });
 
   it('error', async () => {
-    await expect(async () => await api.apiCall('한글')).rejects.toThrowError(
-      InternalServerErrorException,
-    );
+    await expect(async () => await api.apiCall('한글')).rejects.toThrowError(InternalServerErrorException);
   });
 });

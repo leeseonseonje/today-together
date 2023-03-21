@@ -9,16 +9,13 @@ export class RecommendTodoApi {
   constructor(private readonly httpService: HttpService) {}
 
   async apiCall(params: RequestActivityDto) {
-    const request = this.url + this.paramBuild(params);
+    let dto = RequestActivityDto.create(params.type, params.participants);
+    const request = this.url + dto.paramBuild();
     const response = await this.httpService.axiosRef.get(request);
 
     if (response.data.error !== undefined) {
       throw new BadRequestException('할 게 없습니다.');
     }
     return response.data as RecommendTodoApiResponse;
-  }
-
-  private paramBuild(params: RequestActivityDto) {
-    return `?type=${params.type}&participants=${params.participants}`;
   }
 }

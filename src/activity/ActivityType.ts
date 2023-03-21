@@ -1,4 +1,5 @@
 export enum ActivityType {
+
   EDUCATION = 'education',
   RECREATIONAL = 'recreational',
   SOCIAL = 'social',
