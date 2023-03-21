@@ -17,7 +17,6 @@ describe('ActivityController (e2e)', () => {
   });
 
   it('e2e', () => {
-    console.log(app.getHttpServer());
     return request(app.getHttpServer())
       .post('/activity')
       .send({
@@ -28,7 +27,6 @@ describe('ActivityController (e2e)', () => {
   });
 
   it('e2e', () => {
-    console.log(app.getHttpServer());
     return request(app.getHttpServer())
       .post('/activity')
       .send({

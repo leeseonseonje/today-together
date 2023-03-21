@@ -6,7 +6,7 @@ import { HttpModule } from '@nestjs/axios';
 import { BadRequestException } from '@nestjs/common';
 
 describe('RecommendTodoApi', () => {
-  let api: RecommendTodoApi;
+  let sut: RecommendTodoApi;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -14,18 +14,21 @@ describe('RecommendTodoApi', () => {
       providers: [RecommendTodoApi],
     }).compile();
 
-    api = module.get<RecommendTodoApi>(RecommendTodoApi);
+    sut = module.get<RecommendTodoApi>(RecommendTodoApi);
   });
 
   it('apiCall', async () => {
-    const activityDto = new RequestActivityDto(ActivityType.EDUCATION, 1);
-    let result = await api.apiCall(activityDto);
+    const activityDto = RequestActivityDto.create(ActivityType.EDUCATION, 1);
+
+    let result = await sut.apiCall(activityDto);
+
     expect(result.type).toBe('education');
     expect(result.participants).toBe(1);
   });
 
   it('apiError', async () => {
-    const activityDto = new RequestActivityDto(ActivityType.EDUCATION, 1000);
-    await expect(async () => await api.apiCall(activityDto)).rejects.toThrowError(BadRequestException);
+    const activityDto = RequestActivityDto.create(ActivityType.EDUCATION, 1000);
+
+    await expect(async () => await sut.apiCall(activityDto)).rejects.toThrowError(BadRequestException);
   });
 });

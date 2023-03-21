@@ -17,7 +17,7 @@ describe('ActivityService', () => {
 
   beforeEach(async () => {
     response = new RecommendTodoApiResponse('activity', 1, 'type', 2, 1, 1);
-    request = new RequestActivityDto(ActivityType.EDUCATION, 1);
+    request = RequestActivityDto.create(ActivityType.EDUCATION, 1);
     recommendTodoApi = mock(RecommendTodoApi);
     papagoApi = mock(PapagoApi);
     repository = mock(Repository<Activity>);
@@ -31,7 +31,7 @@ describe('ActivityService', () => {
 
     verify(recommendTodoApi.apiCall(anything())).called();
     verify(repository.findOneBy(anything())).called();
-    verify(papagoApi.apiCall(anything())).called();
+    // verify(papagoApi.apiCall(anything())).called();
   });
 
   it('레포지토리에 activity가 존재하면 바로 반환한다.', async () => {

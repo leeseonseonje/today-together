@@ -15,7 +15,7 @@ export class RequestActivityDto {
   }
 
   static create(type: ActivityType, participants: number) {
-    return new RequestActivityDto(dto.type, dto.participants);
+    return new RequestActivityDto(type, participants);
   }
 
   paramBuild() {
