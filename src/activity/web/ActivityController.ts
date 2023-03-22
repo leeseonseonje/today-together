@@ -1,17 +1,16 @@
-import { Body, Controller, Post, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
-import { RequestActivityDto } from './dto/RequestActivityDto';
-import { ActivityService } from '../service/ActivityService';
-import { ActivityExceptionFilter } from './ActivityExceptionFilter';
+import {Controller, Get, Query, UseFilters} from '@nestjs/common';
+import {ActivityService} from '../service/ActivityService';
+import {ActivityExceptionFilter} from './ActivityExceptionFilter';
+import {RequestActivityDto} from './dto/RequestActivityDto';
 
 @Controller('/activity')
-@UsePipes(ValidationPipe)
 @UseFilters(ActivityExceptionFilter)
 export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
 
-  @Post()
-  async recommendToDo(@Body() request: RequestActivityDto) {
-    const result = await this.activityService.recommendTodo(request.type, request.participants);
+  @Get()
+  async recommendToDo(@Query() request: RequestActivityDto) {
+    const result = await this.activityService.recommendTodo(request.type);
     return result.activity;
   }
 }

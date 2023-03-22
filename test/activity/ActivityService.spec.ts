@@ -10,7 +10,7 @@ import {RecommendTodoApiResponse} from '../../src/api/recommend_todo/dto/Recomme
 
 describe('ActivityService', () => {
   let response;
-  let request;
+  let activityType;
   let recommendTodoApi;
   let papagoApi;
   let repository;
@@ -24,19 +24,19 @@ describe('ActivityService', () => {
       price: 1,
       key: 1
     });
-    request = RequestActivityDto.create(ActivityType.EDUCATION, 1);
+    activityType = ActivityType.EDUCATION;
     recommendTodoApi = mock(RecommendTodoApi);
     papagoApi = mock(PapagoApi);
     repository = mock(Repository<Activity>);
-    when(await recommendTodoApi.apiCall(request.type, request.participants)).thenReturn(response);
+    when(await recommendTodoApi.apiCall(activityType)).thenReturn(response);
   });
 
   it('레포지토리에 activity가 없을 경우 papagoApi를 호출한다.', async () => {
     const sut = new ActivityService(instance(repository), instance(recommendTodoApi), instance(papagoApi));
 
-    await sut.recommendTodo(request.type, request.participants);
+    await sut.recommendTodo(activityType);
 
-    verify(recommendTodoApi.apiCall(request.type, request.participants)).called();
+    verify(recommendTodoApi.apiCall(activityType)).called();
     verify(repository.findOneBy(anything())).called();
     // verify(papagoApi.apiCall(anything())).called();
   });
@@ -45,9 +45,9 @@ describe('ActivityService', () => {
     when(await repository.findOneBy(anything())).thenReturn(Activity.create(1, '활동'));
     const sut = new ActivityService(instance(repository), instance(recommendTodoApi), instance(papagoApi));
 
-    await sut.recommendTodo(request.type, request.participants);
+    await sut.recommendTodo(activityType);
 
-    verify(recommendTodoApi.apiCall(request.type, request.participants)).called();
+    verify(recommendTodoApi.apiCall(activityType)).called();
     verify(papagoApi.apiCall(anything())).never();
   });
 });

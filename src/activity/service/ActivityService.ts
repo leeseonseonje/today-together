@@ -19,8 +19,8 @@ export class ActivityService {
     private readonly translatorApi: TranslatorApi,
   ) {}
 
-  async recommendTodo(type: ActivityType, participants: number) {
-    const apiResponse = await this.recommendTodoApi.apiCall(type, participants);
+  async recommendTodo(type: ActivityType) {
+    const apiResponse = await this.recommendTodoApi.apiCall(type);
 
     return await this.getActivity(apiResponse);
   }

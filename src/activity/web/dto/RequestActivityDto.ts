@@ -6,15 +6,11 @@ export class RequestActivityDto {
   @IsEnum(ActivityType)
   readonly type: ActivityType;
 
-  @IsNumber()
-  readonly participants;
-
-  private constructor(type: ActivityType, participants: number) {
+  private constructor(type: ActivityType) {
     this.type = type;
-    this.participants = participants;
   }
 
-  static create(type: ActivityType, participants: number) {
-    return new RequestActivityDto(type, participants);
+  static create(type: ActivityType) {
+    return new RequestActivityDto(type);
   }
 }

@@ -1,4 +1,4 @@
-import {ArgumentsHost, BadRequestException, Catch, ExceptionFilter} from "@nestjs/common";
+import {ArgumentsHost, Catch, ExceptionFilter} from "@nestjs/common";
 import {Response} from 'express';
 import {NotActivityException} from "../exception/NotActivityException";
 
