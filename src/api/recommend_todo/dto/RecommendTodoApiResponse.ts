@@ -6,7 +6,6 @@ export class RecommendTodoApiResponse {
   readonly price: number;
   readonly key: number;
 
-
   private constructor(activity: string, accessibility: number, type: string, participants: number, price: number, key: number) {
     this.activity = activity;
     this.accessibility = accessibility;

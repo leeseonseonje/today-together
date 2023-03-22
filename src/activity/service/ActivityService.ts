@@ -4,7 +4,6 @@ import { Activity } from '../domain/Activity';
 import { Repository } from 'typeorm';
 import { RecommendTodoApi } from '../../api/recommend_todo/RecommendTodoApi';
 import { TranslatorApi } from '../../api/translator/TranslatorApi';
-import { RequestActivityDto } from '../web/dto/RequestActivityDto';
 import { RecommendTodoApiResponse } from '../../api/recommend_todo/dto/RecommendTodoApiResponse';
 import {ActivityType} from '../domain/ActivityType';
 
@@ -34,10 +33,10 @@ export class ActivityService {
     return activity ? activity : this.translator(apiResponse);
   }
 
-  private async translator(activity: RecommendTodoApiResponse) {
+  private async translator(apiResponse: RecommendTodoApiResponse) {
     // const translatorActivity = await this.translatorApi.apiCall(activity.activity);
 
-    const createActivity = Activity.create(activity.key, activity.activity);
+    const createActivity = Activity.create(apiResponse.key, apiResponse.activity);
     return await this.activityRepository.save(createActivity);
   }
 }
