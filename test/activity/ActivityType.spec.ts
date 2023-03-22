@@ -1,6 +1,4 @@
 import { ActivityType } from '../../src/activity/domain/ActivityType';
-import e from 'express';
-import {RecommendTodoApiResponse} from '../../src/api/recommend_todo/dto/RecommendTodoApiResponse';
 
 describe('ActivityType', () => {
   it('enumLearnTest', async () => {
@@ -15,24 +13,4 @@ describe('ActivityType', () => {
     expect(ActivityType.BUSYWORK).toBe('busywork');
     expect(ActivityType.ETC).toBe('');
   });
-
-  it('ts learn', async () => {
-    const data = {
-      activity: 'activity',
-      accessibilty: 1,
-      type: 'type',
-      participants: 2,
-      price: 1,
-      key: 1
-    };
-    let result = RecommendTodoApiResponse.create({
-      activity: 'activity',
-      accessibilty: 1,
-      type: 'type',
-      participants: 2,
-      price: 1,
-      key: 1
-    });
-    console.log(result.activity)
-  })
 });

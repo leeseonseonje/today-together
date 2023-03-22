@@ -34,9 +34,9 @@ export class ActivityService {
   }
 
   private async translator(apiResponse: RecommendTodoApiResponse) {
-    // const translatorActivity = await this.translatorApi.apiCall(activity.activity);
+    const translatorActivity = await this.translatorApi.apiCall(apiResponse.activity);
 
-    const createActivity = Activity.create(apiResponse.key, apiResponse.activity);
+    const createActivity = Activity.create(apiResponse.key, translatorActivity);
     return await this.activityRepository.save(createActivity);
   }
 }

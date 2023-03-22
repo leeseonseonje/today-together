@@ -5,7 +5,7 @@ import {Activity} from "./domain/Activity";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {PapagoApi} from "../api/translator/PapagoApi";
 import {HttpModule} from "@nestjs/axios";
-import {ActivityController} from "./web/ActivityController";
+import {ActivityController} from "./controller/ActivityController";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Activity]), HttpModule],

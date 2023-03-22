@@ -1,4 +1,4 @@
-import {BadRequestException, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {RecommendTodoApiResponse} from './dto/RecommendTodoApiResponse';
 import {HttpService} from '@nestjs/axios';
 import {ActivityType} from '../../activity/domain/ActivityType';
@@ -14,10 +14,8 @@ export class RecommendTodoApi {
   async apiCall(type: ActivityType) {
     const requestUri = this.url + this.parameterBuild(type);
 
-    console.log(requestUri)
     const response = await this.httpService.axiosRef.get(requestUri);
     if (response.data.error !== undefined) {
-      console.log('sss')
       throw new NotActivityException('할 게 없습니다.', 400);
     }
 

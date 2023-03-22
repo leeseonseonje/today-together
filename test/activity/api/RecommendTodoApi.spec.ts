@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RecommendTodoApi } from '../../../src/api/recommend_todo/RecommendTodoApi';
-import { RequestActivityDto } from '../../../src/activity/web/dto/RequestActivityDto';
+import { RequestActivityDto } from '../../../src/activity/controller/dto/RequestActivityDto';
 import { ActivityType } from '../../../src/activity/domain/ActivityType';
 import { HttpModule } from '@nestjs/axios';
 import { BadRequestException } from '@nestjs/common';

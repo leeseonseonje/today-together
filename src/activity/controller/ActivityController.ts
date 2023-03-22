@@ -1,6 +1,6 @@
 import {Controller, Get, Query, UseFilters} from '@nestjs/common';
 import {ActivityService} from '../service/ActivityService';
-import {ActivityExceptionFilter} from './ActivityExceptionFilter';
+import {ActivityExceptionFilter} from '../exception/filter/ActivityExceptionFilter';
 import {RequestActivityDto} from './dto/RequestActivityDto';
 
 @Controller('/activity')
