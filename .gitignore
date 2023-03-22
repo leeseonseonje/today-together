@@ -33,4 +33,4 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-./src/activity/api/translator/PapagoInfo.ts
+./src/api/translator/PapagoInfo.ts
