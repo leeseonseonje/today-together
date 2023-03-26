@@ -2,9 +2,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Activity } from '../domain/Activity';
 import { Repository } from 'typeorm';
-import { RecommendTodoApi } from '../../api/recommend_todo/RecommendTodoApi';
-import { TranslatorApi } from '../../api/translator/TranslatorApi';
-import { RecommendTodoApiResponse } from '../../api/recommend_todo/dto/RecommendTodoApiResponse';
+import { RecommendTodoApi } from '../api/RecommendTodoApi';
+import { TranslatorApi } from '../../translator/TranslatorApi';
+import { RecommendTodoApiResponse } from '../api/dto/RecommendTodoApiResponse';
 import {ActivityType} from '../domain/ActivityType';
 
 @Injectable()
