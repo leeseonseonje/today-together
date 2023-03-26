@@ -20,7 +20,7 @@ describe('RecommendTodoApi', () => {
   it('apiCall', async () => {
     const activityDto = RequestActivityDto.create(ActivityType.EDUCATION, 1);
 
-    let result = await sut.apiCall(activityDto);
+    let result = await sut.recommendTodo(activityDto);
 
     expect(result.type).toBe('education');
     expect(result.participants).toBe(1);
@@ -29,6 +29,6 @@ describe('RecommendTodoApi', () => {
   it('apiError', async () => {
     const activityDto = RequestActivityDto.create(ActivityType.EDUCATION, 1000);
 
-    await expect(async () => await sut.apiCall(activityDto)).rejects.toThrowError(BadRequestException);
+    await expect(async () => await sut.recommendTodo(activityDto)).rejects.toThrowError(BadRequestException);
   });
 });

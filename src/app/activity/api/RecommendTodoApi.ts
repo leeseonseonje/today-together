@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
-import {RecommendTodoApiResponse} from './dto/RecommendTodoApiResponse';
 import {HttpService} from '@nestjs/axios';
 import {ActivityType} from '../domain/ActivityType';
+import {RecommendTodoApiResponse} from './dto/RecommendTodoApiResponse';
 import {NotActivityException} from '../exception/NotActivityException';
 
 @Injectable()
@@ -11,15 +11,15 @@ export class RecommendTodoApi {
   constructor(private readonly httpService: HttpService) {
   }
 
-  async apiCall(type: ActivityType) {
+  async recommendTodo(type: ActivityType) {
     const requestUri = this.url + this.parameterBuild(type);
 
-    const response = await this.httpService.axiosRef.get(requestUri);
-    if (response.data.error !== undefined) {
-      throw new NotActivityException('할 게 없습니다.', 400);
-    }
+    const response = await this.httpService.axiosRef.get<RecommendTodoApiResponse>(requestUri);
 
-    return RecommendTodoApiResponse.create(response.data)
+    if (response.data.error) {
+      throw new NotActivityException("할 게 없습니다.", 400);
+    }
+    return response.data;
   }
 
   private parameterBuild(type: ActivityType) {

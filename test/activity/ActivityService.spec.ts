@@ -8,21 +8,19 @@ import {PapagoApi} from '../../src/app/translator/PapagoApi';
 import {RecommendTodoApiResponse} from '../../src/app/activity/api/dto/RecommendTodoApiResponse';
 
 describe('ActivityService', () => {
-  let response;
+  let response: RecommendTodoApiResponse;
   let activityType;
   let recommendTodoApi;
   let papagoApi;
   let repository;
 
   beforeEach(async () => {
-    response = RecommendTodoApiResponse.create({
+    response = {
+      key: 1,
       activity: 'activity',
-      accessibilty: 1,
       type: 'type',
       participants: 2,
-      price: 1,
-      key: 1
-    });
+    };
     activityType = ActivityType.EDUCATION;
     recommendTodoApi = mock(RecommendTodoApi);
     papagoApi = mock(PapagoApi);

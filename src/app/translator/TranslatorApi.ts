@@ -1,4 +1,4 @@
 export interface TranslatorApi {
 
-  apiCall(activity: string);
+  translation(activity: string);
 }

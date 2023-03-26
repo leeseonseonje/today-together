@@ -17,11 +17,11 @@ describe('papagoApi', () => {
   });
 
   it('apiCall', async () => {
-    const result = await api.apiCall('Hello');
+    const result = await api.translation('Hello');
     expect(result).toBe('안녕하세요.');
   });
 
   it('error', async () => {
-    await expect(async () => await api.apiCall('한글')).rejects.toThrowError(InternalServerErrorException);
+    await expect(async () => await api.translation('한글')).rejects.toThrowError(InternalServerErrorException);
   });
 });

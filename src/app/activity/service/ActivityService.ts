@@ -4,8 +4,8 @@ import { Activity } from '../domain/Activity';
 import { Repository } from 'typeorm';
 import { RecommendTodoApi } from '../api/RecommendTodoApi';
 import { TranslatorApi } from '../../translator/TranslatorApi';
-import { RecommendTodoApiResponse } from '../api/dto/RecommendTodoApiResponse';
 import {ActivityType} from '../domain/ActivityType';
+import {RecommendTodoApiResponse} from '../api/dto/RecommendTodoApiResponse';
 
 @Injectable()
 export class ActivityService {
@@ -20,9 +20,9 @@ export class ActivityService {
   ) {}
 
   async recommendTodo(type: ActivityType) {
-    const apiResponse = await this.recommendTodoApi.apiCall(type);
+    const apiResponse = await this.recommendTodoApi.recommendTodo(type);
 
-    return await this.getActivity(apiResponse);
+    const activity = await this.getActivity(apiResponse);
   }
 
   private async getActivity(apiResponse: RecommendTodoApiResponse) {
@@ -34,7 +34,7 @@ export class ActivityService {
   }
 
   private async translator(apiResponse: RecommendTodoApiResponse) {
-    const translatorActivity = await this.translatorApi.apiCall(apiResponse.activity);
+    const translatorActivity = await this.translatorApi.translation(apiResponse.activity);
 
     const createActivity = Activity.create(apiResponse.key, translatorActivity);
     return await this.activityRepository.save(createActivity);
