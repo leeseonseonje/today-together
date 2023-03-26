@@ -1,6 +1,5 @@
 import {QuoteApi} from './QuoteApi';
 import {HttpService} from '@nestjs/axios';
-import {NotActivityException} from '../../activity/exception/NotActivityException';
 import {NotQuoteException} from '../exception/NotActivityException';
 import {QuoteApiResponse} from './dto/QuoteApiResponse';
 

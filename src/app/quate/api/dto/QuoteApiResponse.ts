@@ -1,4 +1,4 @@
 export interface QuoteApiResponse {
-  author: string,
-  quote: string,
+  readonly author: string,
+  readonly quote: string,
 }
