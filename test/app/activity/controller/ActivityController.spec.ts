@@ -1,7 +1,7 @@
 import {Test, TestingModule} from '@nestjs/testing';
 import {INestApplication} from '@nestjs/common';
 import * as request from 'supertest';
-import {AppModule} from '../../src/app.module';
+import {AppModule} from '../../../../src/app.module';
 
 describe('ActivityController (e2e)', () => {
   let app: INestApplication;
@@ -18,7 +18,7 @@ describe('ActivityController (e2e)', () => {
   it('e2e 파라미터가 없을 경우', () => {
     return request(app.getHttpServer())
       .get('/activity')
-      .expect(200);
+      .expect(200)
   });
 
   it('e2e 올바른 파라미터', () => {

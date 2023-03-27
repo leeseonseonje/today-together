@@ -1,11 +1,11 @@
-import {ActivityService} from '../../src/app/activity/service/ActivityService';
-import {Activity} from '../../src/app/activity/domain/Activity';
-import {ActivityType} from '../../src/app/activity/domain/ActivityType';
-import {RecommendTodoApi} from '../../src/app/activity/api/RecommendTodoApi';
+import {ActivityService} from '../../../../src/app/activity/service/ActivityService';
+import {Activity} from '../../../../src/app/activity/domain/Activity.entity';
+import {ActivityType} from '../../../../src/app/activity/domain/ActivityType';
+import {RecommendTodoApi} from '../../../../src/app/activity/api/RecommendTodoApi';
 import {anything, instance, mock, verify, when} from 'ts-mockito';
 import {Repository} from 'typeorm';
-import {PapagoApi} from '../../src/app/translator/PapagoApi';
-import {RecommendTodoApiResponse} from '../../src/app/activity/api/dto/RecommendTodoApiResponse';
+import {PapagoApi} from '../../../../src/app/translator/PapagoApi';
+import {RecommendTodoApiResponse} from '../../../../src/app/activity/api/dto/RecommendTodoApiResponse';
 
 describe('ActivityService', () => {
   let response: RecommendTodoApiResponse;
@@ -39,7 +39,7 @@ describe('ActivityService', () => {
   });
 
   it('레포지토리에 activity가 존재하면 번역api를 호출하지 않고 바로 반환한다.', async () => {
-    when(await repository.findOneBy(anything())).thenReturn(Activity.create(1, '활동'));
+    when(await repository.findOneBy(anything())).thenReturn(Activity.of(1, '활동'));
     const sut = new ActivityService(instance(repository), instance(recommendTodoApi), instance(papagoApi));
 
     await sut.recommendTodo(activityType);

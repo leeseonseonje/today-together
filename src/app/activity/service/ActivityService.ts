@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Activity } from '../domain/Activity';
+import { Activity } from '../domain/Activity.entity';
 import { Repository } from 'typeorm';
 import { RecommendTodoApi } from '../api/RecommendTodoApi';
-import { TranslatorApi } from '../../translator/TranslatorApi';
+import {translatorApi, TranslatorApi} from '../../translator/TranslatorApi';
 import {ActivityType} from '../domain/ActivityType';
 import {RecommendTodoApiResponse} from '../api/dto/RecommendTodoApiResponse';
 
@@ -15,7 +15,7 @@ export class ActivityService {
 
     private readonly recommendTodoApi: RecommendTodoApi,
 
-    @Inject('TranslatorApi')
+    @Inject(translatorApi)
     private readonly translatorApi: TranslatorApi,
   ) {}
 
@@ -23,6 +23,7 @@ export class ActivityService {
     const apiResponse = await this.recommendTodoApi.recommendTodo(type);
 
     const activity = await this.getActivity(apiResponse);
+    return activity;
   }
 
   private async getActivity(apiResponse: RecommendTodoApiResponse) {
@@ -36,7 +37,7 @@ export class ActivityService {
   private async translator(apiResponse: RecommendTodoApiResponse) {
     const translatorActivity = await this.translatorApi.translation(apiResponse.activity);
 
-    const createActivity = Activity.create(apiResponse.key, translatorActivity);
+    const createActivity = Activity.of(apiResponse.key, translatorActivity);
     return await this.activityRepository.save(createActivity);
   }
 }

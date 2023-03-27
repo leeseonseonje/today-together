@@ -1,4 +1,4 @@
-import { ActivityType } from '../../src/app/activity/domain/ActivityType';
+import { ActivityType } from '../../../../src/app/activity/domain/ActivityType';
 
 describe('ActivityType', () => {
   it('enumLearnTest', async () => {
@@ -11,6 +11,5 @@ describe('ActivityType', () => {
     expect(ActivityType.RELAXATION).toBe('relaxation');
     expect(ActivityType.MUSIC).toBe('music');
     expect(ActivityType.BUSYWORK).toBe('busywork');
-    expect(ActivityType.ETC).toBe('');
   });
 });

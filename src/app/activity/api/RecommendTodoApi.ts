@@ -6,10 +6,10 @@ import {NotActivityException} from '../exception/NotActivityException';
 
 @Injectable()
 export class RecommendTodoApi {
-  private readonly url: string = 'https://www.boredapi.com/api/activity';
-
   constructor(private readonly httpService: HttpService) {
   }
+
+  private readonly url: string = 'https://www.boredapi.com/api/activity';
 
   async recommendTodo(type: ActivityType) {
     const requestUri = this.url + this.parameterBuild(type);
