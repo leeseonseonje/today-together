@@ -1,18 +1,17 @@
 import {Module} from '@nestjs/common';
-import {PapagoApi} from "../translator/PapagoApi";
 import {HttpModule} from "@nestjs/axios";
 import {QuoteService} from './service/QuoteService';
 import {ZenQuoteApi} from './api/ZenQuoteApi';
-import {translatorApi, TranslatorApi} from '../translator/TranslatorApi';
 import {quoteApi} from './api/QuoteApi';
+import {TranslatorModule} from '../translator/TranslatorModule';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {Quote} from './Quote.entity';
 
 @Module({
-  imports: [HttpModule],
-  controllers: [],
+  imports: [TypeOrmModule.forFeature([Quote]), HttpModule, TranslatorModule],
   providers: [
     QuoteService,
     {provide: quoteApi, useClass: ZenQuoteApi},
-    {provide: translatorApi, useClass: PapagoApi},
   ],
 })
 export class QuoteModule {

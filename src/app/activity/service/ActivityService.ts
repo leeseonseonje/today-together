@@ -21,7 +21,6 @@ export class ActivityService {
 
   async recommendTodo(type: ActivityType) {
     const apiResponse = await this.recommendTodoApi.recommendTodo(type);
-
     const activity = await this.getActivity(apiResponse);
     return activity;
   }

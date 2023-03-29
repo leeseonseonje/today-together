@@ -1,11 +1,16 @@
-import {Inject, Injectable, OnApplicationBootstrap} from '@nestjs/common';
+import {Inject, Injectable} from '@nestjs/common';
 import {translatorApi, TranslatorApi} from '../../translator/TranslatorApi';
 import {quoteApi, QuoteApi} from '../api/QuoteApi';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Quote} from '../Quote.entity';
+import {Repository} from 'typeorm';
 
 @Injectable()
-export class QuoteService implements OnApplicationBootstrap {
+export class QuoteService {
 
   constructor(
+    @InjectRepository(Quote)
+    private readonly quoteRepository: Repository<Quote>,
     @Inject(quoteApi)
     private readonly quoteApi: QuoteApi,
     @Inject(translatorApi)
@@ -13,13 +18,12 @@ export class QuoteService implements OnApplicationBootstrap {
   ) {
   }
 
-  async onApplicationBootstrap() {
+  async todayQuote() {
+    await this.quoteRepository.save(Quote.of("김혁규", "중꺾마"));
+    return this.quoteRepository;
 
-  }
-
-  private async todayQuote() {
-    let quote = await this.quoteApi.getQuote();
-
-    return await this.translatorApi.translation(`${quote.quote} - ${quote.author}`);
+    // let quote = await this.quoteApi.getQuote();
+    //
+    // return await this.translatorApi.translation(`${quote.quote} - ${quote.author}`);
   }
 }
