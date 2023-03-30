@@ -1,18 +1,18 @@
 import {Test, TestingModule} from '@nestjs/testing';
 import {QuoteModule} from '../../../../src/app/quote/QuoteModule';
 import {QuoteService} from '../../../../src/app/quote/service/QuoteService';
-import {getConnection, QueryRunner} from 'typeorm';
-import {TransactionUtil} from '../../../util/TestTransactionUtil';
+import {getConnection} from 'typeorm';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {dbConfig} from '../../../../src/db/config';
 import {instance, mock} from 'ts-mockito';
 import {ZenQuoteApi} from '../../../../src/app/quote/api/ZenQuoteApi';
 import {PapagoApi} from '../../../../src/app/translator/PapagoApi';
-import {ActivityRepository} from '../../../../src/app/activity/repository/ActivityRepository';
+import {QuoteRepository} from '../../../../src/app/quote/repository/QuoteRepository';
+import {Quote} from '../../../../src/app/quote/Quote.entity';
+import {LocalDate} from 'js-joda';
 
 describe('Quote Service Integration Test', () => {
   let sut: QuoteService;
-  let r;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,13 +25,12 @@ describe('Quote Service Integration Test', () => {
 
   });
 
-  afterEach(async () => {
-    await getConnection().dropDatabase();
-  });
-
   it('saveTest', async () => {
+    await getConnection().getCustomRepository(QuoteRepository).save(new Quote('author', 'quote', LocalDate.now()));
+    await getConnection().getCustomRepository(QuoteRepository).save(new Quote('author', 'quote', LocalDate.now()));
+    await getConnection().getCustomRepository(QuoteRepository).save(new Quote('author', 'quote', LocalDate.now()));
+    await getConnection().getCustomRepository(QuoteRepository).save(new Quote('author', 'quote', LocalDate.now()));
+    await getConnection().getCustomRepository(QuoteRepository).save(new Quote('author', 'quote', LocalDate.now()));
     let result = await sut.todayQuote();
-    console.log(result);
-    await r.rollbackTransaction();
   });
 });

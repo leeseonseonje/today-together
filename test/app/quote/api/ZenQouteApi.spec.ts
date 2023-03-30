@@ -17,7 +17,7 @@ describe('RecommendTodoApi', () => {
   it('zen quote api 호출', async () => {
     let result = await sut.getQuote();
 
-    expect(result.quote).toBeTruthy()
+    expect(result.text).toBeTruthy()
     expect(result.author).toBeTruthy()
   });
 });

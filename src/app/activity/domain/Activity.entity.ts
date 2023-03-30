@@ -1,9 +1,9 @@
 import {Column, Entity, PrimaryColumn} from "typeorm";
-import {BaseTimeEntityEntity} from '../../BaseTimeEntity.entity';
+import {BaseTimeEntity} from '../../BaseTimeEntity.entity';
 import {LocalDate} from 'js-joda';
 
 @Entity()
-export class Activity extends BaseTimeEntityEntity {
+export class Activity extends BaseTimeEntity {
 
   @PrimaryColumn()
   readonly key: number;

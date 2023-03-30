@@ -4,6 +4,7 @@ import {quoteApi, QuoteApi} from '../api/QuoteApi';
 import {getConnection} from 'typeorm';
 import {QuoteRepository} from '../repository/QuoteRepository';
 import {Quote} from '../Quote.entity';
+import {LocalDate} from 'js-joda';
 
 @Injectable()
 export class QuoteService {
@@ -17,6 +18,15 @@ export class QuoteService {
   }
 
   async todayQuote() {
-    return await getConnection().getCustomRepository(QuoteRepository).save(Quote.of("dasda", "dsada"));
+    const quote = await getConnection().getCustomRepository(QuoteRepository).findTodayQuote();
+    if (quote.day.isEqual(LocalDate.now())) {
+      return quote;
+    }
+
+    const todayQuote = await this.quoteApi.getQuote();
+    const author = await this.translatorApi.translation(todayQuote.author);
+    const text = await this.translatorApi.translation(todayQuote.text);
+    const createTodayQuote = new Quote(author, text, LocalDate.now());
+    return await getConnection().getRepository(Quote).save(createTodayQuote);
   }
 }

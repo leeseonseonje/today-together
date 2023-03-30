@@ -18,7 +18,7 @@ export class ZenQuoteApi implements QuoteApi {
     }
 
     const responseData: QuoteApiResponse = {
-      quote: response.data[0].q,
+      text: response.data[0].q,
       author: response.data[0].a
     };
     return responseData;

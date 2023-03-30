@@ -2,11 +2,10 @@ import {Test} from '@nestjs/testing';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {dbConfig} from '../../src/db/config';
 import {Activity} from '../../src/app/activity/domain/Activity.entity';
-import {DataSource, QueryRunner} from 'typeorm';
-import {TransactionUtil} from '../util/TestTransactionUtil';
+import {getConnection, QueryRunner} from 'typeorm';
+import {TransactionUtil} from '../util/TransactionUtil';
 
 describe('ts-joda localdate transformer test', () => {
-  let dataSource: DataSource;
   let queryRunner: QueryRunner;
 
   beforeEach(async () => {
@@ -16,12 +15,11 @@ describe('ts-joda localdate transformer test', () => {
       ],
     }).compile();
 
-    dataSource = module.get<DataSource>(DataSource);
-    queryRunner = await TransactionUtil.getTransaction(dataSource);
+    queryRunner = await TransactionUtil.getTransaction();
   })
 
   afterEach(async () => {
-    await TransactionUtil.rollback(dataSource, queryRunner);
+    await TransactionUtil.rollback(queryRunner);
   });
 
   it('createdDate', async () => {
@@ -35,7 +33,7 @@ describe('ts-joda localdate transformer test', () => {
     let activity = await queryRunner.manager.getRepository(Activity).save(Activity.of(1, 'activity'));
     await queryRunner.manager.getRepository(Activity).update(activity.key, {activity: 'ac'});
 
-    let result = await queryRunner.manager.getRepository(Activity).findOneBy({key: 1})
+    let result = await queryRunner.manager.getRepository(Activity).findOne({where: {key: 1}});
 
     expect(result.createdDate.getTime() == result.modifiedDate.getTime()).toBeFalsy();
   });
