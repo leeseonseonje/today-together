@@ -5,12 +5,14 @@ import {PapagoInfo} from "./PapagoInfo";
 
 @Injectable()
 export class PapagoApi implements TranslatorApi {
+
+  private readonly url: string = 'https://openapi.naver.com/v1/papago/n2mt';
+
   constructor(
     private readonly httpService: HttpService
   ) {
   }
 
-  private readonly url: string = 'https://openapi.naver.com/v1/papago/n2mt';
 
   async translation(activity: string) {
     const request = this.url + this.paramBuild(activity);

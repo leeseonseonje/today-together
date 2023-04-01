@@ -7,7 +7,7 @@ export class ActivityRepository extends Repository<Activity> {
   async findByKey(key: number) {
     return await this.findOne({
       where: {
-        key: key,
+        id: key,
       }
     });
   }

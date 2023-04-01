@@ -2,6 +2,8 @@ import {BaseTimeEntity} from '../BaseTimeEntity.entity';
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 import {LocalDate} from 'js-joda';
 import {LocalDateTransformer} from '../../transformer/LocalDateTransformer';
+import {quoteApi} from './api/QuoteApi';
+import {log} from 'util';
 
 @Entity()
 export class Quote extends BaseTimeEntity {
@@ -12,10 +14,10 @@ export class Quote extends BaseTimeEntity {
   readonly id: number;
 
   @Column()
-  readonly author: string;
+  readonly text: string;
 
   @Column()
-  readonly text: string;
+  readonly author: string;
 
   @Column({
     type: 'date',
@@ -23,10 +25,14 @@ export class Quote extends BaseTimeEntity {
   })
   readonly day: LocalDate
 
-  constructor(author: string, text: string, day: LocalDate) {
+  constructor(text: string, author: string, day: LocalDate) {
     super();
-    this.author = author;
     this.text = text;
+    this.author = author;
     this.day = day;
+  }
+
+  isNotToday(now: LocalDate) {
+    return !this.day.isEqual(now);
   }
 }

@@ -26,7 +26,7 @@ describe('ts-joda local date transformer test', () => {
   it('date to Local date Test', async () => {
     const now = LocalDate.now();
     const quoteRepository = queryRunner.manager.getRepository(Quote);
-    const quote = await quoteRepository.save(new Quote('author', 'text', now));
+    const quote = await quoteRepository.save(new Quote('text', 'author', now));
     const result = await quoteRepository.findOne({
       where: {
         id: quote.id,

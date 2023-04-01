@@ -10,7 +10,6 @@ export class ActivityController {
 
   @Get()
   async recommendToDo(@Query() request: RequestActivityDto) {
-    const result = await this.activityService.recommendTodo(request.type);
-    return result.activity;
+    return await this.activityService.recommendTodo(request.type);
   }
 }

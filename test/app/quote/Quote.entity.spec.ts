@@ -1,12 +1,13 @@
 import {Quote} from '../../../src/app/quote/Quote.entity';
+import {LocalDate} from 'js-joda';
 
 describe('Quote Unit Test', () => {
 
-  it('Date Learn Test', async () => {
-    const now = new Date();
-    const yesterday = new Date(2023, 2, 29, 12, 0, 0, 0);
-    console.log(now);
-    console.log(yesterday);
-    console.log()
+  it('is not today 테스트 날짜가 오늘과 다르면 true', async () => {
+    const quote = new Quote('isNotToday', 'author', LocalDate.now());
+
+    const result = quote.isNotToday(LocalDate.of(9999, 12, 30));
+
+    expect(result).toBeTruthy();
   });
 });

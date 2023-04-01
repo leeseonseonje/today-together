@@ -12,4 +12,10 @@ describe('ActivityType', () => {
     expect(ActivityType.MUSIC).toBe('music');
     expect(ActivityType.BUSYWORK).toBe('busywork');
   });
+
+  it('enum to string test', async () => {
+    const s: string = ActivityType.EDUCATION;
+    console.log(s);
+    console.log(ActivityType.EDUCATION);
+  });
 });

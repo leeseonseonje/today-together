@@ -1,25 +1,27 @@
 import {Column, Entity, PrimaryColumn} from "typeorm";
 import {BaseTimeEntity} from '../../BaseTimeEntity.entity';
-import {LocalDate} from 'js-joda';
+import {ActivityType} from './ActivityType';
 
 @Entity()
 export class Activity extends BaseTimeEntity {
 
   @PrimaryColumn()
-  readonly key: number;
+  readonly id: number;
 
   @Column()
   activity: string;
 
-  private constructor(key: number, activity: string) {
-    super();
-    this.key = key;
-    this.activity = activity;
-    // this.createdDate = LocalDate.now();
-    // this.modifiedDate = LocalDate.now();
-  }
+  @Column()
+  type: ActivityType;
 
-  static of(key: number, activity: string) {
-    return new Activity(key, activity);
+  @Column()
+  participants: number;
+
+  constructor(id: number, activity: string, type: ActivityType, participants: number) {
+    super();
+    this.id = id;
+    this.activity = activity;
+    this.type = type;
+    this.participants = participants;
   }
 }
