@@ -11,5 +11,4 @@ export const dbConfig: TypeOrmModuleOptions = {
   autoLoadEntities: true,
   synchronize: true,
   // logging: true,
-  keepConnectionAlive: true,
 };

@@ -9,7 +9,6 @@ export class InitTodayQuote implements OnApplicationBootstrap {
   ) {
   }
   async onApplicationBootstrap() {
-    const todayQuote = await this.quoteService.refreshTodayQuote();
-    console.log(todayQuote);
+    return await this.quoteService.refreshTodayQuote();
   }
 }
