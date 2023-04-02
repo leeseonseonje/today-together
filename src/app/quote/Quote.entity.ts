@@ -32,7 +32,7 @@ export class Quote extends BaseTimeEntity {
     this.day = day;
   }
 
-  isNotToday(now: LocalDate) {
-    return !this.day.isEqual(now);
+  isToday(now: LocalDate) {
+    return this.day.isEqual(now);
   }
 }

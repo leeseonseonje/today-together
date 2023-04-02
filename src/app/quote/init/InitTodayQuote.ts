@@ -9,6 +9,6 @@ export class InitTodayQuote implements OnApplicationBootstrap {
   ) {
   }
   async onApplicationBootstrap() {
-    return await this.quoteService.getTodayQuote();
+    return await this.quoteService.initTodayQuote();
   }
 }
