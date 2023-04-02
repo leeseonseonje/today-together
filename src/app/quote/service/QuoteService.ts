@@ -6,7 +6,7 @@ import {QuoteRepository} from '../repository/QuoteRepository';
 import {Quote} from '../Quote.entity';
 import {LocalDate} from 'js-joda';
 import {TodayQuoteDto} from './dto/TodayQuoteDto';
-import {TodayQuoteMemoryRepository} from '../repository/TodayQuoteMemoryRepository';
+  import {todayQuoteRepository, TodayQuoteRepository} from '../repository/TodayQuoteRepository';
 
 @Injectable()
 export class QuoteService {
@@ -16,7 +16,8 @@ export class QuoteService {
     private readonly quoteApi: QuoteApi,
     @Inject(translatorApi)
     private readonly translatorApi: TranslatorApi,
-    private readonly todayQuoteRepository: TodayQuoteMemoryRepository,
+    @Inject(todayQuoteRepository)
+    private readonly todayQuoteRepository: TodayQuoteRepository,
   ) {
   }
 
@@ -38,12 +39,10 @@ export class QuoteService {
     let todayQuote = await quoteRepository.findTodayQuote();
 
     if (todayQuote.isToday(LocalDate.now())) {
-      this.todayQuoteRepository.save(todayQuote);
+      return this.todayQuoteRepository.save(todayQuote);
     } else {
-      todayQuote = await this.refreshTodayQuote();
+      return await this.refreshTodayQuote();
     }
-
-    return TodayQuoteDto.toDto(todayQuote);
   }
 
   async getTodayQuote() {

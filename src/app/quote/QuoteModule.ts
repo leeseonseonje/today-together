@@ -11,6 +11,7 @@ import {TodayQuoteScheduler} from './scheduler/TodayQuoteScheduler';
 import {ScheduleModule} from '@nestjs/schedule';
 import {TodayQuoteMemoryRepository} from './repository/TodayQuoteMemoryRepository';
 import {QuoteController} from './controller/QuoteController';
+import {todayQuoteRepository} from './repository/TodayQuoteRepository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Quote]),
@@ -22,7 +23,7 @@ import {QuoteController} from './controller/QuoteController';
     QuoteService,
     InitTodayQuote,
     TodayQuoteScheduler,
-    TodayQuoteMemoryRepository,
+    {provide: todayQuoteRepository, useClass: TodayQuoteMemoryRepository},
     {provide: quoteApi, useClass: ZenQuoteApi},
   ],
 })

@@ -13,5 +13,6 @@ export class TodayQuoteMemoryRepository implements TodayQuoteRepository {
 
   save(todayQuote: Quote) {
     TodayQuoteMemoryRepository.todayQuote = todayQuote;
+    return TodayQuoteMemoryRepository.todayQuote;
   }
 }

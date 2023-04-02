@@ -13,14 +13,14 @@ import {LocalDate} from 'js-joda';
 import {QuoteApi, quoteApi} from '../../../../src/app/quote/api/QuoteApi';
 import {translatorApi, TranslatorApi} from '../../../../src/app/translator/TranslatorApi';
 import {QuoteApiResponseDto} from '../../../../src/app/quote/api/dto/QuoteApiResponseDto';
-import {TodayQuoteMemoryRepository} from '../../../../src/app/quote/repository/TodayQuoteMemoryRepository';
+import {todayQuoteRepository, TodayQuoteRepository} from '../../../../src/app/quote/repository/TodayQuoteRepository';
 
 describe('Quote Service Integration Test', () => {
   let sut: QuoteService;
   let quoteApi: QuoteApi;
   let papagoApi: TranslatorApi;
   let quoteRepository: QuoteRepository;
-  let todayQuoteRepository: TodayQuoteMemoryRepository;
+  let todayQuoteRepo: TodayQuoteRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -30,8 +30,8 @@ describe('Quote Service Integration Test', () => {
     quoteApi = mock(ZenQuoteApi);
     papagoApi = mock(PapagoApi);
     quoteRepository = getConnection().getCustomRepository(QuoteRepository);
-    todayQuoteRepository = module.get<TodayQuoteMemoryRepository>(TodayQuoteMemoryRepository);
-    sut = new QuoteService(instance(quoteApi), instance(papagoApi), todayQuoteRepository);
+    todayQuoteRepo = module.get(todayQuoteRepository);
+    sut = new QuoteService(instance(quoteApi), instance(papagoApi), todayQuoteRepo);
   });
 
   afterEach(async () => {
@@ -51,7 +51,7 @@ describe('Quote Service Integration Test', () => {
   });
 
   it('오늘의 명언 조회 메모리에서 오늘의 명언을 바로 조회', async () => {
-    todayQuoteRepository.save(new Quote('오늘명언조회', '조회', LocalDate.now()));
+    todayQuoteRepo.save(new Quote('오늘명언조회', '조회', LocalDate.now()));
 
     const result = await sut.getTodayQuote();
 
@@ -59,14 +59,14 @@ describe('Quote Service Integration Test', () => {
     expect(result.author).toBe('조회');
   });
 
-  it('오늘의 명언 조회 -> db에 있는 가장 최근 명언이 오늘 날짜와 같으면 메모리에 저장 후 반환', async () => {
+  it('오늘의 명언 조회 -> db에 있는 가장 최근 명언이 오늘 날짜와 같으면 메모리에 저장', async () => {
     await quoteRepository
       .save(new Quote('오늘명언조회', '조회', LocalDate.now()));
     await apiStub();
 
     await sut.initTodayQuote();
 
-    let resultTodayQuote = todayQuoteRepository.findTodayQuote();
+    let resultTodayQuote = todayQuoteRepo.findTodayQuote();
     expect(resultTodayQuote.text).toBe('오늘명언조회')
     expect(resultTodayQuote.author).toBe('조회')
     expect(resultTodayQuote.day.isEqual(LocalDate.now())).toBeTruthy();
