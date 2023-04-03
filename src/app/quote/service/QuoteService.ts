@@ -2,7 +2,6 @@ import {Inject, Injectable} from '@nestjs/common';
 import {translatorApi, TranslatorApi} from '../../translator/TranslatorApi';
 import {quoteApi, QuoteApi} from '../api/QuoteApi';
 import {getConnection} from 'typeorm';
-import {QuoteRepository} from '../repository/QuoteRepository';
 import {Quote} from '../Quote.entity';
 import {LocalDate} from 'js-joda';
 import {TodayQuoteDto} from './dto/TodayQuoteDto';
@@ -29,24 +28,19 @@ export class QuoteService {
     const [text, author] = translatedQuotes.split('-');
     const createQuote = new Quote(text, author, LocalDate.now());
 
-    this.todayQuoteRepository.save(createQuote);
     return await getConnection().getRepository(Quote).save(createQuote);
   }
 
   async initTodayQuote() {
-    const quoteRepository = getConnection().getCustomRepository(QuoteRepository);
-
-    let todayQuote = await quoteRepository.findTodayQuote();
-
-    if (todayQuote.isToday(LocalDate.now())) {
-      return this.todayQuoteRepository.save(todayQuote);
-    } else {
+    let todayQuote = await this.todayQuoteRepository.findTodayQuote();
+    if (!todayQuote.isToday(LocalDate.now())) {
       return await this.refreshTodayQuote();
     }
+    return todayQuote;
   }
 
   async getTodayQuote() {
-    let todayQuote = this.todayQuoteRepository.findTodayQuote();
+    let todayQuote = await this.todayQuoteRepository.findTodayQuote();
     return TodayQuoteDto.toDto(todayQuote);
   }
 }

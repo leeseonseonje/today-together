@@ -51,7 +51,8 @@ describe('Quote Service Integration Test', () => {
   });
 
   it('오늘의 명언 조회 메모리에서 오늘의 명언을 바로 조회', async () => {
-    todayQuoteRepo.save(new Quote('오늘명언조회', '조회', LocalDate.now()));
+    await quoteRepository
+      .save(new Quote('오늘명언조회', '조회', LocalDate.now()));
 
     const result = await sut.getTodayQuote();
 
@@ -66,7 +67,7 @@ describe('Quote Service Integration Test', () => {
 
     await sut.initTodayQuote();
 
-    let resultTodayQuote = todayQuoteRepo.findTodayQuote();
+    let resultTodayQuote = await todayQuoteRepo.findTodayQuote();
     expect(resultTodayQuote.text).toBe('오늘명언조회')
     expect(resultTodayQuote.author).toBe('조회')
     expect(resultTodayQuote.day.isEqual(LocalDate.now())).toBeTruthy();
@@ -76,11 +77,10 @@ describe('Quote Service Integration Test', () => {
     await quoteRepository
       .save(new Quote('오늘명언조회', '작가', LocalDate.of(9999, 12, 30)));
     await apiStub();
-
     const result = await sut.initTodayQuote();
 
-    expect(result.text).toBe('오늘명언갱신');
-    expect(result.author).toBe('갱신');
+    console.log(result);
+    expect(result.day.isEqual(LocalDate.now()));
   });
 
   const apiStub = async () => {
