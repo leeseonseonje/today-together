@@ -1,5 +1,5 @@
 import {TodayQuoteRepository} from './TodayQuoteRepository';
-import {Inject, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {Quote} from '../Quote.entity';
 import {getConnection} from 'typeorm';
 import {QuoteRepository} from './QuoteRepository';
@@ -17,5 +17,11 @@ export class TodayQuoteMemoryRepository implements TodayQuoteRepository {
       TodayQuoteMemoryRepository.todayQuote = await quoteRepository.findTodayQuote();
       return TodayQuoteMemoryRepository.todayQuote;
     }
+  }
+
+  async save(todayQuote: Quote) {
+    const savedTodayQuote = await getConnection().getCustomRepository(QuoteRepository).save(todayQuote);
+    TodayQuoteMemoryRepository.todayQuote = savedTodayQuote;
+    return savedTodayQuote;
   }
 }

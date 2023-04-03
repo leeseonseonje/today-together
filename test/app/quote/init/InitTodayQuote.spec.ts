@@ -8,14 +8,12 @@ import {dbConfig} from '../../../../src/db/config';
 
 describe('InitTodayQuote', () => {
   let initTodayQuote: InitTodayQuote;
-  let quoteService: QuoteService;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [TypeOrmModule.forRoot(dbConfig), QuoteModule],
     }).compile();
 
-    quoteService = module.get<QuoteService>(QuoteService);
     initTodayQuote = module.get<InitTodayQuote>(InitTodayQuote);
   });
 

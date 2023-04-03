@@ -13,7 +13,6 @@ export class PapagoApi implements TranslatorApi {
   ) {
   }
 
-
   async translation(activity: string) {
     const request = this.url + this.paramBuild(activity);
     const response = await this.httpService.axiosRef.post(request,

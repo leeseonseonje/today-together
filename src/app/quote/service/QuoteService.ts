@@ -5,7 +5,7 @@ import {getConnection} from 'typeorm';
 import {Quote} from '../Quote.entity';
 import {LocalDate} from 'js-joda';
 import {TodayQuoteDto} from './dto/TodayQuoteDto';
-  import {todayQuoteRepository, TodayQuoteRepository} from '../repository/TodayQuoteRepository';
+import {todayQuoteRepository, TodayQuoteRepository} from '../repository/TodayQuoteRepository';
 
 @Injectable()
 export class QuoteService {
@@ -28,19 +28,19 @@ export class QuoteService {
     const [text, author] = translatedQuotes.split('-');
     const createQuote = new Quote(text, author, LocalDate.now());
 
-    return await getConnection().getRepository(Quote).save(createQuote);
+    return await this.todayQuoteRepository.save(createQuote);
   }
 
   async initTodayQuote() {
     let todayQuote = await this.todayQuoteRepository.findTodayQuote();
-    if (!todayQuote.isToday(LocalDate.now())) {
-      return await this.refreshTodayQuote();
+    if (todayQuote.isToday(LocalDate.now())) {
+      return todayQuote;
     }
-    return todayQuote;
+    return await this.refreshTodayQuote();
   }
 
   async getTodayQuote() {
-    let todayQuote = await this.todayQuoteRepository.findTodayQuote();
+    const todayQuote = await this.todayQuoteRepository.findTodayQuote();
     return TodayQuoteDto.toDto(todayQuote);
   }
 }
