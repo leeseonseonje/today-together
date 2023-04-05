@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {HttpService} from '@nestjs/axios';
 import {ActivityType} from '../domain/ActivityType';
-import {RecommendTodoApiDto} from './dto/RecommendTodoApiDto';
+import {RecommendTodoApiDto} from './dto/recommend-todo-api.dto';
 import {NotActivityException} from '../exception/NotActivityException';
 
 @Injectable()

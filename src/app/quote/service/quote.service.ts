@@ -1,7 +1,6 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {translatorApi, TranslatorApi} from '../../translator/TranslatorApi';
-import {quoteApi, QuoteApi} from '../api/QuoteApi';
-import {getConnection} from 'typeorm';
+import {quoteApi, QuoteApi} from '../api/quote.api';
 import {Quote} from '../Quote.entity';
 import {LocalDate} from 'js-joda';
 import {TodayQuoteDto} from './dto/TodayQuoteDto';

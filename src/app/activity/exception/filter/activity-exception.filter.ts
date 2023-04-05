@@ -1,6 +1,6 @@
 import {ArgumentsHost, Catch, ExceptionFilter} from "@nestjs/common";
 import {Response} from 'express';
-import {NotActivityException} from "../NotActivityException";
+import {NotActivityException} from "../not-activity.exception";
 
 @Catch(NotActivityException)
 export class ActivityExceptionFilter implements ExceptionFilter {

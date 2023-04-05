@@ -1,4 +1,4 @@
-import {ActivityType} from '../../domain/ActivityType';
+import {ActivityType} from '../../domain/activity.type.enum';
 
 export interface RecommendTodoApiDto {
   readonly key: number

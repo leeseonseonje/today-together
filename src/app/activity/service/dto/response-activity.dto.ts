@@ -1,5 +1,5 @@
-import {Activity} from '../../domain/Activity.entity';
-import {ActivityType} from '../../domain/ActivityType';
+import {Activity} from '../../domain/activity.entity';
+import {ActivityType} from '../../domain/activity.type.enum';
 
 export class ActivityRecommendDto {
   readonly activity: string;

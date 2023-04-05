@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {Cron} from '@nestjs/schedule';
-import {QuoteService} from '../service/QuoteService';
+import {QuoteService} from '../service/quote.service';
 
 @Injectable()
 export class TodayQuoteScheduler {

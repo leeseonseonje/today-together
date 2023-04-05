@@ -1,9 +1,9 @@
 import {Inject, Injectable} from '@nestjs/common';
-import {Activity} from '../domain/Activity.entity';
-import {RecommendTodoApi} from '../api/RecommendTodoApi';
+import {Activity} from '../domain/activity.entity';
+import {RecommendTodoApi} from '../api/recommend-todo.api';
 import {translatorApi, TranslatorApi} from '../../translator/TranslatorApi';
-import {ActivityType} from '../domain/ActivityType';
-import {RecommendTodoApiDto} from '../api/dto/RecommendTodoApiDto';
+import {ActivityType} from '../domain/activity.type.enum';
+import {RecommendTodoApiDto} from '../api/dto/recommend-todo-api.dto';
 import {ActivityRepository} from '../repository/ActivityRepository';
 import {Connection, getConnection} from 'typeorm';
 import {ActivityRecommendDto} from './dto/ActivityRecommendDto';
