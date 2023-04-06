@@ -1,8 +1,8 @@
 import {Test} from '@nestjs/testing';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {dbConfig} from '../../../../src/db/config';
-import {QuoteModule} from '../../../../src/app/quote/QuoteModule';
-import {TodayQuoteScheduler} from '../../../../src/app/quote/scheduler/TodayQuoteScheduler';
+import {QuoteModule} from '../../../../src/app/quote/quote.module';
+import {TodayQuoteScheduler} from '../../../../src/app/quote/scheduler/today-quote.scheduler';
 
 describe('오늘의 명언 스케쥴러', () => {
 

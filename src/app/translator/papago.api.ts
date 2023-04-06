@@ -1,7 +1,7 @@
-import {TranslatorApi} from "./TranslatorApi";
+import {TranslatorApi} from "./translator.api";
 import {Injectable, InternalServerErrorException} from "@nestjs/common";
 import {HttpService} from "@nestjs/axios";
-import {PapagoInfo} from "./PapagoInfo";
+import {PapagoInfoEnum} from "./papago-info.enum";
 
 @Injectable()
 export class PapagoApi implements TranslatorApi {
@@ -33,8 +33,8 @@ export class PapagoApi implements TranslatorApi {
     return {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'X-Naver-Client-Id': PapagoInfo.ID,
-        'X-Naver-Client-Secret': PapagoInfo.SECRET,
+        'X-Naver-Client-Id': PapagoInfoEnum.ID,
+        'X-Naver-Client-Secret': PapagoInfoEnum.SECRET,
       }
     };
   }

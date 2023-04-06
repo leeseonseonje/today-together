@@ -1,7 +1,7 @@
 import {Activity} from '../../domain/activity.entity';
 import {ActivityType} from '../../domain/activity.type.enum';
 
-export class ActivityRecommendDto {
+export class ResponseActivityDto {
   readonly activity: string;
   readonly type: ActivityType;
   readonly participants: number;
@@ -14,6 +14,6 @@ export class ActivityRecommendDto {
   }
 
   static toDto(activity: Activity) {
-    return new ActivityRecommendDto(activity.activity, activity.type, activity.participants);
+    return new ResponseActivityDto(activity.activity, activity.type, activity.participants);
   }
 }

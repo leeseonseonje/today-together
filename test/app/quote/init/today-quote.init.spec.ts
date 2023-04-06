@@ -1,8 +1,8 @@
 import {Test} from '@nestjs/testing';
 import {InitTodayQuote} from '../../../../src/app/quote/init/InitTodayQuote';
-import {QuoteService} from '../../../../src/app/quote/service/QuoteService';
+import {QuoteService} from '../../../../src/app/quote/service/quote.service';
 import {LocalDate} from 'js-joda';
-import {QuoteModule} from '../../../../src/app/quote/QuoteModule';
+import {QuoteModule} from '../../../../src/app/quote/quote.module';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {dbConfig} from '../../../../src/db/config';
 

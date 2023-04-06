@@ -1,8 +1,8 @@
-import {TodayQuoteRepository} from './TodayQuoteRepository';
+import {TodayQuoteRepository} from './today-quote.repository';
 import {Injectable} from '@nestjs/common';
-import {Quote} from '../Quote.entity';
+import {Quote} from '../quote.entity';
 import {getConnection} from 'typeorm';
-import {QuoteRepository} from './QuoteRepository';
+import {QuoteRepository} from './quote.repository';
 
 @Injectable()
 export class TodayQuoteMemoryRepository implements TodayQuoteRepository {

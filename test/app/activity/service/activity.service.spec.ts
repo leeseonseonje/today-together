@@ -1,19 +1,19 @@
-import {ActivityService} from '../../../../src/app/activity/service/ActivityService';
-import {ActivityType} from '../../../../src/app/activity/domain/ActivityType';
-import {RecommendTodoApi} from '../../../../src/app/activity/api/RecommendTodoApi';
+import {ActivityService} from '../../../../src/app/activity/service/activity.service';
+import {ActivityType} from '../../../../src/app/activity/domain/activity.type.enum';
+import {RecommendTodoApi} from '../../../../src/app/activity/api/recommend-todo.api';
 import {anything, instance, mock, verify, when} from 'ts-mockito';
 import {PapagoApi} from '../../../../src/app/translator/PapagoApi';
-import {RecommendTodoApiDto} from '../../../../src/app/activity/api/dto/RecommendTodoApiDto';
+import {ResponseRecommendTodoApiDto} from '../../../../src/app/activity/api/dto/response-recommend-todo-api.dto';
 import {TranslatorApi} from '../../../../src/app/translator/TranslatorApi';
 import {Test, TestingModule} from '@nestjs/testing';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {dbConfig} from '../../../../src/db/config';
-import {ActivityModule} from '../../../../src/app/activity/ActivityModule';
+import {ActivityModule} from '../../../../src/app/activity/activity.module';
 import {getConnection} from 'typeorm';
-import {Activity} from '../../../../src/app/activity/domain/Activity.entity';
+import {Activity} from '../../../../src/app/activity/domain/activity.entity';
 
 describe('ActivityService', () => {
-  let response: RecommendTodoApiDto;
+  let response: ResponseRecommendTodoApiDto;
   let activityType: ActivityType;
   let recommendTodoApi: RecommendTodoApi;
   let papagoApi: TranslatorApi;

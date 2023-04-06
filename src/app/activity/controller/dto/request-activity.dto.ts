@@ -1,4 +1,4 @@
-import {ActivityType} from "../../domain/ActivityType";
+import {ActivityType} from "../../domain/activity.type.enum";
 import {IsEnum, IsNumber} from "class-validator";
 
 export class RequestActivityDto {

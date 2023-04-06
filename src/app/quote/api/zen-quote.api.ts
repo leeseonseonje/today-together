@@ -1,7 +1,7 @@
-import {QuoteApi} from './QuoteApi';
+import {QuoteApi} from './quote.api';
 import {HttpService} from '@nestjs/axios';
 import {Injectable, InternalServerErrorException} from '@nestjs/common';
-import {QuoteApiResponseDto} from './dto/QuoteApiResponseDto';
+import {ResponseQuoteApiDto} from './dto/response-quote-api.dto';
 
 @Injectable()
 export class ZenQuoteApi implements QuoteApi {
@@ -19,6 +19,6 @@ export class ZenQuoteApi implements QuoteApi {
       throw new InternalServerErrorException('명언이 없습니다.');
     }
 
-    return new QuoteApiResponseDto(response.data[0].q, response.data[0].a)
+    return new ResponseQuoteApiDto(response.data[0].q, response.data[0].a)
   }
 }

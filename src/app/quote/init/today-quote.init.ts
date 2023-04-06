@@ -1,8 +1,8 @@
 import {Injectable, OnApplicationBootstrap} from '@nestjs/common';
-import {QuoteService} from '../service/QuoteService';
+import {QuoteService} from '../service/quote.service';
 
 @Injectable()
-export class InitTodayQuote implements OnApplicationBootstrap {
+export class TodayQuoteInit implements OnApplicationBootstrap {
 
   constructor(
     private readonly quoteService: QuoteService,

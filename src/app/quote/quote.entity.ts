@@ -1,8 +1,8 @@
-import {BaseTimeEntity} from '../BaseTimeEntity.entity';
+import {BaseTimeEntity} from '../base-time.entity';
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 import {LocalDate} from 'js-joda';
-import {LocalDateTransformer} from '../../transformer/LocalDateTransformer';
-import {quoteApi} from './api/QuoteApi';
+import {LocalDateTransformer} from '../../transformer/local-date.transformer';
+import {quoteApi} from './api/quote.api';
 import {log} from 'util';
 
 @Entity()
@@ -23,7 +23,7 @@ export class Quote extends BaseTimeEntity {
     type: 'date',
     transformer: new LocalDateTransformer(),
   })
-  readonly day: LocalDate
+  readonly day: LocalDate;
 
   constructor(text: string, author: string, day: LocalDate) {
     super();

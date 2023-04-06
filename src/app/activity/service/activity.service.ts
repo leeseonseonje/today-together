@@ -1,12 +1,12 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {Activity} from '../domain/activity.entity';
 import {RecommendTodoApi} from '../api/recommend-todo.api';
-import {translatorApi, TranslatorApi} from '../../translator/TranslatorApi';
+import {translatorApi, TranslatorApi} from '../../translator/translator.api';
 import {ActivityType} from '../domain/activity.type.enum';
-import {RecommendTodoApiDto} from '../api/dto/recommend-todo-api.dto';
-import {ActivityRepository} from '../repository/ActivityRepository';
+import {ResponseRecommendTodoApiDto} from '../api/dto/response-recommend-todo-api.dto';
+import {ActivityRepository} from '../repository/activity.repository';
 import {Connection, getConnection} from 'typeorm';
-import {ActivityRecommendDto} from './dto/ActivityRecommendDto';
+import {ResponseActivityDto} from './dto/response-activity.dto';
 
 @Injectable()
 export class ActivityService {
@@ -20,15 +20,15 @@ export class ActivityService {
     const apiResponse = await this.recommendTodoApi.recommendTodo(type);
 
     const activity = await this.getActivity(apiResponse);
-    return ActivityRecommendDto.toDto(activity);
+    return ResponseActivityDto.toDto(activity);
   }
 
-  private async getActivity(apiResponse: RecommendTodoApiDto) {
+  private async getActivity(apiResponse: ResponseRecommendTodoApiDto) {
     const activity = await getConnection().getCustomRepository(ActivityRepository).findByKey(apiResponse.key);
     return activity ? activity : this.translator(apiResponse);
   }
 
-  private async translator(apiResponse: RecommendTodoApiDto) {
+  private async translator(apiResponse: ResponseRecommendTodoApiDto) {
     const translatorActivity = await this.translatorApi.translation(apiResponse.activity);
     const createActivity = new Activity(apiResponse.key, translatorActivity, apiResponse.type, apiResponse.participants);
     return await getConnection().getCustomRepository(ActivityRepository).save(createActivity);

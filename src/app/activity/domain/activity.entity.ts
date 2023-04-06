@@ -1,6 +1,6 @@
 import {Column, Entity, PrimaryColumn} from "typeorm";
-import {BaseTimeEntity} from '../../BaseTimeEntity.entity';
-import {ActivityType} from './ActivityType';
+import {BaseTimeEntity} from '../../base-time.entity';
+import {ActivityType} from './activity.type.enum';
 
 @Entity()
 export class Activity extends BaseTimeEntity {

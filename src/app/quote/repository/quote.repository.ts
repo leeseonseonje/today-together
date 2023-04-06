@@ -1,5 +1,5 @@
 import {EntityRepository, Repository} from 'typeorm';
-import {Quote} from '../Quote.entity';
+import {Quote} from '../quote.entity';
 import {LocalDate} from 'js-joda';
 
 @EntityRepository(Quote)

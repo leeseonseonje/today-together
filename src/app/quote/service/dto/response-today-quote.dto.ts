@@ -1,6 +1,6 @@
-import {Quote} from '../../Quote.entity';
+import {Quote} from '../../quote.entity';
 
-export class TodayQuoteDto {
+export class ResponseTodayQuoteDto {
   readonly text: string;
   readonly author: string;
 
@@ -11,6 +11,6 @@ export class TodayQuoteDto {
   }
 
   static toDto(quote: Quote) {
-    return new TodayQuoteDto(quote.text, quote.author);
+    return new ResponseTodayQuoteDto(quote.text, quote.author);
   }
 }

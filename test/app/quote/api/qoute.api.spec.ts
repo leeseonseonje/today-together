@@ -1,6 +1,6 @@
 import {Test, TestingModule} from '@nestjs/testing';
 import {HttpModule} from '@nestjs/axios';
-import {ZenQuoteApi} from '../../../../src/app/quote/api/ZenQuoteApi';
+import {ZenQuoteApi} from '../../../../src/app/quote/api/zen-quote.api';
 
 describe('RecommendTodoApi', () => {
   let sut: ZenQuoteApi;

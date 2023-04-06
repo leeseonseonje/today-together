@@ -1,10 +1,10 @@
 import {Test} from '@nestjs/testing';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {dbConfig} from '../../src/db/config';
-import {Activity} from '../../src/app/activity/domain/Activity.entity';
+import {Activity} from '../../src/app/activity/domain/activity.entity';
 import {QueryRunner} from 'typeorm';
 import {TransactionUtil} from '../util/TransactionUtil';
-import {ActivityType} from '../../src/app/activity/domain/ActivityType';
+import {ActivityType} from '../../src/app/activity/domain/activity.type.enum';
 
 describe('ts-joda localdate transformer test', () => {
   let queryRunner: QueryRunner;

@@ -1,6 +1,6 @@
 import {Global, Module} from '@nestjs/common';
-import {translatorApi} from './TranslatorApi';
-import {PapagoApi} from './PapagoApi';
+import {translatorApi} from './translator.api';
+import {PapagoApi} from './papago.api';
 import {HttpModule} from '@nestjs/axios';
 
 @Global()

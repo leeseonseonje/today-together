@@ -1,4 +1,4 @@
-import {Quote} from '../Quote.entity';
+import {Quote} from '../quote.entity';
 
 export const todayQuoteRepository = 'todayQuoteRepository';
 

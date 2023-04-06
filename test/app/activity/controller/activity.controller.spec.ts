@@ -2,7 +2,7 @@ import {Test, TestingModule} from '@nestjs/testing';
 import {INestApplication} from '@nestjs/common';
 import * as request from 'supertest';
 import {AppModule} from '../../../../src/app.module';
-import {ActivityType} from '../../../../src/app/activity/domain/ActivityType';
+import {ActivityType} from '../../../../src/app/activity/domain/activity.type.enum';
 import {getConnection} from 'typeorm';
 
 describe('ActivityController (e2e)', () => {

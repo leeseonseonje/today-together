@@ -1,4 +1,4 @@
-export class QuoteApiResponseDto {
+export class ResponseQuoteApiDto {
 
   private readonly text: string;
   private readonly author: string;

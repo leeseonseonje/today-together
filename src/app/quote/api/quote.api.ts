@@ -1,7 +1,7 @@
-import {QuoteApiResponseDto} from './dto/QuoteApiResponseDto';
+import {ResponseQuoteApiDto} from './dto/response-quote-api.dto';
 
 export const quoteApi = 'quoteApi';
 
 export interface QuoteApi {
-  getQuote(): Promise<QuoteApiResponseDto>;
+  getQuote(): Promise<ResponseQuoteApiDto>;
 }

@@ -1,5 +1,5 @@
 import {Controller, Get} from '@nestjs/common';
-import {QuoteService} from '../service/QuoteService';
+import {QuoteService} from '../service/quote.service';
 
 @Controller('/quote')
 export class QuoteController {

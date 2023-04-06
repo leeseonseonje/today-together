@@ -2,7 +2,7 @@ import {Test} from '@nestjs/testing';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {dbConfig} from '../../src/db/config';
 import {getConnection, QueryRunner} from 'typeorm';
-import {Quote} from '../../src/app/quote/Quote.entity';
+import {Quote} from '../../src/app/quote/quote.entity';
 import {LocalDate} from 'js-joda';
 import {TransactionUtil} from '../util/TransactionUtil';
 

@@ -1,19 +1,19 @@
 import {Test, TestingModule} from '@nestjs/testing';
-import {QuoteModule} from '../../../../src/app/quote/QuoteModule';
-import {QuoteService} from '../../../../src/app/quote/service/QuoteService';
+import {QuoteModule} from '../../../../src/app/quote/quote.module';
+import {QuoteService} from '../../../../src/app/quote/service/quote.service';
 import {getConnection} from 'typeorm';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {dbConfig} from '../../../../src/db/config';
 import {instance, mock, when} from 'ts-mockito';
-import {ZenQuoteApi} from '../../../../src/app/quote/api/ZenQuoteApi';
+import {ZenQuoteApi} from '../../../../src/app/quote/api/zen-quote.api';
 import {PapagoApi} from '../../../../src/app/translator/PapagoApi';
-import {QuoteRepository} from '../../../../src/app/quote/repository/QuoteRepository';
-import {Quote} from '../../../../src/app/quote/Quote.entity';
+import {QuoteRepository} from '../../../../src/app/quote/repository/quote.repository';
+import {Quote} from '../../../../src/app/quote/quote.entity';
 import {LocalDate} from 'js-joda';
-import {QuoteApi, quoteApi} from '../../../../src/app/quote/api/QuoteApi';
+import {QuoteApi, quoteApi} from '../../../../src/app/quote/api/quote.api';
 import {translatorApi, TranslatorApi} from '../../../../src/app/translator/TranslatorApi';
-import {QuoteApiResponseDto} from '../../../../src/app/quote/api/dto/QuoteApiResponseDto';
-import {todayQuoteRepository, TodayQuoteRepository} from '../../../../src/app/quote/repository/TodayQuoteRepository';
+import {ResponseQuoteApiDto} from '../../../../src/app/quote/api/dto/response-quote-api.dto';
+import {todayQuoteRepository, TodayQuoteRepository} from '../../../../src/app/quote/repository/today-quote.repository';
 
 describe('Quote Service Integration Test', () => {
   let sut: QuoteService;
@@ -83,7 +83,7 @@ describe('Quote Service Integration Test', () => {
   });
 
   const apiStub = async () => {
-    when(await quoteApi.getQuote()).thenReturn(new QuoteApiResponseDto('refreshToday', 'author'));
+    when(await quoteApi.getQuote()).thenReturn(new ResponseQuoteApiDto('refreshToday', 'author'));
     when(await papagoApi.translation('refreshToday-author')).thenReturn('오늘명언갱신-갱신');
   }
 });

@@ -1,4 +1,4 @@
-import { ActivityType } from '../../../../src/app/activity/domain/ActivityType';
+import { ActivityType } from '../../../../src/app/activity/domain/activity.type.enum';
 
 describe('ActivityType', () => {
   it('enumLearnTest', async () => {

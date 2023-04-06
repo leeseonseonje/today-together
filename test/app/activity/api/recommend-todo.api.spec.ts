@@ -1,8 +1,8 @@
 import {Test, TestingModule} from '@nestjs/testing';
-import {RecommendTodoApi} from '../../../../src/app/activity/api/RecommendTodoApi';
-import {ActivityType} from '../../../../src/app/activity/domain/ActivityType';
+import {RecommendTodoApi} from '../../../../src/app/activity/api/recommend-todo.api';
+import {ActivityType} from '../../../../src/app/activity/domain/activity.type.enum';
 import {HttpModule} from '@nestjs/axios';
-import {NotActivityException} from '../../../../src/app/activity/exception/NotActivityException';
+import {NotActivityException} from '../../../../src/app/activity/exception/not-activity.exception';
 
 describe('RecommendTodoApi', () => {
   let sut: RecommendTodoApi;
