@@ -20,7 +20,7 @@ export class TodoRepository extends Repository<Todo> {
       .select('t.text')
       .where('t.memberId = :memberId', {memberId})
       .andWhere('t.status = :status', {status: TodoStatus.INCOMPLETE})
-      .andWhere('t.day < :today', {today: LocalDate.now()})
+      .andWhere('t.day < :today', {today: LocalDate.now().toString()})
       .getMany();
   }
 
@@ -29,7 +29,7 @@ export class TodoRepository extends Repository<Todo> {
       .createQueryBuilder('t')
       .select(['t.id', 't.text', 't.status'])
       .where('t.memberId = :memberId', { memberId })
-      .andWhere('t.day = :today', { today: LocalDate.now() })
+      .andWhere('t.day = :today', { today: LocalDate.now().toString() })
       .getMany();
   }
 }

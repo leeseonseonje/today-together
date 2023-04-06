@@ -24,6 +24,7 @@ export class Todo extends BaseTimeEntity {
   })
   readonly day: LocalDate;
 
+  @Column()
   status: TodoStatus;
 
   constructor(memberId: number, text: string, day: LocalDate, status: TodoStatus) {

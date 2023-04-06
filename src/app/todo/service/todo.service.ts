@@ -1,18 +1,20 @@
-import {Inject} from '@nestjs/common';
 import {TodoRepository} from '../repository/todo.repository';
 import {Todo} from '../domain/todo.entity';
 import {TodoStatus} from '../domain/todo-status.enum';
 import {LocalDate} from 'js-joda';
+import {Injectable} from '@nestjs/common';
+import {getConnection} from 'typeorm';
 
+@Injectable()
 export class TodoService {
 
+  private todoRepository: TodoRepository;
   constructor(
-    @Inject(TodoRepository)
-    private readonly todoRepository: TodoRepository,
   ) {
   }
 
   async save(memberId: number, text: string) {
+    this.todoRepository = getConnection().getCustomRepository(TodoRepository);
     const todo = new Todo(memberId, text, LocalDate.now(), TodoStatus.INCOMPLETE);
     return await this.todoRepository.save(todo);
   }
@@ -26,6 +28,7 @@ export class TodoService {
   }
 
   async getTodayTodo(memberId: number) {
+    this.todoRepository = getConnection().getCustomRepository(TodoRepository);
     const incompleteTodos = await this.todoRepository.findIncompleteTodos(memberId);
 
     for (const todo of incompleteTodos) {
