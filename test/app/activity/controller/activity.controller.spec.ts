@@ -23,7 +23,7 @@ describe('ActivityController (e2e)', () => {
 
   it('e2e 파라미터가 없을 경우', async () => {
     const response = await request(app.getHttpServer())
-      .get('/activity');
+      .get('/activities');
 
     expect(response.status).toBe(200);
     expect('activity' in response.body).toBeTruthy();
@@ -33,7 +33,7 @@ describe('ActivityController (e2e)', () => {
 
   it('e2e 올바른 파라미터', async () => {
     const response = await request(app.getHttpServer())
-      .get('/activity')
+      .get('/activities')
       .query({
         type: 'education'
       }).expect(200)

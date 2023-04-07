@@ -1,6 +1,6 @@
 import {ValueTransformer} from 'typeorm';
 import {LocalDate} from 'js-joda';
-import {DateTimeUtil} from '../util/DateTimeUtil';
+import {DateTimeUtil} from '../util/date-time.util';
 
 export class LocalDateTransformer implements ValueTransformer {
   to(localDateTime: LocalDate): Date {
@@ -8,6 +8,6 @@ export class LocalDateTransformer implements ValueTransformer {
   }
 
   from(date: string): LocalDate {
-    return DateTimeUtil.toLocalDateTime(date);
+    return DateTimeUtil.toLocalDate(date);
   }
 }

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {translatorApi, TranslatorApi} from '../../../src/app/translator/TranslatorApi';
+import {translatorApi, TranslatorApi} from '../../../src/app/translator/translator.api';
 import { InternalServerErrorException } from '@nestjs/common';
-import {TranslatorModule} from '../../../src/app/translator/TranslatorModule';
+import {TranslatorModule} from '../../../src/app/translator/translator.module';
 
 describe('papagoApi', () => {
   let sut: TranslatorApi;

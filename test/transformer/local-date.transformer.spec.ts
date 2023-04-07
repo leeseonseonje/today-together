@@ -4,7 +4,7 @@ import {dbConfig} from '../../src/db/config';
 import {getConnection, QueryRunner} from 'typeorm';
 import {Quote} from '../../src/app/quote/quote.entity';
 import {LocalDate} from 'js-joda';
-import {TransactionUtil} from '../util/TransactionUtil';
+import {TransactionUtil} from '../util/transaction.util';
 
 describe('ts-joda local date transformer test', () => {
   let queryRunner: QueryRunner;

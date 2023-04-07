@@ -2,9 +2,9 @@ import {ActivityService} from '../../../../src/app/activity/service/activity.ser
 import {ActivityType} from '../../../../src/app/activity/domain/activity.type.enum';
 import {RecommendTodoApi} from '../../../../src/app/activity/api/recommend-todo.api';
 import {anything, instance, mock, verify, when} from 'ts-mockito';
-import {PapagoApi} from '../../../../src/app/translator/PapagoApi';
+import {PapagoApi} from '../../../../src/app/translator/papago.api';
 import {ResponseRecommendTodoApiDto} from '../../../../src/app/activity/api/dto/response-recommend-todo-api.dto';
-import {TranslatorApi} from '../../../../src/app/translator/TranslatorApi';
+import {TranslatorApi} from '../../../../src/app/translator/translator.api';
 import {Test, TestingModule} from '@nestjs/testing';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {dbConfig} from '../../../../src/db/config';

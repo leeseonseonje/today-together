@@ -1,4 +1,4 @@
-import {Quote} from '../../../src/app/quote/Quote.entity';
+import {Quote} from '../../../src/app/quote/quote.entity';
 import {LocalDate} from 'js-joda';
 
 describe('Quote Unit Test', () => {

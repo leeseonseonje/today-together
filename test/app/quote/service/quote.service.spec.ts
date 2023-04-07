@@ -6,12 +6,12 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import {dbConfig} from '../../../../src/db/config';
 import {instance, mock, when} from 'ts-mockito';
 import {ZenQuoteApi} from '../../../../src/app/quote/api/zen-quote.api';
-import {PapagoApi} from '../../../../src/app/translator/PapagoApi';
+import {PapagoApi} from '../../../../src/app/translator/papago.api';
 import {QuoteRepository} from '../../../../src/app/quote/repository/quote.repository';
 import {Quote} from '../../../../src/app/quote/quote.entity';
 import {LocalDate} from 'js-joda';
 import {QuoteApi, quoteApi} from '../../../../src/app/quote/api/quote.api';
-import {translatorApi, TranslatorApi} from '../../../../src/app/translator/TranslatorApi';
+import {translatorApi, TranslatorApi} from '../../../../src/app/translator/translator.api';
 import {ResponseQuoteApiDto} from '../../../../src/app/quote/api/dto/response-quote-api.dto';
 import {todayQuoteRepository, TodayQuoteRepository} from '../../../../src/app/quote/repository/today-quote.repository';
 

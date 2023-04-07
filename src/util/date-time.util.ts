@@ -10,7 +10,7 @@ export class DateTimeUtil {
     return convert(localDate).toDate();
   }
 
-  static toLocalDateTime(date: string): LocalDate {
+  static toLocalDate(date: string): LocalDate {
     if (!date) {
       return null;
     }
