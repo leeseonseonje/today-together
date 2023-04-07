@@ -34,7 +34,13 @@ export class TodoService {
         const newTodayTodo = new Todo(memberId, todo.text, LocalDate.now(), TodoStatus.INCOMPLETE);
         await todoRepository.save(newTodayTodo);
       }
-      return await todoRepository.findTodayTodos(memberId);
+
+      return await todoRepository.findDayTodos(memberId, LocalDate.now());
     });
+  }
+
+  async getDayTodos(memberId: number, day: LocalDate) {
+    const todoRepository = getConnection().getCustomRepository(TodoRepository);
+    return await todoRepository.findDayTodos(memberId, day);
   }
 }

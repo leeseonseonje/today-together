@@ -24,12 +24,12 @@ export class TodoRepository extends Repository<Todo> {
       .getMany();
   }
 
-  async findTodayTodos(memberId: number) {
+  async findDayTodos(memberId: number, day: LocalDate): Promise<Pick<Todo, 'id' | 'text'| 'status'>[]> {
     return await this
       .createQueryBuilder('t')
       .select(['t.id', 't.text', 't.status'])
-      .where('t.memberId = :memberId', { memberId })
-      .andWhere('t.day = :today', { today: LocalDate.now().toString() })
+      .where('t.memberId = :memberId', {memberId})
+      .andWhere('t.day = :today', {today: day.toString()})
       .getMany();
   }
 }

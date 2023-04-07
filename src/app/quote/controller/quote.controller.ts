@@ -1,7 +1,7 @@
 import {Controller, Get} from '@nestjs/common';
 import {QuoteService} from '../service/quote.service';
 
-@Controller('/quote')
+@Controller('/quotes')
 export class QuoteController {
 
   constructor(private readonly quoteService: QuoteService) {
