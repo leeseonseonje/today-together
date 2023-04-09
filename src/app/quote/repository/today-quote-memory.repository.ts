@@ -13,15 +13,19 @@ export class TodayQuoteMemoryRepository implements TodayQuoteRepository {
     if (TodayQuoteMemoryRepository.todayQuote) {
       return TodayQuoteMemoryRepository.todayQuote;
     } else {
-      const quoteRepository = getConnection().getCustomRepository(QuoteRepository);
+      const quoteRepository = this.getQuoteRepository();
       TodayQuoteMemoryRepository.todayQuote = await quoteRepository.findTodayQuote();
       return TodayQuoteMemoryRepository.todayQuote;
     }
   }
 
   async save(todayQuote: Quote) {
-    const savedTodayQuote = await getConnection().getCustomRepository(QuoteRepository).save(todayQuote);
+    const savedTodayQuote = await this.getQuoteRepository().save(todayQuote);
     TodayQuoteMemoryRepository.todayQuote = savedTodayQuote;
     return savedTodayQuote;
+  }
+
+  private getQuoteRepository() {
+    return getConnection().getCustomRepository(QuoteRepository);
   }
 }
