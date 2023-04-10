@@ -28,7 +28,7 @@ export class TodoService {
     await getManager().transaction(async manager => {
       const todoRepository = manager.getCustomRepository(TodoRepository);
       await todoRepository.complete(id);
-      await manager.getRepository(Challenge).save(new Challenge(LocalDate.now()));
+      // await manager.getRepository(Challenge).save(new Challenge(LocalDate.now()));
     });
   }
 

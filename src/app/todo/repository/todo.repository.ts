@@ -28,8 +28,8 @@ export class TodoRepository extends Repository<Todo> {
     return await this
       .createQueryBuilder('t')
       .select(['t.id', 't.text', 't.status'])
-      .where('t.memberId = :memberId', {memberId})
-      .andWhere('t.day = :today', {today: day.toString()})
+      .where('t.memberId = :memberId', {memberId: memberId})
+      .andWhere('t.day = :day', {day: day.toString()})
       .getMany();
   }
 }
