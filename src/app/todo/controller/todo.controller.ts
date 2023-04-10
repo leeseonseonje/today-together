@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Patch, Post, Query} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Patch, Post, Query} from '@nestjs/common';
 import {TodoService} from '../service/todo.service';
 import {DateUtils} from 'typeorm/util/DateUtils';
 import {DateTimeUtil} from '../../../util/date-time.util';
@@ -24,6 +24,11 @@ export class TodoController {
   @Post('/complete')
   async complete(@Body() id: number) {
     await this.todoService.complete(id);
+  }
+
+  @Delete('/:todoId')
+  async removeTodo(@Param('todoId') todoId: number) {
+    return await this.todoService.removeTodo(todoId);
   }
 
   @Get('/today/:memberId')

@@ -5,7 +5,7 @@ import {translatorApi, TranslatorApi} from '../../translator/translator.api';
 import {ActivityType} from '../domain/activity.type.enum';
 import {ResponseRecommendTodoApiDto} from '../api/dto/response-recommend-todo-api.dto';
 import {ActivityRepository} from '../repository/activity.repository';
-import {Connection, getConnection} from 'typeorm';
+import {getConnection} from 'typeorm';
 import {ResponseActivityDto} from './dto/response-activity.dto';
 
 @Injectable()
