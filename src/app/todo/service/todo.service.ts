@@ -4,7 +4,7 @@ import {TodoStatus} from '../domain/todo-status.enum';
 import {LocalDate} from 'js-joda';
 import {Injectable} from '@nestjs/common';
 import {getConnection, getManager} from 'typeorm';
-import {Challenge} from '../../challenge/challenge.entity';
+import {ChallengeRepository} from '../../challenge/repository/challenge.repository';
 
 @Injectable()
 export class TodoService {
@@ -24,11 +24,12 @@ export class TodoService {
     const todoRepository = this.getTodoRepository();
     await todoRepository.delete(id);
   }
-  async complete(id: number) {
-    await getManager().transaction(async manager => {
+  async complete(todoId: number, memberId: number) {
+    return await getManager().transaction(async manager => {
       const todoRepository = manager.getCustomRepository(TodoRepository);
-      await todoRepository.complete(id);
-      // await manager.getRepository(Challenge).save(new Challenge(LocalDate.now()));
+      await todoRepository.complete(todoId);
+
+      return await manager.getCustomRepository(ChallengeRepository).commit(memberId, todoId);
     });
   }
 

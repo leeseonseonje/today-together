@@ -17,6 +17,9 @@ export class Challenge extends BaseTimeEntity {
   @Column({name: 'member_id'})
   memberId: number;
 
+  @Column()
+  commits: number;
+
   @Column({
     name: 'commit_time',
     type: 'timestamp',
@@ -24,11 +27,11 @@ export class Challenge extends BaseTimeEntity {
   })
   readonly commitTime: LocalDateTime;
 
-
-  constructor(todoId: number, memberId: number, commitTime: LocalDateTime) {
+  constructor(todoId: number, memberId: number, commits: number, commitTime: LocalDateTime) {
     super();
     this.todoId = todoId;
     this.memberId = memberId;
+    this.commits = commits;
     this.commitTime = commitTime;
   }
 }

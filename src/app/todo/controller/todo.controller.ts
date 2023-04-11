@@ -22,8 +22,8 @@ export class TodoController {
   }
 
   @Post('/complete')
-  async complete(@Body() id: number) {
-    await this.todoService.complete(id);
+  async complete(@Body() request: { memberId: number, todoId: number }) {
+    await this.todoService.complete(request.memberId, request.todoId);
   }
 
   @Delete('/:todoId')

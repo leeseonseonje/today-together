@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import {getConnection} from 'typeorm';
-import {Challenge} from '../challenge.entity';
 import {ChallengeRepository} from '../repository/challenge.repository';
 import {LocalDate} from 'js-joda';
 
@@ -13,7 +12,12 @@ export class ChallengeService {
 
   async getDayCommit(memberId: number, day: LocalDate) {
     const challengeRepository = await this.getChallengeRepository();
-    return await challengeRepository.countDayChallenge(memberId, day);
+    return await challengeRepository.dayChallengeCommits(memberId, day);
+  }
+
+  async getMonthCommit(memberId: number, day: LocalDate) {
+    const challengeRepository = await this.getChallengeRepository();
+    return await challengeRepository.monthChallengeCommits(memberId, day);
   }
 
   private getChallengeRepository() {
