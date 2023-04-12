@@ -18,25 +18,27 @@ export class ChallengeRepository extends Repository<Challenge> {
     }
   }
 
-  async dayChallengeCommits(memberId: number, day: LocalDate):
+  async dayChallengeCommits(memberId: number, day: LocalDate, end: LocalDate):
     Promise<Pick<Challenge, 'todoId' | 'commitTime' | 'commits'>> {
+    console.log(day)
+    console.log(end)
     return  await this
       .createQueryBuilder('c')
       .select(['c.todoId', 'c.commitTime', 'c.commits'])
       .where('c.memberId = :memberId', {memberId: memberId})
-      .andWhere('date(c.commitTime) = :day', {day: day.toString()})
+      .andWhere('c.commitTime >= :day', {day: day.toString()})
+      .andWhere('c.commitTime < :end', {end: end.toString()})
       .getOne();
   }
 
-  async monthChallengeCommits(memberId: number, day: LocalDate)
+  async monthChallengeCommits(memberId: number, day: LocalDate, end: LocalDate)
     : Promise<Pick<Challenge, 'todoId' | 'commitTime'| 'commits'>[]>{
     return await this
       .createQueryBuilder('c')
       .select(['c.todoId', 'c.commitTime', 'c.commits'])
       .where('c.memberId = :memberId', {memberId: memberId})
-      .andWhere('year(c.commitTime) = :year', {year: day.year()})
-      .andWhere('month(c.commitTime) = :month', {month: day.month().value()})
+      .andWhere('c.commitTime >= :day', {day: day.toString()})
+      .andWhere('c.commitTime < :end', {end: end.toString()})
       .getMany();
-
   }
 }
