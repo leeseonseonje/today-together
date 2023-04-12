@@ -6,9 +6,9 @@ import {LocalDate} from 'js-joda';
 @Injectable()
 export class ChallengeService {
 
-  //하루 치 - 몇번 한지? VV
-  //전체 치 - 각 날 마다 몇번 했는지 (한달 단위)
   //히스토리 - 시간, 뭐로 올린지 등등 그런 것들?
+  // 시간 - TODO: 하수구 뚫기
+  // select ;
 
   async getDayCommit(memberId: number, day: LocalDate) {
     const challengeRepository = await this.getChallengeRepository();

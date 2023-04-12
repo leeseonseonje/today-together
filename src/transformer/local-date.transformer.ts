@@ -3,11 +3,11 @@ import {LocalDate} from 'js-joda';
 import {DateTimeUtil} from '../util/date-time.util';
 
 export class LocalDateTransformer implements ValueTransformer {
-  to(localDateTime: LocalDate): Date {
-    return DateTimeUtil.toDate(localDateTime);
+  to(localDate: LocalDate) {
+    return DateTimeUtil.toDate(localDate);
   }
 
-  from(date: string): LocalDate {
+  from(date: string) {
     return DateTimeUtil.toLocalDate(date);
   }
 }
