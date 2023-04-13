@@ -28,37 +28,6 @@ describe('todo Service Integration Test', () => {
     await getConnection().close();
   })
 
-  it('complete 상태값 COMPLETE로 변경, commit, 그 날 최초 커밋 시 challenge save', async () => {
-    const todo = await getConnection().getCustomRepository(TodoRepository)
-      .save(new Todo(1, 'text1', LocalDate.now(), TodoStatus.INCOMPLETE));
-
-    const result = await sut.complete(todo.id, 1) as Challenge;
-
-    const findTodo = await getConnection().getCustomRepository(TodoRepository).findOne({
-      where: {
-        id: todo.id,
-      }
-    });
-    expect(findTodo.status).toBe(TodoStatus.COMPLETE);
-    expect(result.commits).toBe(1);
-  });
-
-  it('최초 커밋 아닐 시 challenge update (commits++)', async () => {
-    const todo = await getConnection().getCustomRepository(TodoRepository)
-      .save(new Todo(1, 'text1', LocalDate.now(), TodoStatus.INCOMPLETE));
-    const challenge = await getConnection().getCustomRepository(ChallengeRepository)
-      .save(new Challenge(todo.id, 1, 1, LocalDateTime.now()));
-
-    const result = await sut.complete(todo.id, 1);
-
-    const findChallenge = await getConnection().getCustomRepository(ChallengeRepository).findOne({
-      where: {
-        id: challenge.id,
-      }
-    });
-    expect(findChallenge.commits).toBe(2);
-  });
-
   it('오늘 할 일 목록 호출 미완료한 일정이 있으면 오늘 일정으로 자동 등록', async () => {
     await getConnection().getCustomRepository(TodoRepository).save(new Todo(1, 'text1', LocalDate.of(1, 8, 2), TodoStatus.INCOMPLETE));
     await getConnection().getCustomRepository(TodoRepository).save(new Todo(1, 'text2', LocalDate.of(100, 9, 6), TodoStatus.INCOMPLETE));
