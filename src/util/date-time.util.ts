@@ -1,10 +1,11 @@
-import {convert, DateTimeFormatter, LocalDate, LocalDateTime} from 'js-joda';
+import {convert, DateTimeFormatter, LocalDate, LocalDateTime, nativeJs} from 'js-joda';
 
 export class DateTimeUtil {
   private static DATE_FORMATTER = DateTimeFormatter.ofPattern('yyyy-MM-dd');
   private static DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(
     'yyyy-MM-dd HH:mm:ss',
   );
+
   static toDate(localDate: LocalDate | LocalDateTime) {
     if (!localDate) {
       return null;
@@ -12,19 +13,20 @@ export class DateTimeUtil {
     return convert(localDate).toDate();
   }
 
-  static toLocalDate(date: string) {
-    if (!date) {
-      return null;
+  static toLocalDate(date: Date | string) {
+    if (typeof date === 'string') {
+      return LocalDate.parse(date, this.DATE_FORMATTER);
+    } else {
+      return LocalDate.from(nativeJs(date));
     }
-    return LocalDate.parse(date, this.DATE_FORMATTER);
   }
 
-  static toLocalDateTime(date: string) {
-    if (!date) {
-      return null;
+  static toLocalDateTime(date: Date | string) {
+    if (typeof date === 'string') {
+      return LocalDateTime.parse(date, this.DATE_TIME_FORMATTER);
+    } else {
+      return LocalDateTime.from(nativeJs(date));
     }
-    return LocalDateTime.now();
-    // return LocalDateTime.parse(date, this.DATE_TIME_FORMATTER);
   }
 }
 

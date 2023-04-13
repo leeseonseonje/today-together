@@ -7,7 +7,7 @@ export class LocalDateTimeTransformer implements ValueTransformer {
     return DateTimeUtil.toDate(localDateTime);
   }
 
-  from(date: string) {
+  from(date: Date | string) {
     return DateTimeUtil.toLocalDateTime(date);
   }
 }
