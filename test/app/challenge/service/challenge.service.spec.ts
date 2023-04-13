@@ -54,7 +54,7 @@ describe('challenge Service Integration Test', () => {
     }
 
     const result = await sut.getMonthCommit(1, LocalDate.now());
-    console.log(result);
-    // expect(result[0].commits).toBe(130);
+
+    expect(result[0].commits).toBe(130);
   });
 });

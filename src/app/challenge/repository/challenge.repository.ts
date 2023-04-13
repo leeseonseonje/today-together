@@ -30,10 +30,10 @@ export class ChallengeRepository extends Repository<Challenge> {
       .andWhere('c.commitTime >= :day', {day: day.toString()})
       .andWhere('c.commitTime < :end', {end: end.toString()})
       .groupBy('date(c.commitTime)')
-      .getRawMany<{ commits: number, commitDay: LocalDate }>();
+      .getRawMany<{ commits: number, commitDay: Date }>();
 
     return result.map(r => {
-      return new MonthChallengeDto(Number(r.commits), DateTimeUtil.toLocalDate(r.commitDay.toString()));
+      return new MonthChallengeDto(Number(r.commits), DateTimeUtil.toLocalDate(r.commitDay));
     });
   }
 }

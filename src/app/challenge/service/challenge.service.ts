@@ -8,6 +8,7 @@ export class ChallengeService {
 
   //히스토리 - 시간, 뭐로 올린지 등등 그런 것들?
   // 시간 - TODO: 하수구 뚫기
+  // parameter: memberId, 날 ex)2023-04-21 (LocalDate)
   // select ;
 
   async getDayCommit(memberId: number, day: LocalDate) {
