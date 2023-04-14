@@ -12,23 +12,23 @@ export class ChallengeRepository extends Repository<Challenge> {
     return await this.save(new Challenge(todoId, memberId, LocalDateTime.now()));
   }
 
-  async dayChallengeCommits(memberId: number, day: LocalDate, end: LocalDate): Promise<number> {
+  async dayChallengeCommits(memberId: number, day: LocalDate): Promise<number> {
     return await this
       .createQueryBuilder('c')
       .where('c.memberId = :memberId', {memberId: memberId})
       .andWhere('c.commitTime >= :day', {day: day.toString()})
-      .andWhere('c.commitTime < :end', {end: end.toString()})
+      .andWhere('c.commitTime < :end', {end: day.plusDays(1).toString()})
       .getCount();
   }
 
-  async monthChallengeCommits(memberId: number, day: LocalDate, end: LocalDate) {
+  async monthChallengeCommits(memberId: number, day: LocalDate) {
     const result = await this
       .createQueryBuilder('c')
       .select('count(*)', 'commits')
       .addSelect('date(c.commitTime)', 'commitDay')
       .where('c.memberId = :memberId', {memberId: memberId})
       .andWhere('c.commitTime >= :day', {day: day.toString()})
-      .andWhere('c.commitTime < :end', {end: end.toString()})
+      .andWhere('c.commitTime < :end', {end: day.plusMonths(1).toString()})
       .groupBy('date(c.commitTime)')
       .getRawMany<{ commits: number, commitDay: Date }>();
 

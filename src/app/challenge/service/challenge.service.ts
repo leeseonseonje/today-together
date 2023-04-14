@@ -13,15 +13,13 @@ export class ChallengeService {
 
   async getDayCommit(memberId: number, day: LocalDate) {
     const challengeRepository = await this.getChallengeRepository();
-    const end = day.plusDays(1);
-    return await challengeRepository.dayChallengeCommits(memberId, day, end);
+    return await challengeRepository.dayChallengeCommits(memberId, day);
   }
 
   async getMonthCommit(memberId: number, day: LocalDate) {
     const challengeRepository = await this.getChallengeRepository();
     day = LocalDate.of(day.year(), day.month(), 1);
-    const end = day.plusMonths(1);
-    return await challengeRepository.monthChallengeCommits(memberId, day, end);
+    return await challengeRepository.monthChallengeCommits(memberId, day);
   }
 
   private getChallengeRepository() {

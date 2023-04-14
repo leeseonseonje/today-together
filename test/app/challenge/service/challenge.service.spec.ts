@@ -37,6 +37,7 @@ describe('challenge Service Integration Test', () => {
     }
 
     const result = await sut.getDayCommit(1, LocalDate.now());
+
     expect(result).toBe(100);
   });
 
