@@ -64,7 +64,7 @@ describe('challenge Service Integration Test', () => {
   it('commit 내역 (하루 단위)', async () => {
     const challengeRepository = getConnection().getRepository(Challenge);
     const todoRepository = getConnection().getRepository(Todo);
-    for (let i = 0; i < 10; i++) {
+    for (let i = 1; i <= 10; i++) {
       await todoRepository.save(new Todo(1, 'todo', LocalDate.now(), TodoStatus.COMPLETE));
       await challengeRepository.save(new Challenge(i, 1, LocalDateTime.now()));
     }
@@ -75,7 +75,7 @@ describe('challenge Service Integration Test', () => {
 
     const result = await sut.dayCommitHistory(1, LocalDate.now());
 
-    expect(result).toBe(10);
+    expect(result.length).toBe(10);
   });
 
 });

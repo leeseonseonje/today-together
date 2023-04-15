@@ -42,15 +42,15 @@ export class ChallengeRepository extends Repository<Challenge> {
   async dayCommitHistory(memberId: number, day: LocalDate) {
     const result = await this
       .createQueryBuilder('c')
-      .select(['t.id', 'c.commitTime, t.text'])
+      .addSelect('t.id', 'todoId')
+      .addSelect('c.commitTime', 'commitTime')
+      .addSelect('t.text', 'description')
       .innerJoin(Todo, 't', 'c.todoId = t.id')
       .where('c.memberId = :memberId', {memberId: memberId})
       .andWhere('c.commitTime >= :day', {day: day.toString()})
       .andWhere('c.commitTime < :end', {end: day.plusDays(1).toString()})
       .getRawMany<{ todoId: number, commitTime: Date, description: string}>();
 
-    // console.log(result[0].commitTime.getDay());
-    console.log(result[0].commitTime);
     return result.map(r => {
       return new DayCommitHistoryDto(r.todoId, DateTimeUtil.toLocalDateTime(r.commitTime), r.description);
     })
