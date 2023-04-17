@@ -3,11 +3,9 @@ import {INestApplication} from '@nestjs/common';
 import * as request from 'supertest';
 import {AppModule} from '../../../../src/app.module';
 import {getConnection} from 'typeorm';
-import {TodayQuoteInit} from '../../../../src/app/quote/init/today-quote.init';
 
-describe('ActivityController (e2e)', () => {
+describe('QuoteController', () => {
   let app: INestApplication;
-  let initTodayQuote: TodayQuoteInit;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -16,15 +14,13 @@ describe('ActivityController (e2e)', () => {
 
     app = module.createNestApplication();
     await app.init();
-
-    initTodayQuote = module.get<TodayQuoteInit>(TodayQuoteInit);
   });
 
   afterEach(async () => {
     await getConnection().close();
   });
 
-  it('e2e 파라미터가 없을 경우', async () => {
+  it('오늘의 명언', async () => {
     const response = await request(app.getHttpServer())
       .get('/quotes')
       .expect(200);

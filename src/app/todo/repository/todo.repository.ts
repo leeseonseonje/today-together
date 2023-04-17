@@ -7,7 +7,8 @@ import {LocalDate} from 'js-joda';
 export class TodoRepository extends Repository<Todo> {
 
   async updateText(id: number, text: string) {
-    await this.update(id, {text: text})
+    let updateResult = await this.update(id, {text: text});
+    console.log(updateResult);
   }
 
   async complete(id: number) {

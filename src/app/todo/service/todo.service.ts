@@ -12,12 +12,13 @@ export class TodoService {
   async save(memberId: number, text: string) {
     const todoRepository = this.getTodoRepository();
     const todo = new Todo(memberId, text, LocalDate.now(), TodoStatus.INCOMPLETE);
-    return await todoRepository.save(todo);
+    const savedTodo = await todoRepository.save(todo);
+    return savedTodo.id;
   }
 
   async updateText(id: number, text: string) {
     const todoRepository = this.getTodoRepository();
-    await todoRepository.updateText(id, text);
+    return await todoRepository.updateText(id, text);
   }
 
   async removeTodo(id: number) {

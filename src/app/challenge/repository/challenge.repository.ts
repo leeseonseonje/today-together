@@ -14,7 +14,7 @@ export class ChallengeRepository extends Repository<Challenge> {
     return await this.save(new Challenge(todoId, memberId, LocalDateTime.now()));
   }
 
-  async dayChallengeCommits(memberId: number, day: LocalDate): Promise<number> {
+  async dayChallengeCommits(memberId: number, day: LocalDate) {
     return await this
       .createQueryBuilder('c')
       .where('c.memberId = :memberId', {memberId: memberId})

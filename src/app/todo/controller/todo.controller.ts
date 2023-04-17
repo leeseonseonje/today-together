@@ -13,12 +13,12 @@ export class TodoController {
 
   @Post()
   async save(@Body() request: { memberId: number, text: string }) {
-    await this.todoService.save(request.memberId, request.text);
+    return await this.todoService.save(request.memberId, request.text);
   }
 
   @Patch()
   async updateText(@Body() request: { todoId: number, text: string }) {
-    await this.todoService.updateText(request.todoId, request.text);
+    return await this.todoService.updateText(request.todoId, request.text);
   }
 
   @Post('/complete')
