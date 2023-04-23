@@ -19,7 +19,7 @@ export class RecommendTodoApi {
     const response = await this.httpService.axiosRef.get<ResponseRecommendTodoApiDto>(requestUri);
 
     if (response.data.error) {
-      throw new NotActivityException("할 게 없습니다.", 400);
+      throw new NotActivityException("할 게 없습니다.");
     }
     return response.data;
   }

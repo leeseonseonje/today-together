@@ -7,16 +7,13 @@ export class MemberController {
 
   @Get()
   findAll() {
-    return this.memberService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.memberService.findOne(+id);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.memberService.remove(+id);
   }
 }

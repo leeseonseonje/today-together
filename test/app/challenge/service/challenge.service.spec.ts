@@ -46,35 +46,33 @@ describe('challenge Service Integration Test', () => {
   it('모든날의 commit 횟수 조회 (한달 단위)', async () => {
     const repository = getConnection().getRepository(Challenge);
 
-    for (let i = 0; i < 100; i++) {
-      await repository.save(new Challenge(2, 1, LocalDateTime.now()));
-    }
-    for (let i = 0; i < 30; i++) {
-      await repository.save(new Challenge(2, 1, LocalDateTime.now()));
-    }
-    for (let i = 0; i < 50; i++) {
-      await repository.save(new Challenge(2, 1, LocalDateTime.now().plusMonths(1)));
-    }
+    // for (let i = 0; i < 100; i++) {
+    //   await repository.save(new Challenge(2, 1, LocalDateTime.now()));
+    // }
+    // for (let i = 0; i < 30; i++) {
+    //   await repository.save(new Challenge(2, 1, LocalDateTime.now()));
+    // }
+    // for (let i = 0; i < 50; i++) {
+    //   await repository.save(new Challenge(2, 1, LocalDateTime.now().plusMonths(1)));
+    // }
 
     const result = await sut.getMonthCommit(1, LocalDate.now());
-
     expect(result[0].commits).toBe(130);
   });
 
   it('commit 내역 (하루 단위)', async () => {
     const challengeRepository = getConnection().getRepository(Challenge);
     const todoRepository = getConnection().getRepository(Todo);
-    for (let i = 1; i <= 10; i++) {
-      await todoRepository.save(new Todo(1, 'todo', LocalDate.now(), TodoStatus.COMPLETE));
-      await challengeRepository.save(new Challenge(i, 1, LocalDateTime.now()));
-    }
-    for (let i = 11; i < 50; i++) {
-      await todoRepository.save(new Todo(1, 'todo', LocalDate.now().plusDays(1), TodoStatus.COMPLETE));
-      await challengeRepository.save(new Challenge(i, 1, LocalDateTime.now().plusDays(1)));
-    }
+    // for (let i = 1; i <= 10; i++) {
+    //   await todoRepository.save(new Todo(1, 'todo', LocalDate.now(), TodoStatus.COMPLETE));
+    //   await challengeRepository.save(new Challenge(i, 1, LocalDateTime.now()));
+    // }
+    // for (let i = 11; i < 50; i++) {
+    //   await todoRepository.save(new Todo(1, 'todo', LocalDate.now().plusDays(1), TodoStatus.COMPLETE));
+    //   await challengeRepository.save(new Challenge(i, 1, LocalDateTime.now().plusDays(1)));
+    // }
 
     const result = await sut.dayCommitHistory(1, LocalDate.now());
-
     expect(result.length).toBe(10);
   });
 

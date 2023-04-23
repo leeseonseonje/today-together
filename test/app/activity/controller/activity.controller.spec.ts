@@ -43,7 +43,7 @@ describe('ActivityController (e2e)', () => {
 
   it('e2e 잘못된 파라미터', async () => {
     await request(app.getHttpServer())
-      .get('/activity')
+      .get('/activities')
       .query({
         type: 'bad-request'
       }).expect(400)
