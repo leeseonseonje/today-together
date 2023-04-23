@@ -18,6 +18,7 @@ export class OauthController {
 
   @Post('/login')
   async login(@Body() request: RequestOauthLoginDto) {
-    await this.oauthService.login(request.accessToken, AuthorizationServer[request.server.toLocaleUpperCase()]);
+    return await this.oauthService
+      .login(request.accessToken, AuthorizationServer[request.server.toLocaleUpperCase()]);
   }
 }

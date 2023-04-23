@@ -2,6 +2,7 @@ import {HttpService} from '@nestjs/axios';
 import {AuthorizationServer} from '../controller/authorization-server.enum';
 import {LoginExpiredException} from '../exception/login-expired.exception';
 import {Injectable} from '@nestjs/common';
+import {OauthGetMemberDto} from './dto/oauth-get-member.dto';
 
 @Injectable()
 export class OauthApi {
@@ -22,6 +23,7 @@ export class OauthApi {
         throw new LoginExpiredException(error, error.response.status);
       });
 
-    console.log(response);
+    const data = response.data;
+    return new OauthGetMemberDto(data.sub, data.name, data.email);
   }
 }

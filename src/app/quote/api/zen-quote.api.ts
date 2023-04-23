@@ -13,11 +13,11 @@ export class ZenQuoteApi implements QuoteApi {
 
 
   async getQuote() {
-    const response = await this.httpService.axiosRef.get(this.url);
-
-    if (response.status !== 200) {
-      throw new InternalServerErrorException('명언이 없습니다.');
-    }
+    const response = await this.httpService.axiosRef
+      .get(this.url)
+      .catch(error => {
+        throw new InternalServerErrorException('명언이 없습니다.');
+      });
 
     return new ResponseQuoteApiDto(response.data[0].q, response.data[0].a)
   }

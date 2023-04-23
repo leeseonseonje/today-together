@@ -10,9 +10,13 @@ export class Member extends BaseTimeEntity {
   @Column()
   email: string;
 
-  constructor(oauth_id: string, email: string) {
+  @Column()
+  name: string;
+
+  constructor(oauth_id: string, email: string, name: string) {
     super();
     this.oauth_id = oauth_id;
     this.email = email;
+    this.name = name;
   }
 }
