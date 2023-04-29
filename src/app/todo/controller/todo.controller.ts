@@ -2,7 +2,9 @@ import {Body, Controller, Delete, Get, Param, Patch, Post, Query} from '@nestjs/
 import {TodoService} from '../service/todo.service';
 import {DateUtils} from 'typeorm/util/DateUtils';
 import {DateTimeUtil} from '../../../util/date-time.util';
+import {ApiParam, ApiQuery, ApiTags} from '@nestjs/swagger';
 
+@ApiTags('todo')
 @Controller('/todos')
 export class TodoController {
 
@@ -37,6 +39,7 @@ export class TodoController {
   }
 
   @Get('/:memberId')
+  @ApiQuery({ name: 'day', type: 'date', example: '2021-11-25', description: '조회하려는 날짜' })
   async dayTodo(@Param('memberId') memberId: number,
                 @Query('day') day: string) {
     const localDate = DateTimeUtil.toLocalDate(day);

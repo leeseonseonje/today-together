@@ -1,7 +1,8 @@
 import {Controller, Get, Post, Body, Patch, Param, Delete, Query} from '@nestjs/common';
 import { ChallengeService } from '../service/challenge.service';
 import {DateTimeUtil} from '../../../util/date-time.util';
-
+import {ApiTags} from '@nestjs/swagger';
+@ApiTags('challenge')
 @Controller('challenges')
 export class ChallengeController {
   constructor(private readonly challengeService: ChallengeService) {

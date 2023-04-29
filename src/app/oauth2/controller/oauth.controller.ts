@@ -3,7 +3,10 @@ import {AuthorizationServer} from './authorization-server.enum';
 import {RequestOauthLoginDto} from './dto/request-oauth-login.dto';
 import {OauthService} from '../service/oauth.service';
 import {LoginExpiredExceptionFilter} from '../exception/filter/login-expired-exception.filter';
+import {ApiTags} from '@nestjs/swagger';
 
+
+@ApiTags('oauth')
 @Controller('/oauth2')
 @UsePipes(new ValidationPipe())
 @UseFilters(LoginExpiredExceptionFilter)

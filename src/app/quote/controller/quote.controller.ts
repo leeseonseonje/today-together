@@ -1,6 +1,8 @@
 import {Controller, Get} from '@nestjs/common';
 import {QuoteService} from '../service/quote.service';
+import {ApiTags} from '@nestjs/swagger';
 
+@ApiTags('quote')
 @Controller('/quotes')
 export class QuoteController {
 
