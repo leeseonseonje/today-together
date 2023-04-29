@@ -9,7 +9,7 @@ import {ChallengeRepository} from '../../challenge/repository/challenge.reposito
 @Injectable()
 export class TodoService {
 
-  async save(memberId: number, text: string) {
+  async create(memberId: number, text: string) {
     const todoRepository = this.getTodoRepository();
     const todo = new Todo(memberId, text, LocalDate.now(), TodoStatus.INCOMPLETE);
     const savedTodo = await todoRepository.save(todo);
@@ -18,7 +18,8 @@ export class TodoService {
 
   async updateText(id: number, text: string) {
     const todoRepository = this.getTodoRepository();
-    return await todoRepository.updateText(id, text);
+    await todoRepository.updateText(id, text);
+    return id;
   }
 
   async removeTodo(id: number) {
@@ -30,7 +31,9 @@ export class TodoService {
       const todoRepository = manager.getCustomRepository(TodoRepository);
       await todoRepository.complete(todoId);
 
-      return await manager.getCustomRepository(ChallengeRepository).commit(memberId, todoId);
+      await manager.getCustomRepository(ChallengeRepository).commit(memberId, todoId);
+
+      return todoId;
     });
   }
 

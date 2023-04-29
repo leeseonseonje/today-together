@@ -2,12 +2,13 @@ import {EntityRepository, Repository} from 'typeorm';
 import {Todo} from '../domain/todo.entity';
 import {TodoStatus} from '../domain/todo-status.enum';
 import {LocalDate} from 'js-joda';
+import {FindDayTodosDto} from './dto/find-day-todos.dto';
 
 @EntityRepository(Todo)
 export class TodoRepository extends Repository<Todo> {
 
   async updateText(id: number, text: string) {
-    let updateResult = await this.update(id, {text: text});
+    await this.update(id, {text: text});
   }
 
   async complete(id: number) {
@@ -21,15 +22,19 @@ export class TodoRepository extends Repository<Todo> {
       .where('t.memberId = :memberId', {memberId})
       .andWhere('t.status = :status', {status: TodoStatus.INCOMPLETE})
       .andWhere('t.day < :today', {today: LocalDate.now().toString()})
-      .getMany();
+      .getMany()
   }
 
-  async findDayTodos(memberId: number, day: LocalDate): Promise<Pick<Todo, 'id' | 'text'| 'status'>[]> {
-    return await this
+  async findDayTodos(memberId: number, day: LocalDate): Promise<FindDayTodosDto[]> {
+    const todos = await this
       .createQueryBuilder('t')
       .select(['t.id', 't.text', 't.status'])
       .where('t.memberId = :memberId', {memberId: memberId})
       .andWhere('t.day = :day', {day: day.toString()})
       .getMany();
+
+    return todos.map(todo => {
+      return new FindDayTodosDto(todo.id, todo.text, todo.status);
+    });
   }
 }

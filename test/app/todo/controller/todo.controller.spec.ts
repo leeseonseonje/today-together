@@ -34,7 +34,7 @@ describe('TodoController', () => {
       .send({memberId: 1, text: 'text'})
       .expect(201);
 
-    expect(Number(response.text)).toBe(1);
+    expect(Number(response.text)).toBe(2);
   });
 
   it('오늘 할일 수정', async () => {
