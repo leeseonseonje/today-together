@@ -1,9 +1,9 @@
 import {Injectable} from '@nestjs/common';
-import {LoginUrl} from '../api/url/login-url.enum';
 import {OauthApi} from '../api/oauth.api';
 import {Member} from '../../member/member.entity';
 import {getConnection} from 'typeorm';
 import {ResponseOauthMemberDto} from './dto/response-oauth-member.dto';
+import {OauthServerType} from '../controller/enum/oauth-server-type.enum';
 
 @Injectable()
 export class OauthService {
@@ -11,12 +11,13 @@ export class OauthService {
   constructor(private readonly oauthApi: OauthApi) {
   }
 
-  async getToken(code: string) {
-
+  async getToken(code: string, server: OauthServerType) {
+    return await this.oauthApi.getToken(code, server);
   }
-  async login(accessToken: string, authorizationServerUrl: LoginUrl) {
+
+  async login(accessToken: string, server: OauthServerType) {
     const oauthMember = await this.oauthApi
-      .getMember(accessToken, authorizationServerUrl);
+      .getMember(accessToken, server);
 
     const member = new Member(oauthMember.id, oauthMember.email, oauthMember.name);
     const savedMember = await getConnection().getRepository(Member).save(member);

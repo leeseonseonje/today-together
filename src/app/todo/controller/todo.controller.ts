@@ -1,4 +1,16 @@
-import {Body, Controller, Delete, Get, Param, Patch, Post, Query, UsePipes, ValidationPipe} from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UsePipes,
+  ValidationPipe
+} from '@nestjs/common';
 import {TodoService} from '../service/todo.service';
 import {DateTimeUtil} from '../../../util/date-time.util';
 import {ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags} from '@nestjs/swagger';
@@ -39,10 +51,11 @@ export class TodoController {
 
   @ApiOperation({ summary: '오늘 할 일 완료'})
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'todo id',
   })
   @Post('/complete')
+  @HttpCode(200)
   async complete(@Body() request: CompleteTodoDto) {
     return await this.todoService.complete(request.memberId, request.todoId);
   }

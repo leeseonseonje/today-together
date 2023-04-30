@@ -1,17 +1,17 @@
-import {IsEnum, IsNotEmpty, IsString} from 'class-validator';
 import {OauthServerType} from '../enum/oauth-server-type.enum';
+import {IsEnum, IsNotEmpty, IsString} from 'class-validator';
 import {ApiProperty} from '@nestjs/swagger';
 
-export class RequestOauthLoginDto {
+export class RequestOauthTokenDto {
 
   @ApiProperty({
-    example: 'access token',
-    description: '발급 받은 access token',
+    example: '4342fd334ffd',
+    description: '인증 후 반환 받은 code 값',
     required: true
   })
   @IsString()
   @IsNotEmpty()
-  readonly accessToken: string;
+  readonly code: string;
 
   @ApiProperty({
     example: 'google',

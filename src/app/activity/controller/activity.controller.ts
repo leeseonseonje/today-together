@@ -12,12 +12,12 @@ export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
   @ApiOperation({ summary: '할 일 추천(추천받을 할 일의 타입을 정하거나 정하지 않을 수 있음)' })
   @ApiResponse({
-    status: 400,
-    description: '할 일이 없습니다.',
-  })
-  @ApiResponse({
     status: 200,
     type: ResponseActivityDto,
+  })
+  @ApiResponse({
+    status: 400,
+    description: '할 일이 없습니다.',
   })
   @Get()
   async recommendToDo(@Query() request: RequestActivityDto) {
