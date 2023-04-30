@@ -6,7 +6,7 @@ import {LocalDate} from 'js-joda';
 @Injectable()
 export class ChallengeService {
 
-  async getDayCommit(memberId: number, day: LocalDate) {
+  async getDayCommitCount(memberId: number, day: LocalDate) {
     const challengeRepository = await this.getChallengeRepository();
     return await challengeRepository.dayChallengeCommits(memberId, day);
   }

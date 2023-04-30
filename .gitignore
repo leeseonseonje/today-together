@@ -34,3 +34,4 @@ lerna-debug.log*
 !.vscode/launch.json
 !.vscode/extensions.json
 /src/app/translator/papago-info.enum.ts
+/src/resources/oauth2.yml

@@ -1,5 +1,5 @@
 import {HttpService} from '@nestjs/axios';
-import {AuthorizationServer} from '../controller/authorization-server.enum';
+import {LoginUrl} from './url/login-url.enum';
 import {LoginExpiredException} from '../exception/login-expired.exception';
 import {Injectable} from '@nestjs/common';
 import {OauthGetMemberDto} from './dto/oauth-get-member.dto';
@@ -10,7 +10,11 @@ export class OauthApi {
   constructor(private readonly httpService: HttpService) {
   }
 
-  async getMember(accessToken: string, authorizationServerUrl: AuthorizationServer) {
+  async getToken(code: string) {
+
+  }
+
+  async getMember(accessToken: string, authorizationServerUrl: LoginUrl) {
     const response = await this.httpService
       .axiosRef.get(authorizationServerUrl,
         {
@@ -20,7 +24,7 @@ export class OauthApi {
         }
       )
       .catch(error => {
-        throw new LoginExpiredException(error, error.response.status);
+        throw new LoginExpiredException(error.response.data, error.response.status);
       });
 
     const data = response.data;

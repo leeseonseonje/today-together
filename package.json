@@ -38,7 +38,8 @@
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.6.2",
     "ts-jenum": "^2.2.2",
-    "typeorm": "^0.2.45"
+    "typeorm": "^0.2.45",
+    "yaml": "^2.2.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

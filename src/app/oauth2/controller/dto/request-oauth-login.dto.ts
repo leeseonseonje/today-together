@@ -1,11 +1,12 @@
-import {IsNotEmpty} from 'class-validator';
-import {AuthorizationServer} from '../authorization-server.enum';
+import {IsEnum, IsNotEmpty, IsString} from 'class-validator';
+import {OauthServerType} from '../enum/oauth-server-type.enum';
 
 export class RequestOauthLoginDto {
 
+  @IsString()
   @IsNotEmpty()
   accessToken: string;
 
-  @IsNotEmpty()
-  server: AuthorizationServer;
+  @IsEnum(OauthServerType)
+  server: OauthServerType;
 }
