@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  today-together:
+    build: .
+    ports:
+      - 3000:3000
+    container_name: today-together
+    restart: always
+    depends_on:
+      - today-together-db
+    networks:
+      - today-together-network
+
+  today-together-db:
+    image: mysql
+    container_name: today-together-db
+    ports:
+      - 5506:3306
+    environment:
+      MYSQL_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: today_together
+      TZ: Asia/Seoul
+    networks:
+      - today-together-network
+
+networks:
+  today-together-network:
+

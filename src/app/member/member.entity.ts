@@ -1,4 +1,5 @@
 import {Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from 'typeorm';
+
 import {BaseTimeEntity} from '../base-time.entity';
 
 @Entity()

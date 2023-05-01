@@ -1,5 +1,4 @@
 import {Body, Controller, Get, HttpCode, Post, Query, UseFilters, UsePipes, ValidationPipe} from '@nestjs/common';
-import {LoginUrl} from '../api/url/login-url.enum';
 import {RequestOauthLoginDto} from './dto/request-oauth-login.dto';
 import {OauthService} from '../service/oauth.service';
 import {LoginExpiredExceptionFilter} from '../exception/filter/login-expired-exception.filter';
