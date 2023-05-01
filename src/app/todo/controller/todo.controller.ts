@@ -67,6 +67,7 @@ export class TodoController {
   }
 
   @ApiOperation({ summary: '오늘 할 일 목록 조회'})
+  @ApiParam({name: 'memberId', type: 'number', example: '1', description: 'oauth id'})
   @ApiResponse({
     status: 200,
     type: FindDayTodosDto,
@@ -77,6 +78,7 @@ export class TodoController {
   }
 
   @ApiOperation({ summary: '요청 받은 날짜의 할 일 목록 조회'})
+  @ApiParam({name: 'memberId', type: 'number', example: '1', description: 'oauth id'})
   @ApiQuery({name: 'day', type: 'date', example: '2021-11-25', description: '조회하려는 날짜'})
   @ApiResponse({
     status: 200,

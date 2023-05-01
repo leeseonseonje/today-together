@@ -5,6 +5,7 @@ export class CompleteTodoDto {
 
   @ApiProperty({
     example: '1',
+    description: 'oauth id',
     required: true
   })
   @IsNumber()

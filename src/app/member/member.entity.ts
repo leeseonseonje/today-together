@@ -6,17 +6,17 @@ import {BaseTimeEntity} from '../base-time.entity';
 export class Member extends BaseTimeEntity {
 
   @PrimaryColumn()
-  readonly oauth_id: string;
+  readonly id: string;
 
   @Column()
-  email: string;
+  readonly email: string;
 
   @Column()
-  name: string;
+  readonly name: string;
 
   constructor(oauth_id: string, email: string, name: string) {
     super();
-    this.oauth_id = oauth_id;
+    this.id = oauth_id;
     this.email = email;
     this.name = name;
   }

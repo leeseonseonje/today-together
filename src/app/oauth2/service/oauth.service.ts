@@ -20,8 +20,8 @@ export class OauthService {
       .getMember(accessToken, server);
 
     const member = new Member(oauthMember.id, oauthMember.email, oauthMember.name);
-    const savedMember = await getConnection().getRepository(Member).save(member);
+    await getConnection().getRepository(Member).upsert(member, []);
 
-    return new ResponseOauthMemberDto(savedMember.oauth_id, savedMember.email, savedMember.name);
+    return new ResponseOauthMemberDto(member.id, member.email, member.name);
   }
 }

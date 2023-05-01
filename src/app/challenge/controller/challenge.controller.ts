@@ -1,7 +1,7 @@
 import {Controller, Get, Param, Query} from '@nestjs/common';
 import {ChallengeService} from '../service/challenge.service';
 import {DateTimeUtil} from '../../../util/date-time.util';
-import {ApiOperation, ApiQuery, ApiResponse, ApiTags} from '@nestjs/swagger';
+import {ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags} from '@nestjs/swagger';
 import {MonthChallengeDto} from '../repository/dto/month-challenge.dto';
 import {DayCommitHistoryDto} from '../repository/dto/day-commit-history.dto';
 
@@ -12,6 +12,7 @@ export class ChallengeController {
   }
 
   @ApiOperation({ summary: '요청 받은 날짜의 커밋 횟수'})
+  @ApiParam({name: 'memberId', type: 'number', example: '1', description: 'oauth id'})
   @ApiQuery({name: 'day', type: 'date', example: '2021-11-25', description: '조회하려는 날짜'})
   @ApiResponse({
     status: 200,
@@ -25,6 +26,7 @@ export class ChallengeController {
   }
 
   @ApiOperation({ summary: '요청 받은 달의 총 커밋 횟수'})
+  @ApiParam({name: 'memberId', type: 'number', example: '1', description: 'oauth id'})
   @ApiQuery({name: 'day', type: 'date', example: '2021-11-25', description: '조회하려는 날짜'})
   @ApiResponse({
     status: 200,
@@ -37,6 +39,7 @@ export class ChallengeController {
   }
 
   @ApiOperation({ summary: '요청 받은 날짜의 커밋 상세내역'})
+  @ApiParam({name: 'memberId', type: 'number', example: '1', description: 'oauth id'})
   @ApiQuery({name: 'day', type: 'date', example: '2021-11-25', description: '조회하려는 날짜'})
   @ApiResponse({
     status: 200,
