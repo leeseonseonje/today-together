@@ -59,6 +59,6 @@ export class OauthApi {
       });
 
     const data = response.data;
-    return new OauthGetMemberDto(data.sub, data.name, data.email);
+    return OauthGetMemberDto.of(data, server);
   }
 }

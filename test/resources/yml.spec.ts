@@ -9,5 +9,7 @@ describe('yml file load test', () => {
     const yml = yaml.load(readFileSync(join(YAML_PATH, 'oauth2.yml'), 'utf8')) as Record<string, any>;
     // console.log(yml);
     console.log(yml.oauth2[OauthServerType.GOOGLE]);
+
+    console.log(OauthServerType.GOOGLE);
   });
 });
