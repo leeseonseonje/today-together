@@ -1,1 +1,1 @@
-export const YAML_PATH = __dirname
+export const YAML_PATH = `${process.env.PWD}/src/resources`;
