@@ -1,7 +1,10 @@
 import {TranslatorApi} from "./translator.api";
 import {Injectable, InternalServerErrorException} from "@nestjs/common";
 import {HttpService} from "@nestjs/axios";
-import {PapagoInfoEnum} from "./papago-info.enum";
+import * as yaml from 'js-yaml';
+import {readFileSync} from 'fs';
+import {join} from 'path';
+import {YAML_PATH} from '../../resources/path';
 
 @Injectable()
 export class PapagoApi implements TranslatorApi {
@@ -30,11 +33,16 @@ export class PapagoApi implements TranslatorApi {
   }
 
   private setHeader() {
+    const translatorConfig = yaml
+      .load(readFileSync(join(YAML_PATH, 'translator.yml'), 'utf8')) as Record<string, any>;
+
+    const id = translatorConfig.papago.id;
+    const secret = translatorConfig.papago.secret;
     return {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'X-Naver-Client-Id': PapagoInfoEnum.ID,
-        'X-Naver-Client-Secret': PapagoInfoEnum.SECRET,
+        'X-Naver-Client-Id': id,
+        'X-Naver-Client-Secret': secret,
       }
     };
   }

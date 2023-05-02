@@ -12,4 +12,11 @@ describe('yml file load test', () => {
 
     console.log(OauthServerType.GOOGLE);
   });
+
+  it('should ', async () => {
+    require("dotenv").config({path: `.env.development`});
+    // dotenv.config({path: `.env.development.${process.env.NODE_ENV}`});
+    console.log(process.env.DB_TYPE);
+    console.log(process.env.DB_PORT);
+  });
 });

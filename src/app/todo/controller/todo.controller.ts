@@ -29,7 +29,7 @@ export class TodoController {
   ) {
   }
 
-  @ApiOperation({ summary: '오늘 할 일 생성'})
+  @ApiOperation({summary: '오늘 할 일 생성'})
   @ApiResponse({
     status: 201,
     description: 'todo id'
@@ -39,7 +39,7 @@ export class TodoController {
     return await this.todoService.create(request.memberId, request.text);
   }
 
-  @ApiOperation({ summary: '오늘 할 일 수정'})
+  @ApiOperation({summary: '오늘 할 일 수정'})
   @ApiResponse({
     status: 200,
     description: 'todo id'
@@ -49,7 +49,7 @@ export class TodoController {
     return await this.todoService.updateText(request.todoId, request.text);
   }
 
-  @ApiOperation({ summary: '오늘 할 일 완료'})
+  @ApiOperation({summary: '오늘 할 일 완료'})
   @ApiResponse({
     status: 200,
     description: 'todo id',
@@ -60,13 +60,13 @@ export class TodoController {
     return await this.todoService.complete(request.memberId, request.todoId);
   }
 
-  @ApiOperation({ summary: '오늘 할 일 삭제'})
+  @ApiOperation({summary: '오늘 할 일 삭제'})
   @Delete('/:todoId')
   async removeTodo(@Param('todoId') todoId: number) {
     await this.todoService.removeTodo(todoId);
   }
 
-  @ApiOperation({ summary: '오늘 할 일 목록 조회'})
+  @ApiOperation({summary: '오늘 할 일 목록 조회'})
   @ApiParam({name: 'memberId', type: 'number', example: '1', description: 'oauth id'})
   @ApiResponse({
     status: 200,
@@ -77,7 +77,7 @@ export class TodoController {
     return await this.todoService.getTodayTodo(memberId);
   }
 
-  @ApiOperation({ summary: '요청 받은 날짜의 할 일 목록 조회'})
+  @ApiOperation({summary: '요청 받은 날짜의 할 일 목록 조회'})
   @ApiParam({name: 'memberId', type: 'number', example: '1', description: 'oauth id'})
   @ApiQuery({name: 'day', type: 'date', example: '2021-11-25', description: '조회하려는 날짜'})
   @ApiResponse({

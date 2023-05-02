@@ -1,10 +1,11 @@
 import {NestFactory} from '@nestjs/core';
-import {AppModule} from './app.module';
 import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
+import {AppModule} from './app.module';
+import {ConfigService} from '@nestjs/config';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   const config = new DocumentBuilder()
     .setTitle('Today Together API')
     .setDescription('Today Together API Spec')
@@ -12,6 +13,10 @@ async function bootstrap() {
     .addTag('Today Together')
     .build();
 
+  const configService = app.get(ConfigService);
+  console.log(process.env.NODE_ENV);
+  const host = configService.get<number>('DB_TYPE');
+  console.log(host);
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
