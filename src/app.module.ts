@@ -1,14 +1,14 @@
 import {Module} from '@nestjs/common';
 import {ActivityModule} from "./app/activity/activity.module";
 import {QuoteModule} from './app/quote/quote.module';
-import {TypeOrmModule, TypeOrmModuleOptions} from '@nestjs/typeorm';
+import {TypeOrmModule} from '@nestjs/typeorm';
 import {TodoModule} from './app/todo/todo.module';
 import {OauthModule} from './app/oauth2/oauth.module';
 import {ChallengeModule} from './app/challenge/challenge.module';
 import {APP_FILTER} from '@nestjs/core';
 import {ErrorFilter} from './common/error.filter';
 import {ConfigModule, ConfigService} from '@nestjs/config';
-import {dbConfig, DbConfig} from './db/config';
+import {DbConfig} from './db/config';
 
 @Module({
   imports: [ActivityModule,

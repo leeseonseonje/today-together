@@ -33,6 +33,7 @@ export class PapagoApi implements TranslatorApi {
   }
 
   private setHeader() {
+    console.log(YAML_PATH);
     const translatorConfig = yaml
       .load(readFileSync(join(YAML_PATH, 'translator.yml'), 'utf8')) as Record<string, any>;
 
