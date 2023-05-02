@@ -11,7 +11,9 @@
 ## 실행방법
 1. git clone https://github.com/leeseonseonje/today-together.git
 
-2. docker-compose -f ./today-together/docker-compose.yml up
+2. src/resources/oauth2-sample.yml, translator-sample.yml 파일을 참고하여 src/resources/oauth2.yml, src/resources/translator.yml 파일 생성 후 작성
+
+3. 프로젝트 루트 디렉토리에서 docker-compose up
 
 ## API Spec (Swagger)
   - http://localhost:3000/api
