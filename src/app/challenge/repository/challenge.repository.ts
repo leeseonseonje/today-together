@@ -1,7 +1,6 @@
 import {EntityRepository, Repository} from 'typeorm';
 import {Challenge} from '../challenge.entity';
 import {LocalDate, LocalDateTime} from 'js-joda';
-import {plainToInstance} from 'class-transformer';
 import {MonthChallengeDto} from './dto/month-challenge.dto';
 import {DateTimeUtil} from '../../../util/date-time.util';
 import {Todo} from '../../todo/domain/todo.entity';
@@ -18,8 +17,12 @@ export class ChallengeRepository extends Repository<Challenge> {
     return await this
       .createQueryBuilder('c')
       .where('c.memberId = :memberId', {memberId: memberId})
-      .andWhere('c.commitTime >= :day', {day: day.toString()})
-      .andWhere('c.commitTime < :end', {end: day.plusDays(1).toString()})
+      .andWhere('c.commitTime between :day and :end', {
+        day: day.toString(),
+        end: day.plusDays(1).toString(),
+      })
+      // .andWhere('c.commitTime >= :day', {day: day.toString()})
+      // .andWhere('c.commitTime < :end', {end: day.plusDays(1).toString()})
       .getCount();
   }
 
@@ -29,8 +32,12 @@ export class ChallengeRepository extends Repository<Challenge> {
       .select('count(*)', 'commits')
       .addSelect('date(c.commitTime)', 'commitDay')
       .where('c.memberId = :memberId', {memberId: memberId})
-      .andWhere('c.commitTime >= :day', {day: day.toString()})
-      .andWhere('c.commitTime < :end', {end: day.plusMonths(1).toString()})
+      .andWhere('c.commitTime between :day and :end', {
+        day: day.toString(),
+        end: day.plusMonths(1).toString(),
+      })
+      // .andWhere('c.commitTime >= :day', {day: day.toString()})
+      // .andWhere('c.commitTime < :end', {end: day.plusMonths(1).toString()})
       .groupBy('date(c.commitTime)')
       .getRawMany<{ commits: number, commitDay: Date }>();
 
@@ -47,9 +54,12 @@ export class ChallengeRepository extends Repository<Challenge> {
       .addSelect('t.text', 'description')
       .innerJoin(Todo, 't', 'c.todoId = t.id')
       .where('c.memberId = :memberId', {memberId: memberId})
-      .andWhere('c.commitTime >= :day', {day: day.toString()})
-      .andWhere('c.commitTime < :end', {end: day.plusDays(1).toString()})
-      .getRawMany<{ todoId: number, commitTime: Date, description: string}>();
+      .andWhere('c.commitTime between :day and :end', {
+        day: day.toString(),
+        end: day.plusDays(1).toString(),
+      })
+      // .andWhere('c.commitTime < :end', {end: day.plusDays(1).toString()})
+      .getRawMany<{ todoId: number, commitTime: Date, description: string }>();
 
     return result.map(r => {
       return new DayCommitHistoryDto(r.todoId, DateTimeUtil.toLocalDateTime(r.commitTime), r.description);
