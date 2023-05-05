@@ -1,11 +1,11 @@
-import {Injectable} from '@nestjs/common';
-import {Cron} from '@nestjs/schedule';
+import { Injectable } from "@nestjs/common";
 import {QuoteApiService} from '../service/quote-api.service';
+import {Cron} from '@nestjs/schedule';
 
 @Injectable()
 export class TodayQuoteScheduler {
   constructor(
-    private readonly quoteService: QuoteApiService,
+    private readonly quoteApiService: QuoteApiService,
   ) {}
 
   // @Cron('*/5 * * * * *')
@@ -13,7 +13,7 @@ export class TodayQuoteScheduler {
     timeZone: 'Asia/Seoul',
   })
   async refreshTodayQuote() {
-    const todayQuote = await this.quoteService.refreshTodayQuote();
+    const todayQuote = await this.quoteApiService.refreshTodayQuote();
     console.log(todayQuote);
   }
 

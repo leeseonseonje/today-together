@@ -29,6 +29,12 @@
       ],
       "lib/infra/*": [
         "libs/infra/src/*"
+      ],
+      "lib/common": [
+        "libs/common/src"
+      ],
+      "lib/common/*": [
+        "libs/common/src/*"
       ]
     }
   }

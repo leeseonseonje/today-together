@@ -15,7 +15,7 @@ export class OauthGetMemberDto {
 
   static of(data: any, server: OauthServerType) {
     if (server === 'google') {
-      return new OauthGetMemberDto(data.sub, data.name, data.email);
+      return new OauthGetMemberDto(data.sub, data.email, data.name);
     } else if (server === 'kakao') {
       return new OauthGetMemberDto(data.id, data.kakao_account.email, data.kakao_account.profile.nickname);
     }

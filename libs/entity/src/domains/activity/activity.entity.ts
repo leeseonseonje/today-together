@@ -11,7 +11,7 @@ export class Activity extends BaseTimeEntity {
   @Column()
   activity: string;
 
-  @Column()
+  @Column({type: 'varchar'})
   type: ActivityType;
 
   @Column()

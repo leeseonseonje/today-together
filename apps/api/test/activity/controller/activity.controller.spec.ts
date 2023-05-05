@@ -1,8 +1,8 @@
 import {INestApplication} from '@nestjs/common';
 import {Test, TestingModule} from '@nestjs/testing';
-import {AppModule} from '../../../../today-together/src/app.module';
+import {ApiModule} from '../../../src/api.module';
 import {getConnection} from 'typeorm';
-import {request} from 'express';
+import * as request from 'supertest';
 import {ActivityType} from 'lib/entity/domains/activity/activity.type.enum';
 
 describe('ActivityController (e2e)', () => {
@@ -10,7 +10,7 @@ describe('ActivityController (e2e)', () => {
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [ApiModule],
     }).compile();
 
     app = moduleFixture.createNestApplication();
@@ -18,6 +18,7 @@ describe('ActivityController (e2e)', () => {
   });
 
   afterEach(async () => {
+    await getConnection().dropDatabase();
     await getConnection().close();
   });
 

@@ -9,11 +9,11 @@ import {DayCommitHistoryDto} from './dto/day-commit-history.dto';
 @EntityRepository(Challenge)
 export class ChallengeRepository extends Repository<Challenge> {
 
-  async commit(memberId: number, todoId: number) {
+  async commit(memberId: string, todoId: number) {
     return await this.save(new Challenge(todoId, memberId, LocalDateTime.now()));
   }
 
-  async dayChallengeCommits(memberId: number, day: LocalDate) {
+  async dayChallengeCommits(memberId: string, day: LocalDate) {
     return await this
       .createQueryBuilder('c')
       .where('c.memberId = :memberId', {memberId: memberId})
@@ -21,12 +21,10 @@ export class ChallengeRepository extends Repository<Challenge> {
         day: day.toString(),
         end: day.plusDays(1).toString(),
       })
-      // .andWhere('c.commitTime >= :day', {day: day.toString()})
-      // .andWhere('c.commitTime < :end', {end: day.plusDays(1).toString()})
       .getCount();
   }
 
-  async monthChallengeCommits(memberId: number, day: LocalDate) {
+  async monthChallengeCommits(memberId: string, day: LocalDate) {
     const result = await this
       .createQueryBuilder('c')
       .select('count(*)', 'commits')
@@ -36,8 +34,6 @@ export class ChallengeRepository extends Repository<Challenge> {
         day: day.toString(),
         end: day.plusMonths(1).toString(),
       })
-      // .andWhere('c.commitTime >= :day', {day: day.toString()})
-      // .andWhere('c.commitTime < :end', {end: day.plusMonths(1).toString()})
       .groupBy('date(c.commitTime)')
       .getRawMany<{ commits: number, commitDay: Date }>();
 
@@ -46,7 +42,7 @@ export class ChallengeRepository extends Repository<Challenge> {
     });
   }
 
-  async dayCommitHistory(memberId: number, day: LocalDate) {
+  async dayCommitHistory(memberId: string, day: LocalDate) {
     const result = await this
       .createQueryBuilder('c')
       .addSelect('t.id', 'todoId')
@@ -58,7 +54,6 @@ export class ChallengeRepository extends Repository<Challenge> {
         day: day.toString(),
         end: day.plusDays(1).toString(),
       })
-      // .andWhere('c.commitTime < :end', {end: day.plusDays(1).toString()})
       .getRawMany<{ todoId: number, commitTime: Date, description: string }>();
 
     return result.map(r => {

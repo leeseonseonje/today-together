@@ -1,20 +1,24 @@
 import {Module} from '@nestjs/common';
-import {ActivityModule} from "./app/activity/activity.module";
-import {QuoteModule} from './app/quote/quote.module';
-import {TypeOrmModule} from '@nestjs/typeorm';
-import {TodoModule} from './app/todo/todo.module';
-import {OauthModule} from './app/oauth2/oauth.module';
-import {ChallengeModule} from './app/challenge/challenge.module';
-import {APP_FILTER} from '@nestjs/core';
-import {ErrorFilter} from './common/error.filter';
+import {ActivityApiModule} from './activity/activity-api.module';
+import {QuoteApiModule} from './quote/quote-api.module';
+import {TodoApiModule} from './todo/todo-api.module';
+import {ChallengeApiModule} from './challenge/challenge-api.module';
+import {OauthApiModule} from './oauth2/oauth-api.module';
 import {ConfigModule, ConfigService} from '@nestjs/config';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {APP_FILTER} from '@nestjs/core';
+import {ErrorFilter} from 'lib/common/filter/error.filter';
+import {MemberModule} from 'lib/entity/domains/member/member.module';
+import {BadRequestExceptionFilter} from 'lib/common/filter/bad-request-exception.filter';
+import {NotFoundExceptionFilter} from 'lib/common/filter/not-found-exception.filter';
 
 @Module({
-  imports: [ActivityModule,
-    QuoteModule,
-    TodoModule,
-    ChallengeModule,
-    OauthModule,
+  imports: [ActivityApiModule,
+    QuoteApiModule,
+    TodoApiModule,
+    ChallengeApiModule,
+    OauthApiModule,
+    MemberModule,
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`
@@ -37,11 +41,10 @@ import {ConfigModule, ConfigService} from '@nestjs/config';
     }),
   ],
   providers: [
-      {
-        provide: APP_FILTER,
-        useClass: ErrorFilter,
-      },
-    ],
+    {provide: APP_FILTER, useClass: ErrorFilter},
+    {provide: APP_FILTER, useClass: BadRequestExceptionFilter},
+    {provide: APP_FILTER, useClass: NotFoundExceptionFilter},
+  ],
 })
 export class ApiModule {
 }

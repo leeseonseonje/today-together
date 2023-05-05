@@ -1,5 +1,5 @@
-import {ActivityType} from '../../../../../today-together/src/app/activity/domain/activity.type.enum';
 import {ApiProperty} from '@nestjs/swagger';
+import {ActivityType} from 'lib/entity/domains/activity/activity.type.enum';
 
 export class RequestActivityDto {
 

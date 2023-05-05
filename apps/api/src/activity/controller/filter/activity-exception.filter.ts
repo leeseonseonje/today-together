@@ -15,6 +15,7 @@ export class ActivityExceptionFilter implements ExceptionFilter {
     response
       .json({
         message: exception.message,
+        exception: exception
       });
   }
 }

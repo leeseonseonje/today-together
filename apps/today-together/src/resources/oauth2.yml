@@ -1,9 +1,0 @@
-oauth2:
-  grant_type: authorization_code
-  redirect_uri: http://localhost:3000/oauth2/callback
-  google:
-    client_id: 861924054252-jp6c1f7hta3423vmn5fpro0cusbld0t7.apps.googleusercontent.com
-    client_secret: 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
-  kakao:
-    client_id: 830f0d95bcead6c12a2f70a35ac426fa
-    client_secret: GYrLZFqdJob9OcsRyfeRvg233fNnyXCL

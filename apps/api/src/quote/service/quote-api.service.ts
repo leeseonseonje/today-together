@@ -1,6 +1,10 @@
 import {Inject, Injectable} from '@nestjs/common';
-import {QuoteApi} from 'lib/infra/quote/quote.api';
-import {TranslatorApi} from 'lib/infra/translator/translator.api';
+import {quoteApi, QuoteApi} from 'lib/infra/quote/quote.api';
+import {translatorApi, TranslatorApi} from 'lib/infra/translator/translator.api';
+import {todayQuoteRepository, TodayQuoteRepository} from 'lib/entity/domains/quote/repository/today-quote.repository';
+import {Quote} from 'lib/entity/domains/quote/quote.entity';
+import {LocalDate} from 'js-joda';
+import {ResponseTodayQuoteDto} from './dto/response-today-quote.dto';
 
 @Injectable()
 export class QuoteApiService {
@@ -28,7 +32,7 @@ export class QuoteApiService {
 
   async initTodayQuote() {
     let todayQuote = await this.todayQuoteRepository.findTodayQuote();
-    if (todayQuote.isToday(LocalDate.now())) {
+    if (todayQuote) {
       return todayQuote;
     }
     return await this.refreshTodayQuote();

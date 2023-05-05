@@ -1,7 +1,7 @@
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 import {BaseTimeEntity} from '../base-time.entity';
 import {LocalDateTime} from 'js-joda';
-import {LocalDateTimeTransformer} from '../../transformer/local-date-time.transformer';
+import {LocalDateTimeTransformer} from 'lib/entity/transformer/local-date-time.transformer';
 
 @Entity()
 export class Challenge extends BaseTimeEntity {
@@ -15,7 +15,7 @@ export class Challenge extends BaseTimeEntity {
   todoId: number;
 
   @Column({name: 'member_id'})
-  memberId: number;
+  memberId: string;
 
   @Column({
     name: 'commit_time',
@@ -24,7 +24,7 @@ export class Challenge extends BaseTimeEntity {
   })
   readonly commitTime: LocalDateTime;
 
-  constructor(todoId: number, memberId: number, commitTime: LocalDateTime) {
+  constructor(todoId: number, memberId: string, commitTime: LocalDateTime) {
     super();
     this.todoId = todoId;
     this.memberId = memberId;

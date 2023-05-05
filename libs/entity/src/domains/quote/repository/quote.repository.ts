@@ -5,16 +5,11 @@ import {LocalDate} from 'js-joda';
 @EntityRepository(Quote)
 export class QuoteRepository extends Repository<Quote> {
 
-  async findTodayQuote() {
-    const quote = await this.findOne({
-      order: {
-        id: 'DESC',
+  async findByDay(day: LocalDate) {
+    return await this.findOne({
+      where: {
+        day: day,
       }
     });
-    if (quote) {
-      return quote;
-    } else {
-      return new Quote('text', 'author', LocalDate.of(1, 1, 1))
-    }
   }
 }

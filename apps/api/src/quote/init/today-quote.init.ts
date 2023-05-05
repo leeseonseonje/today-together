@@ -5,10 +5,10 @@ import {QuoteApiService} from '../service/quote-api.service';
 export class TodayQuoteInit implements OnApplicationBootstrap {
 
   constructor(
-    private readonly quoteService: QuoteApiService,
+    private readonly quoteApiService: QuoteApiService,
   ) {
   }
   async onApplicationBootstrap() {
-    return await this.quoteService.initTodayQuote();
+    return await this.quoteApiService.initTodayQuote();
   }
 }

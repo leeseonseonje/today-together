@@ -1,9 +1,7 @@
 import {BaseTimeEntity} from '../base-time.entity';
 import {Column, Entity, PrimaryGeneratedColumn} from 'typeorm';
 import {LocalDate} from 'js-joda';
-import {LocalDateTransformer} from '../../transformer/local-date.transformer';
-import {quoteApi} from './api/quote.api';
-import {log} from 'util';
+import {LocalDateTransformer} from 'lib/entity/transformer/local-date.transformer';
 
 @Entity()
 export class Quote extends BaseTimeEntity {
@@ -30,9 +28,5 @@ export class Quote extends BaseTimeEntity {
     this.text = text;
     this.author = author;
     this.day = day;
-  }
-
-  isToday(now: LocalDate) {
-    return this.day.isEqual(now);
   }
 }
