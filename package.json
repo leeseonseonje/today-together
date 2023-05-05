@@ -8,17 +8,17 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "node dist/main",
+    "start:prod": "node dist/apps/today-together/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest --detectOpenHandles",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:e2e": "jest --config ./apps/today-together/test/jest-e2e.json",
     "copy-files": "cpx \"src/resources/*.yaml\" dist/resources/"
   },
   "dependencies": {
@@ -78,7 +78,6 @@
       "json",
       "ts"
     ],
-    "rootDir": "test",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -87,6 +86,20 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": ""
+    "testEnvironment": "",
+    "roots": [
+      "<rootDir>/apps/",
+      "<rootDir>/libs/"
+    ],
+    "moduleNameMapper": {
+      "^lib/member(|/.*)$": "<rootDir>/libs/member/src/$1",
+      "^lib/activity(|/.*)$": "<rootDir>/libs/activity/src/$1",
+      "^lib/quote(|/.*)$": "<rootDir>/libs/quote/src/$1",
+      "^lib/todo(|/.*)$": "<rootDir>/libs/todo/src/$1",
+      "^lib/challenge(|/.*)$": "<rootDir>/libs/challenge/src/$1",
+      "^lib/entity(|/.*)$": "<rootDir>/libs/entity/src/$1",
+      "^lib/util(|/.*)$": "<rootDir>/libs/util/src/$1",
+      "^lib/infra(|/.*)$": "<rootDir>/libs/infra/src/$1"
+    }
   }
 }

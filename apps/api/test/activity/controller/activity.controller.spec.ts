@@ -1,9 +1,9 @@
-import {Test, TestingModule} from '@nestjs/testing';
 import {INestApplication} from '@nestjs/common';
-import * as request from 'supertest';
-import {AppModule} from '../../../../src/app.module';
-import {ActivityType} from '../../../../src/app/activity/domain/activity.type.enum';
+import {Test, TestingModule} from '@nestjs/testing';
+import {AppModule} from '../../../../today-together/src/app.module';
 import {getConnection} from 'typeorm';
+import {request} from 'express';
+import {ActivityType} from 'lib/entity/domains/activity/activity.type.enum';
 
 describe('ActivityController (e2e)', () => {
   let app: INestApplication;

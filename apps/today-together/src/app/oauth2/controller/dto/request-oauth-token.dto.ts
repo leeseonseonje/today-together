@@ -1,4 +1,4 @@
-import {OauthServerType} from '../enum/oauth-server-type.enum';
+import {OauthServerType} from '../../api/enum/oauth-server-type.enum';
 import {IsEnum, IsNotEmpty, IsString} from 'class-validator';
 import {ApiProperty} from '@nestjs/swagger';
 

@@ -1,11 +1,11 @@
 import {Injectable} from '@nestjs/common';
 import {HttpService} from '@nestjs/axios';
-import {ActivityType} from '../domain/activity.type.enum';
 import {ResponseRecommendTodoApiDto} from './dto/response-recommend-todo-api.dto';
-import {NotActivityException} from '../exception/not-activity.exception';
+import {ActivityType} from 'lib/entity/domains/activity/activity.type.enum';
+import {NotActivityException} from 'lib/infra/recommend-activity/not-activity.exception';
 
 @Injectable()
-export class RecommendTodoApi {
+export class RecommendActivityApi {
 
   private readonly url: string = 'https://www.boredapi.com/api/activity';
 

@@ -1,14 +1,14 @@
 import {HttpService} from '@nestjs/axios';
-import {LoginUrl} from './url/login-url.enum';
+import {LoginUrl} from './enum/login-url.enum';
 import {LoginExpiredException} from '../exception/login-expired.exception';
 import {HttpException, Injectable} from '@nestjs/common';
 import {OauthGetMemberDto} from './dto/oauth-get-member.dto';
-import {OauthServerType} from '../controller/enum/oauth-server-type.enum';
+import {OauthServerType} from './enum/oauth-server-type.enum';
 import * as yaml from 'js-yaml';
 import {readFileSync} from 'fs';
 import {join} from 'path';
 import {YAML_PATH} from '../../../resources/path';
-import {TokenUrl} from './url/token-url.enum';
+import {TokenUrl} from './enum/token-url.enum';
 
 @Injectable()
 export class OauthApi {

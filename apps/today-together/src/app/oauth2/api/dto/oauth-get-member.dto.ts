@@ -1,4 +1,4 @@
-import {OauthServerType} from '../../controller/enum/oauth-server-type.enum';
+import {OauthServerType} from '../enum/oauth-server-type.enum';
 
 export class OauthGetMemberDto {
 

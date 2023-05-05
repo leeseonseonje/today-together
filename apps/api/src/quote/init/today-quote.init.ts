@@ -1,11 +1,11 @@
 import {Injectable, OnApplicationBootstrap} from '@nestjs/common';
-import {QuoteService} from '../service/quote.service';
+import {QuoteApiService} from '../service/quote-api.service';
 
 @Injectable()
 export class TodayQuoteInit implements OnApplicationBootstrap {
 
   constructor(
-    private readonly quoteService: QuoteService,
+    private readonly quoteService: QuoteApiService,
   ) {
   }
   async onApplicationBootstrap() {

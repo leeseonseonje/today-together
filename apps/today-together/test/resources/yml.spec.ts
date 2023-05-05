@@ -2,7 +2,7 @@ import * as yaml from 'js-yaml';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import {YAML_PATH} from '../../src/resources/path';
-import {OauthServerType} from '../../src/app/oauth2/controller/enum/oauth-server-type.enum';
+import {OauthServerType} from '../../src/app/oauth2/api/enum/oauth-server-type.enum';
 
 describe('yml file load test', () => {
   it('yml load',  () => {

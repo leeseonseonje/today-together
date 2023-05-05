@@ -1,1 +1,1 @@
-export const YAML_PATH = `${process.env.PWD}/src/resources`;
+export const YAML_PATH = `${process.env.PWD}/libs/infra/yml`;

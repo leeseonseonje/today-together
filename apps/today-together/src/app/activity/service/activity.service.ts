@@ -1,17 +1,17 @@
 import {Inject, Injectable} from '@nestjs/common';
 import {Activity} from '../domain/activity.entity';
-import {RecommendTodoApi} from '../api/recommend-todo.api';
 import {translatorApi, TranslatorApi} from '../../translator/translator.api';
 import {ActivityType} from '../domain/activity.type.enum';
 import {ResponseRecommendTodoApiDto} from '../api/dto/response-recommend-todo-api.dto';
 import {ActivityRepository} from '../repository/activity.repository';
 import {getConnection} from 'typeorm';
 import {ResponseActivityDto} from './dto/response-activity.dto';
+import {RecommendActivityApi} from 'lib/infra/recommend-activity/recommend-activity.api';
 
 @Injectable()
 export class ActivityService {
   constructor(
-    private readonly recommendTodoApi: RecommendTodoApi,
+    private readonly recommendTodoApi: RecommendActivityApi,
     @Inject(translatorApi)
     private readonly translatorApi: TranslatorApi,
   ) {}

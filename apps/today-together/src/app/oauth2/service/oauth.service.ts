@@ -3,7 +3,7 @@ import {OauthApi} from '../api/oauth.api';
 import {Member} from '../../member/member.entity';
 import {getConnection} from 'typeorm';
 import {ResponseOauthMemberDto} from './dto/response-oauth-member.dto';
-import {OauthServerType} from '../controller/enum/oauth-server-type.enum';
+import {OauthServerType} from '../api/enum/oauth-server-type.enum';
 
 @Injectable()
 export class OauthService {

@@ -1,5 +1,5 @@
 import {IsEnum, IsNotEmpty, IsString} from 'class-validator';
-import {OauthServerType} from '../enum/oauth-server-type.enum';
+import {OauthServerType} from '../../api/enum/oauth-server-type.enum';
 import {ApiProperty} from '@nestjs/swagger';
 
 export class RequestOauthLoginDto {

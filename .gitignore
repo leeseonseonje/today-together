@@ -35,3 +35,5 @@ lerna-debug.log*
 !.vscode/extensions.json
 /src/resources/oauth2.yml
 /src/resources/translator.yml
+/libs/infra/yml/oauth2.yml
+/libs/infra/yml/translator.yml

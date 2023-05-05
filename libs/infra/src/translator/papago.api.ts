@@ -4,7 +4,7 @@ import {HttpService} from "@nestjs/axios";
 import * as yaml from 'js-yaml';
 import {readFileSync} from 'fs';
 import {join} from 'path';
-import {YAML_PATH} from '../../resources/path';
+import {YAML_PATH} from '../../yml/path';
 
 @Injectable()
 export class PapagoApi implements TranslatorApi {

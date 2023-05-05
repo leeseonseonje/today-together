@@ -13,5 +13,5 @@ import {HttpModule} from '@nestjs/axios';
     {provide: translatorApi, useClass: PapagoApi}
   ]
 })
-export class TranslatorModule {
+export class TranslatorInfraModule {
 }

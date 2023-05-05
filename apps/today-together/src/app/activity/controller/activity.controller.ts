@@ -2,7 +2,7 @@ import {Controller, Get, Query, UseFilters, UsePipes, ValidationPipe} from '@nes
 import {ActivityService} from '../service/activity.service';
 import {ActivityExceptionFilter} from '../exception/filter/activity-exception.filter';
 import {ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
-import {RequestActivityDto} from './dto/request-activity.dto';
+import {RequestActivityDto} from '../../../../../api/src/activity/controller/dto/request-activity.dto';
 import {ResponseActivityDto} from '../service/dto/response-activity.dto';
 
 @ApiTags('activity')
