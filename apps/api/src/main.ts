@@ -12,7 +12,7 @@ async function bootstrap() {
     .addTag('Today Together')
     .build();
 
-  console.log(process.env.NODE_ENV);
+  console.log(!process.env.NODE_ENV ? 'development' : process.env.NODE_ENV);
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

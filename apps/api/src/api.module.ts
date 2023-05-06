@@ -11,6 +11,7 @@ import {ErrorFilter} from 'lib/common/filter/error.filter';
 import {MemberModule} from 'lib/entity/domains/member/member.module';
 import {BadRequestExceptionFilter} from 'lib/common/filter/bad-request-exception.filter';
 import {NotFoundExceptionFilter} from 'lib/common/filter/not-found-exception.filter';
+import * as process from 'process';
 
 @Module({
   imports: [ActivityApiModule,
@@ -21,7 +22,7 @@ import {NotFoundExceptionFilter} from 'lib/common/filter/not-found-exception.fil
     MemberModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `.env.${process.env.NODE_ENV}`
+      envFilePath: `.env.${!process.env.NODE_ENV ? 'development' : process.env.NODE_ENV}`
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

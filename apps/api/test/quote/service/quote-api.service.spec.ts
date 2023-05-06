@@ -15,7 +15,7 @@ import {LocalDate} from 'js-joda';
 import {Quote} from 'lib/entity/domains/quote/quote.entity';
 import {ResponseQuoteApiDto} from 'lib/infra/quote/dto/response-quote-api.dto';
 
-describe('Quote Service Integration Test', () => {
+describe('Quote Api Service Integration Test', () => {
   let sut: QuoteApiService;
   let quoteApi: QuoteApi;
   let papagoApi: TranslatorApi;
@@ -60,12 +60,12 @@ describe('Quote Service Integration Test', () => {
     expect(result.author).toBe('조회');
   });
 
-  it('오늘의 명언 조회 -> db에 있는 가장 최근 명언이 오늘 날짜와 같으면 메모리에 저장', async () => {
+  it('오늘의 명언 캐싱 -> db에 있는 가장 최근 명언이 오늘 날짜와 같으면 메모리에 저장', async () => {
     await quoteRepository
       .save(new Quote('오늘명언조회', '조회', LocalDate.now()));
     await apiStub();
 
-    await sut.initTodayQuote();
+    await sut.cacheTodayQuote();
 
     let resultTodayQuote = await todayQuoteRepo.findTodayQuote();
     expect(resultTodayQuote.text).toBe('오늘명언조회')
@@ -73,12 +73,12 @@ describe('Quote Service Integration Test', () => {
     expect(resultTodayQuote.day.isEqual(LocalDate.now())).toBeTruthy();
   });
 
-  it('오늘의 명언 조회 -> db에 있는 가장 최근 명언이 오늘 날짜와 다르면 refreshTodayQuote 호출', async () => {
+  it('오늘의 명언 캐싱 -> db에 있는 가장 최근 명언이 오늘 날짜와 다르면 refreshTodayQuote 호출 후 명언 메모리에 캐싱', async () => {
     await quoteRepository
       .save(new Quote('오늘명언조회', '작가', LocalDate.of(9999, 12, 30)));
     await apiStub();
 
-    const result = await sut.initTodayQuote();
+    const result = await sut.cacheTodayQuote();
 
     expect(result.day.isEqual(LocalDate.now())).toBeTruthy();
   });

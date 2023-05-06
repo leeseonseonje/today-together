@@ -19,19 +19,21 @@ export class OauthController {
   @ApiOperation({ summary: '리다이렉트 uri'})
   @Get('/callback')
   async callback(@Query('code') code: string) {
-    console.log(`code = ${code.toString()}`);
+    console.log(`code=${code}`);
+    return code;
   }
 
   @ApiOperation({ summary: 'access token 발급 요청'})
   @ApiResponse({
     status: 200,
-    description: '발급 받은 access token 반환',
-    type: String
+    description: '발급 받은 access token 반환: { accessToken: accessToken }',
   })
   @Post('/token')
   @HttpCode(200)
   async token(@Body() request: RequestOauthTokenDto) {
-    return await this.oauthService.getToken(request.code, request.server);
+    const token = await this.oauthService.getToken(request.code, request.server);
+    return {accessToken: token}
+
   }
 
   @ApiOperation({ summary: '발급 받은 access token으로 사용자 조회'})

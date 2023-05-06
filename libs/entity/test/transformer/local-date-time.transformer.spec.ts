@@ -23,7 +23,7 @@ describe('ts-joda local date time transformer test', () => {
   it('date to Local date time Test', async () => {
     const repository = getConnection().getRepository(Challenge);
     const challenge = await repository.save(
-      new Challenge(1, 2, LocalDateTime.now())
+      new Challenge(1, 'memberId', LocalDateTime.now())
     );
 
     const result = await repository.findOne({

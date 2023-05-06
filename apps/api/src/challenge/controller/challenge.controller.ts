@@ -1,5 +1,5 @@
 import {ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags} from '@nestjs/swagger';
-import {Controller, Get, Param, Query} from '@nestjs/common';
+import {Controller, Get, Param, Query, UsePipes, ValidationPipe} from '@nestjs/common';
 import {DateTimeUtil} from 'lib/entity/util/date-time.util';
 import {ChallengeApiService} from '../service/challenge-api.service';
 import {MonthChallengeDto} from '../service/dto/month-challenge.dto';
@@ -8,6 +8,7 @@ import {DateParameter} from 'lib/common/dto/date-parameter';
 
 @ApiTags('challenge')
 @Controller('challenges')
+@UsePipes(new ValidationPipe())
 export class ChallengeController {
   constructor(private readonly challengeApiService: ChallengeApiService) {
   }
@@ -17,13 +18,13 @@ export class ChallengeController {
   @ApiQuery({name: 'day', type: 'date', example: '2021-11-25', description: '조회하려는 날짜'})
   @ApiResponse({
     status: 200,
-    description: '요청 받은 날짜의 커밋 횟수 반환',
-    type: Number
+    description: 'response: { commitCount: 1 }',
   })
   @Get('/day/:memberId')
   async getDayCommitCount(@Param('memberId') memberId: string,
                           @Query() query: DateParameter) {
-    return await this.challengeApiService.getDayCommitCount(memberId, DateTimeUtil.toLocalDate(query.day));
+    const commitCount = await this.challengeApiService.getDayCommitCount(memberId, DateTimeUtil.toLocalDate(query.day));
+    return {commitCount: commitCount}
   }
 
   @ApiOperation({ summary: '요청 받은 달의 총 커밋 횟수'})

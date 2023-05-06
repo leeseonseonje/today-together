@@ -19,8 +19,6 @@ import {CompleteTodoDto} from './dto/complete-todo.dto';
 import {FindDayTodosDto} from '../service/dto/find-day-todos.dto';
 import {DateTimeUtil} from 'lib/entity/util/date-time.util';
 import {DateParameter} from 'lib/common/dto/date-parameter';
-import {Todo} from 'lib/entity/domains/todo/todo.entity';
-import {text} from 'express';
 
 @ApiTags('todo')
 @Controller('/todos')
@@ -35,32 +33,35 @@ export class TodoController {
   @ApiOperation({summary: '오늘 할 일 생성'})
   @ApiResponse({
     status: 201,
-    description: 'todo id'
+    description: 'response: { todoId: 1 }',
   })
   @Post()
   async create(@Body() request: CreateTodoDto) {
-    return await this.todoService.create(request.memberId, request.text);
+    const todoId = await this.todoService.create(request.memberId, request.text);
+    return {todoId: todoId}
   }
 
   @ApiOperation({summary: '오늘 할 일 수정'})
   @ApiResponse({
     status: 200,
-    description: 'todo id'
+    description: 'response: { todoId: 1 }',
   })
   @Patch()
   async updateText(@Body() request: UpdateTodoDto) {
-    return await this.todoService.updateText(request.todoId, { text: request.text });
+    const todoId = await this.todoService.updateText(request.todoId, { text: request.text });
+    return {todoId: todoId}
   }
 
   @ApiOperation({summary: '오늘 할 일 완료'})
   @ApiResponse({
     status: 200,
-    description: 'todo id',
+    description: 'response: { todoId: 1 }',
   })
   @Post('/complete')
   @HttpCode(200)
   async complete(@Body() request: CompleteTodoDto) {
-    return await this.todoService.complete(request.memberId, request.todoId);
+    const todoId =  await this.todoService.complete(request.memberId, request.todoId);
+    return {todoId: todoId}
   }
 
   @ApiOperation({summary: '오늘 할 일 삭제'})
@@ -94,4 +95,3 @@ export class TodoController {
     return await this.todoService.getDayTodos(memberId, localDate);
   }
 }
-

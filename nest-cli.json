@@ -53,6 +53,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
+    },
+    "push": {
+      "type": "application",
+      "root": "apps/push",
+      "entryFile": "main",
+      "sourceRoot": "apps/push/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/push/tsconfig.app.json"
+      }
     }
   }
 }

@@ -9,6 +9,6 @@ export class TodayQuoteInit implements OnApplicationBootstrap {
   ) {
   }
   async onApplicationBootstrap() {
-    return await this.quoteApiService.initTodayQuote();
+    return await this.quoteApiService.cacheTodayQuote();
   }
 }

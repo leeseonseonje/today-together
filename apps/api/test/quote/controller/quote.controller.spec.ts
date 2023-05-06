@@ -4,7 +4,7 @@ import * as request from 'supertest';
 import {getConnection} from 'typeorm';
 import {ApiModule} from '../../../src/api.module';
 
-describe('QuoteController', () => {
+describe('QuoteController (e2e)', () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -20,7 +20,7 @@ describe('QuoteController', () => {
     await getConnection().close();
   });
 
-  it('오늘의 명언', async () => {
+  it('오늘의 명언 반환 (response: { text: 명언, author: 말한사람 })', async () => {
     const response = await request(app.getHttpServer())
       .get('/quotes')
       .expect(200);

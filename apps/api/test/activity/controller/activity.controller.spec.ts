@@ -22,9 +22,10 @@ describe('ActivityController (e2e)', () => {
     await getConnection().close();
   });
 
-  it('e2e 파라미터가 없을 경우', async () => {
+  it('쿼리파라미터: activity type 전체(all)', async () => {
     const response = await request(app.getHttpServer())
-      .get('/activities');
+      .get('/activities')
+      .query({type: ActivityType.ALL});
 
     expect(response.status).toBe(200);
     expect('activity' in response.body).toBeTruthy();
@@ -32,17 +33,17 @@ describe('ActivityController (e2e)', () => {
     expect('participants' in response.body).toBeTruthy();
   });
 
-  it('e2e 올바른 파라미터', async () => {
+  it('쿼리파라미터: activitiy type', async () => {
     const response = await request(app.getHttpServer())
       .get('/activities')
       .query({
-        type: 'education'
+        type: ActivityType.EDUCATION
       }).expect(200)
 
     expect(response.body.type).toBe(ActivityType.EDUCATION);
   });
 
-  it('e2e 잘못된 파라미터', async () => {
+  it('type파라미터가 없거나, ActivityType(enum)이 아닐 경우 BadRequest(400)', async () => {
     await request(app.getHttpServer())
       .get('/activities')
       .query({

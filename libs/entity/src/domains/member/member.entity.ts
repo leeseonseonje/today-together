@@ -14,9 +14,9 @@ export class Member extends BaseTimeEntity {
   @Column()
   readonly name: string;
 
-  constructor(oauth_id: string, email: string, name: string) {
+  constructor(id: string, email: string, name: string) {
     super();
-    this.id = oauth_id;
+    this.id = id;
     this.email = email;
     this.name = name;
   }

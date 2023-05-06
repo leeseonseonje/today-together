@@ -30,7 +30,7 @@ export class QuoteApiService {
     return await this.todayQuoteRepository.save(createQuote);
   }
 
-  async initTodayQuote() {
+  async cacheTodayQuote() {
     let todayQuote = await this.todayQuoteRepository.findTodayQuote();
     if (todayQuote) {
       return todayQuote;

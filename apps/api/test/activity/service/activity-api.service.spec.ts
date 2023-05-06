@@ -12,7 +12,7 @@ import {getConnection} from 'typeorm';
 import {PapagoApi} from 'lib/infra/translator/papago.api';
 import {Activity} from 'lib/entity/domains/activity/activity.entity';
 
-describe('ActivityApiService', () => {
+describe('Activity Api Service Integration Test', () => {
 
   let response: ResponseRecommendTodoApiDto;
   let activityType: ActivityType;
