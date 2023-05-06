@@ -4,6 +4,7 @@ import {DateTimeUtil} from 'lib/entity/util/date-time.util';
 import {ChallengeApiService} from '../service/challenge-api.service';
 import {MonthChallengeDto} from '../service/dto/month-challenge.dto';
 import {DayCommitHistoryDto} from '../service/dto/day-commit-history.dto';
+import {DateParameter} from 'lib/common/dto/date-parameter';
 
 @ApiTags('challenge')
 @Controller('challenges')
@@ -21,8 +22,8 @@ export class ChallengeController {
   })
   @Get('/day/:memberId')
   async getDayCommitCount(@Param('memberId') memberId: string,
-                          @Query('day') day: string) {
-    return await this.challengeApiService.getDayCommitCount(memberId, DateTimeUtil.toLocalDate(day));
+                          @Query() query: DateParameter) {
+    return await this.challengeApiService.getDayCommitCount(memberId, DateTimeUtil.toLocalDate(query.day));
   }
 
   @ApiOperation({ summary: '요청 받은 달의 총 커밋 횟수'})
@@ -34,8 +35,8 @@ export class ChallengeController {
   })
   @Get('/month/:memberId')
   async getMonthCommit(@Param('memberId') memberId: string,
-                       @Query('day') day: string) {
-    return await this.challengeApiService.getMonthCommit(memberId, DateTimeUtil.toLocalDate(day));
+                       @Query() query: DateParameter) {
+    return await this.challengeApiService.getMonthCommit(memberId, DateTimeUtil.toLocalDate(query.day));
   }
 
   @ApiOperation({ summary: '요청 받은 날짜의 커밋 상세내역'})
@@ -47,7 +48,7 @@ export class ChallengeController {
   })
   @Get('/history/:memberId')
   async dayCommitHistory(@Param('memberId') memberId: string,
-                         @Query('day') day: string) {
-    return await this.challengeApiService.dayCommitHistory(memberId, DateTimeUtil.toLocalDate(day));
+                         @Query() query: DateParameter) {
+    return await this.challengeApiService.dayCommitHistory(memberId, DateTimeUtil.toLocalDate(query.day));
   }
 }

@@ -1,5 +1,5 @@
 import {ApiOperation, ApiResponse, ApiTags} from '@nestjs/swagger';
-import {Controller, Get, Query, UseFilters} from '@nestjs/common';
+import {Controller, Get, Query, UseFilters, UsePipes, ValidationPipe} from '@nestjs/common';
 import {ActivityExceptionFilter} from './filter/activity-exception.filter';
 import {RequestActivityDto} from './dto/request-activity.dto';
 import {ResponseActivityDto} from '../service/dto/response-activity.dto';
@@ -7,6 +7,7 @@ import {ActivityApiService} from '../service/activity-api.service';
 
 @ApiTags('activity')
 @Controller('/activities')
+@UsePipes(new ValidationPipe())
 @UseFilters(ActivityExceptionFilter)
 export class ActivityController {
   constructor(private readonly activityApiService: ActivityApiService) {}

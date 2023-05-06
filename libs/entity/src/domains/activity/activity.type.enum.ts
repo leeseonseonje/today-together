@@ -9,4 +9,5 @@ export enum ActivityType {
   RELAXATION = 'relaxation',
   MUSIC = 'music',
   BUSYWORK = 'busywork',
+  ALL = 'all'
 }

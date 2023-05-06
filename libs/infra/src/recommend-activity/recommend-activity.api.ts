@@ -25,7 +25,7 @@ export class RecommendActivityApi {
   }
 
   private parameterBuild(type: ActivityType) {
-    if (type) {
+    if (type !== ActivityType.ALL) {
       return `?type=${type}`;
     } else {
       return '';

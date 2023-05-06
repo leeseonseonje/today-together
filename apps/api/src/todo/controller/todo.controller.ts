@@ -18,6 +18,9 @@ import {UpdateTodoDto} from './dto/update-todo.dto';
 import {CompleteTodoDto} from './dto/complete-todo.dto';
 import {FindDayTodosDto} from '../service/dto/find-day-todos.dto';
 import {DateTimeUtil} from 'lib/entity/util/date-time.util';
+import {DateParameter} from 'lib/common/dto/date-parameter';
+import {Todo} from 'lib/entity/domains/todo/todo.entity';
+import {text} from 'express';
 
 @ApiTags('todo')
 @Controller('/todos')
@@ -46,7 +49,7 @@ export class TodoController {
   })
   @Patch()
   async updateText(@Body() request: UpdateTodoDto) {
-    return await this.todoService.updateText(request.todoId, request.text);
+    return await this.todoService.updateText(request.todoId, { text: request.text });
   }
 
   @ApiOperation({summary: '오늘 할 일 완료'})
@@ -86,8 +89,9 @@ export class TodoController {
   })
   @Get('/:memberId')
   async dayTodo(@Param('memberId') memberId: string,
-                @Query('day') day: string) {
-    const localDate = DateTimeUtil.toLocalDate(day);
+                @Query() query: DateParameter) {
+    const localDate = DateTimeUtil.toLocalDate(query.day);
     return await this.todoService.getDayTodos(memberId, localDate);
   }
 }
+

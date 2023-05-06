@@ -1,15 +1,16 @@
 import {IsNotEmpty, IsNumber, IsString} from 'class-validator';
-import {ApiProperty} from '@nestjs/swagger';
+import {ApiProperty, PartialType} from '@nestjs/swagger';
+import {CreateTodoDto} from './create-todo.dto';
 
 export class UpdateTodoDto {
 
   @ApiProperty({
     example: '1',
-    description: 'oauth id',
-    required: true
+    description: '할 일 ID',
+    required: true,
   })
   @IsNumber()
-  @IsNotEmpty({ message: '존재하지 않는 할 일 입니다.'})
+  @IsNotEmpty({message: '존재하지 않는 할 일 입니다.'})
   readonly todoId: number;
 
   @ApiProperty({

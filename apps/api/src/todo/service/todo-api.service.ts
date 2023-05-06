@@ -16,8 +16,8 @@ export class TodoApiService {
     return savedTodo.id;
   }
 
-  async updateText(id: number, text: string) {
-    await this.getTodoRepository().update(id, {text: text});
+  async updateText(id: number, text: Partial<Todo>) {
+    await this.getTodoRepository().update(id, text);
     return id;
   }
 
