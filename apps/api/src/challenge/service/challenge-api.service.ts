@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {LocalDate} from 'js-joda';
 import {getConnection} from 'typeorm';
-import {ChallengeRepository} from 'lib/entity/domains/challenge/repository/challenge.repository';
+import {ChallengeApiRepository} from '../repository/challenge-api.repository';
 
 @Injectable()
 export class ChallengeApiService {
@@ -14,8 +14,7 @@ export class ChallengeApiService {
   async getMonthCommit(memberId: string, day: LocalDate) {
     const challengeRepository = await this.getChallengeRepository();
     day = LocalDate.of(day.year(), day.month(), 1);
-    return await challengeRepository
-      .monthChallengeCommits(memberId, day);
+    return await challengeRepository.monthChallengeCommits(memberId, day);
   }
 
   async dayCommitHistory(memberId: string, day: LocalDate) {
@@ -24,6 +23,6 @@ export class ChallengeApiService {
   }
 
   private getChallengeRepository() {
-    return getConnection().getCustomRepository(ChallengeRepository);
+    return getConnection().getCustomRepository(ChallengeApiRepository);
   }
 }

@@ -1,13 +1,13 @@
 import {EntityRepository, Repository} from 'typeorm';
-import {Challenge} from '../challenge.entity';
 import {LocalDate, LocalDateTime} from 'js-joda';
 import {MonthChallengeDto} from './dto/month-challenge.dto';
-import {DateTimeUtil} from '../../../util/date-time.util';
-import {Todo} from '../../todo/todo.entity';
 import {DayCommitHistoryDto} from './dto/day-commit-history.dto';
+import {Challenge} from 'lib/entity/domains/challenge/challenge.entity';
+import {DateTimeUtil} from 'lib/entity/util/date-time.util';
+import {Todo} from 'lib/entity/domains/todo/todo.entity';
 
 @EntityRepository(Challenge)
-export class ChallengeRepository extends Repository<Challenge> {
+export class ChallengeApiRepository extends Repository<Challenge> {
 
   async commit(memberId: string, todoId: number) {
     return await this.save(new Challenge(todoId, memberId, LocalDateTime.now()));

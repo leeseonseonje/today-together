@@ -1,11 +1,10 @@
 import {Injectable} from '@nestjs/common';
-import {Todo} from 'lib/entity/domains/todo/todo.entity';
 import {LocalDate} from 'js-joda';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 import {getConnection, getManager} from 'typeorm';
-import {TodoRepository} from 'lib/entity/domains/todo/repository/todo.repository';
-import {ChallengeRepository} from 'lib/entity/domains/challenge/repository/challenge.repository';
-import {FindDayTodosDto} from './dto/find-day-todos.dto';
+import {Todo} from 'lib/entity/domains/todo/todo.entity';
+import {TodoApiRepository} from './repository/todo-api.repository';
+import {ChallengeApiRepository} from '../../challenge/repository/challenge-api.repository';
 
 @Injectable()
 export class TodoApiService {
@@ -27,10 +26,10 @@ export class TodoApiService {
 
   async complete(memberId: string, todoId: number) {
     return await getManager().transaction(async manager => {
-      const todoRepository = manager.getCustomRepository(TodoRepository);
+      const todoRepository = manager.getCustomRepository(TodoApiRepository);
       await todoRepository.update(todoId, {status: TodoStatus.COMPLETE});
 
-      await manager.getCustomRepository(ChallengeRepository).commit(memberId, todoId);
+      await manager.getCustomRepository(ChallengeApiRepository).commit(memberId, todoId);
 
       return todoId;
     });
@@ -38,7 +37,7 @@ export class TodoApiService {
 
   async getTodayTodos(memberId: string) {
     return await getManager().transaction(async manager => {
-      const todoRepository = manager.getCustomRepository(TodoRepository);
+      const todoRepository = manager.getCustomRepository(TodoApiRepository);
 
       const incompleteTodos = await todoRepository.findIncompleteTodos(memberId);
       for (const todo of incompleteTodos) {
@@ -46,22 +45,15 @@ export class TodoApiService {
         await todoRepository.save(newTodayTodo);
       }
 
-      return await this.findTodos(todoRepository, memberId, LocalDate.now());
+      return await todoRepository.findDayTodos(memberId, LocalDate.now());
     });
   }
 
   async getDayTodos(memberId: string, day: LocalDate) {
-    return this.findTodos(this.getTodoRepository(), memberId, day);
-  }
-
-  private async findTodos(todoRepository: TodoRepository, memberId: string, day: LocalDate) {
-    const findTodos = await todoRepository.findDayTodos(memberId, day);
-    return findTodos.map(todo => {
-      return new FindDayTodosDto(todo.id, todo.text, todo.status);
-    });
+    return await this.getTodoRepository().findDayTodos(memberId, day);
   }
 
   private getTodoRepository() {
-    return getConnection().getCustomRepository(TodoRepository);
+    return getConnection().getCustomRepository(TodoApiRepository);
   }
 }
