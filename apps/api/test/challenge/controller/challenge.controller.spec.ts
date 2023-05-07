@@ -4,13 +4,14 @@ import {LocalDate, LocalDateTime} from 'js-joda';
 import {Challenge} from 'lib/entity/domains/challenge/challenge.entity';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
-import {e2eTestConfig, TestApplication, } from '../../test-config';
+import {e2eTestConfig, TestApplication} from '../../../../../libs/common/test/test-config';
+import {ApiModule} from '../../../src/api.module';
 
 describe('ChallengeController (e2e)', () => {
   let test: TestApplication;
 
   beforeEach(async () => {
-    test = await e2eTestConfig();
+    test = await e2eTestConfig(ApiModule);
 
     const repository = getConnection().getRepository(Challenge);
     await repository.save(new Challenge(1, 'memberId', LocalDateTime.now()));

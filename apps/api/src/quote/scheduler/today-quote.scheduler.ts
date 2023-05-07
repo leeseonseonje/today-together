@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import {QuoteApiService} from '../service/quote-api.service';
-import {Cron} from '@nestjs/schedule';
+import {Cron, CronExpression} from '@nestjs/schedule';
 
 @Injectable()
 export class TodayQuoteScheduler {
@@ -8,13 +8,12 @@ export class TodayQuoteScheduler {
     private readonly quoteApiService: QuoteApiService,
   ) {}
 
-  // @Cron('*/5 * * * * *')
-  @Cron('0 0 0 * * *', {
+  @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT, {
     timeZone: 'Asia/Seoul',
   })
   async refreshTodayQuote() {
     const todayQuote = await this.quoteApiService.refreshTodayQuote();
-    console.log(todayQuote);
+    console.log(`today quote: ${todayQuote}`);
   }
 
 }

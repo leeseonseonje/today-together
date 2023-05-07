@@ -1,19 +1,23 @@
 import {ChallengeApiService} from '../../../src/challenge/service/challenge-api.service';
-import {TestingModule} from '@nestjs/testing';
-import {getModule} from '../../test-config';
+import {Test} from '@nestjs/testing';
 import {getConnection} from 'typeorm';
 import {Challenge} from 'lib/entity/domains/challenge/challenge.entity';
 import {LocalDate, LocalDateTime} from 'js-joda';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
 import {ChallengeApiModule} from '../../../src/challenge/challenge-api.module';
+import {dbConfig} from '../../../../../libs/common/test/test-config';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {TodoModule} from 'lib/entity/domains/todo/todo.module';
 
 describe('challenge Api Service Integration Test', () => {
 
   let sut: ChallengeApiService;
 
   beforeEach(async () => {
-    const module: TestingModule = await getModule(ChallengeApiModule);
+    const module = await Test.createTestingModule({
+      imports: [TypeOrmModule.forRoot(dbConfig), ChallengeApiModule, TodoModule],
+    }).compile()
 
     sut = module.get<ChallengeApiService>(ChallengeApiService);
   });
@@ -71,6 +75,6 @@ describe('challenge Api Service Integration Test', () => {
 
     const result = await sut.dayCommitHistory('memberA', LocalDate.now());
 
-    expect(result.length).toBe(10);
+    expect(result).toHaveLength(10);
   });
 });

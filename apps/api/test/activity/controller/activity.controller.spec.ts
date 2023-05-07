@@ -1,13 +1,14 @@
 import {getConnection} from 'typeorm';
 import * as request from 'supertest';
 import {ActivityType} from 'lib/entity/domains/activity/activity.type.enum';
-import {e2eTestConfig, TestApplication} from '../../test-config';
+import {e2eTestConfig, TestApplication} from '../../../../../libs/common/test/test-config';
+import {ApiModule} from '../../../src/api.module';
 
 describe('ActivityController (e2e)', () => {
   let test: TestApplication;
 
   beforeEach(async () => {
-    test = await e2eTestConfig();
+    test = await e2eTestConfig(ApiModule);
   });
 
   afterEach(async () => {

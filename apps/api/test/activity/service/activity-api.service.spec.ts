@@ -3,13 +3,14 @@ import {ActivityType} from 'lib/entity/domains/activity/activity.type.enum';
 import {RecommendActivityApi} from 'lib/infra/recommend-activity/recommend-activity.api';
 import {TranslatorApi} from 'lib/infra/translator/translator.api';
 import {ActivityApiService} from '../../../src/activity/service/activity-api.service';
-import {TestingModule} from '@nestjs/testing';
-import {getModule} from '../../test-config';
+import {Test, TestingModule} from '@nestjs/testing';
 import {anything, instance, mock, verify, when} from 'ts-mockito';
 import {getConnection} from 'typeorm';
 import {PapagoApi} from 'lib/infra/translator/papago.api';
 import {Activity} from 'lib/entity/domains/activity/activity.entity';
 import {ActivityApiModule} from '../../../src/activity/activity-api.module';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {dbConfig} from '../../../../../libs/common/test/test-config';
 
 describe('Activity Api Service Integration Test', () => {
 
@@ -20,7 +21,9 @@ describe('Activity Api Service Integration Test', () => {
   let sut: ActivityApiService;
 
   beforeEach(async () => {
-    const module: TestingModule = await getModule(ActivityApiModule);
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [TypeOrmModule.forRoot(dbConfig), ActivityApiModule],
+    }).compile()
 
     response = {
       key: 1,

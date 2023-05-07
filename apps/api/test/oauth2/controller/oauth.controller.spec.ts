@@ -1,13 +1,14 @@
 import * as request from 'supertest';
 import {getConnection} from 'typeorm';
 import {OauthServerType} from 'lib/infra/oauth2/enum/oauth-server-type.enum';
-import {e2eTestConfig, TestApplication} from '../../test-config';
+import {e2eTestConfig, TestApplication} from '../../../../../libs/common/test/test-config';
+import {ApiModule} from '../../../src/api.module';
 
 describe('OauthController', () => {
   let test: TestApplication;
 
   beforeEach(async () => {
-    test = await e2eTestConfig();
+    test = await e2eTestConfig(ApiModule);
   });
 
   afterEach(async () => {
@@ -27,7 +28,7 @@ describe('OauthController', () => {
   it('accessToken으로 사용자 정보 반환', async () => {
     const response = await request(test.app.getHttpServer())
       .post('/oauth2/login')
-      .send({accessToken: 'ya29.a0AWY7CklScH9wT0bDv8fpmu2-Y9LAN6fZCyAeZODqXetHmLODQV5J5rHOcD0zw_N3Zf1GOm0qme85uCIBM5VPlBFfLO1zjAA7kaQltkt2kgnFY2BiZESeKxIxR5jEKd61eJFpHWP5RRKaJeteE97KaQlAgzTJ_waCgYKAeESARASFQG1tDrpDIE0iRNLWXtQCFldJjA-Xw0165', server: OauthServerType.GOOGLE})
+      .send({accessToken: 'ya29.a0AWY7CkmE-WhvrRZUTtf0AvkuSQoemnHkeTMlq7Dpb9iBJf88Ua3cR_YHn0_pygPKWFiaiASNVMK8QFAnLo6ACQ1R3DCkrBAaxwKJGyEooEQ3X03U3yl4fbTErdKF2Zcdi5clGNFcYuQq6yZ_0wzXlUikpjic5QaCgYKAcASARASFQG1tDrpVrVr-CBe9rFPV3NppPrGbg0165', server: OauthServerType.GOOGLE})
       .expect(200);
 
     console.log(response.body);

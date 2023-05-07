@@ -1,7 +1,6 @@
 import {TypeOrmModule, TypeOrmModuleOptions} from '@nestjs/typeorm';
 import {INestApplication} from '@nestjs/common';
 import {Test, TestingModule} from '@nestjs/testing';
-import {ApiModule} from '../src/api.module';
 
 export const dbConfig: TypeOrmModuleOptions = {
   type: 'mysql',
@@ -17,19 +16,13 @@ export const dbConfig: TypeOrmModuleOptions = {
 };
 
 export type TestApplication = {app: INestApplication, module: TestingModule}
-export const e2eTestConfig = async (): Promise<TestApplication> =>  {
-  const module: TestingModule = await Test.createTestingModule({
-    imports: [ApiModule],
+export const e2eTestConfig = async (module): Promise<TestApplication> =>  {
+  const testModule: TestingModule = await Test.createTestingModule({
+    imports: [module],
   }).compile();
 
-  const app = module.createNestApplication();
+  const app = testModule.createNestApplication();
   await app.init();
 
-  return {app: app, module: module};
-}
-
-export const getModule = async (module) => {
-  return await Test.createTestingModule({
-    imports: [TypeOrmModule.forRoot(dbConfig), module],
-  }).compile()
+  return {app: app, module: testModule};
 }

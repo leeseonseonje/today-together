@@ -1,6 +1,6 @@
 import {EntityRepository, Repository} from 'typeorm';
 import {LocalDate} from 'js-joda';
-import {FindDayTodosDto} from '../dto/find-day-todos.dto';
+import {FindDayTodosDto} from '../service/dto/find-day-todos.dto';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 

@@ -3,8 +3,7 @@ import {QuoteApi} from 'lib/infra/quote/quote.api';
 import {TranslatorApi} from 'lib/infra/translator/translator.api';
 import {QuoteRepository} from 'lib/entity/domains/quote/repository/quote.repository';
 import {todayQuoteRepository, TodayQuoteRepository} from 'lib/entity/domains/quote/repository/today-quote.repository';
-import {TestingModule} from '@nestjs/testing';
-import {getModule} from '../../test-config';
+import {Test, TestingModule} from '@nestjs/testing';
 import {QuoteApiModule} from '../../../src/quote/quote-api.module';
 import {instance, mock, when} from 'ts-mockito';
 import {getConnection} from 'typeorm';
@@ -13,6 +12,8 @@ import {PapagoApi} from 'lib/infra/translator/papago.api';
 import {LocalDate} from 'js-joda';
 import {Quote} from 'lib/entity/domains/quote/quote.entity';
 import {ResponseQuoteApiDto} from 'lib/infra/quote/dto/response-quote-api.dto';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {dbConfig} from '../../../../../libs/common/test/test-config';
 
 describe('Quote Api Service Integration Test', () => {
   let sut: QuoteApiService;
@@ -22,7 +23,9 @@ describe('Quote Api Service Integration Test', () => {
   let todayQuoteRepo: TodayQuoteRepository;
 
   beforeEach(async () => {
-    const module: TestingModule = await getModule(QuoteApiModule);
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [TypeOrmModule.forRoot(dbConfig), QuoteApiModule],
+    }).compile()
 
     quoteApi = mock(ZenQuoteApi);
     papagoApi = mock(PapagoApi);

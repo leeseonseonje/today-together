@@ -1,18 +1,21 @@
 import {TodoApiService} from '../../../src/todo/service/todo-api.service';
-import {TestingModule} from '@nestjs/testing';
-import {getModule} from '../../test-config';
+import {Test, TestingModule} from '@nestjs/testing';
 import {TodoApiModule} from '../../../src/todo/todo-api.module';
 import {getConnection} from 'typeorm';
 import {LocalDate} from 'js-joda';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {dbConfig} from '../../../../../libs/common/test/test-config';
 
 describe('Todo Api Service Integration Test', () => {
 
   let sut: TodoApiService;
 
   beforeEach(async () => {
-    const module: TestingModule = await getModule(TodoApiModule);
+    const module: TestingModule = await Test.createTestingModule({
+      imports: [TypeOrmModule.forRoot(dbConfig), TodoApiModule],
+    }).compile()
 
     sut = module.get<TodoApiService>(TodoApiService);
   });
@@ -33,7 +36,7 @@ describe('Todo Api Service Integration Test', () => {
 
     const result = await sut.getTodayTodos('memberId');
 
-    expect(result.length).toBe(7);
+    expect(result).toHaveLength(7);
   });
 
   it('특정 날짜 할일 목록', async () => {
@@ -43,6 +46,6 @@ describe('Todo Api Service Integration Test', () => {
 
     const result = await sut.getDayTodos('memberId', LocalDate.of(2000, 1, 1));
 
-    expect(result.length).toBe(3);
+    expect(result).toHaveLength(3);
   });
 });

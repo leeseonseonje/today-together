@@ -3,7 +3,7 @@ import {LocalDate} from 'js-joda';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 import {getConnection, getManager} from 'typeorm';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
-import {TodoApiRepository} from './repository/todo-api.repository';
+import {TodoApiRepository} from '../repository/todo-api.repository';
 import {ChallengeApiRepository} from '../../challenge/repository/challenge-api.repository';
 
 @Injectable()

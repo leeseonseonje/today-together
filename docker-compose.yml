@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  today-together:
+  today-together-api:
     build: .
     ports:
       - 3000:3000
