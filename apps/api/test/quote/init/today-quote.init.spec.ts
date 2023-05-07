@@ -2,7 +2,7 @@ import {Test} from '@nestjs/testing';
 import {LocalDate} from 'js-joda';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {TodayQuoteInit} from '../../../src/quote/init/today-quote.init';
-import {dbConfig} from '../../db-config';
+import {dbConfig} from '../../test-config';
 import {QuoteApiModule} from '../../../src/quote/quote-api.module';
 import {getConnection} from 'typeorm';
 

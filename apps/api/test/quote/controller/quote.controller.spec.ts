@@ -1,19 +1,12 @@
-import {Test, TestingModule} from '@nestjs/testing';
-import {INestApplication} from '@nestjs/common';
 import * as request from 'supertest';
 import {getConnection} from 'typeorm';
-import {ApiModule} from '../../../src/api.module';
+import {e2eTestConfig, TestApplication} from '../../test-config';
 
 describe('QuoteController (e2e)', () => {
-  let app: INestApplication;
+  let test: TestApplication;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [ApiModule],
-    }).compile();
-
-    app = module.createNestApplication();
-    await app.init();
+    test = await e2eTestConfig();
   });
 
   afterEach(async () => {
@@ -21,7 +14,7 @@ describe('QuoteController (e2e)', () => {
   });
 
   it('오늘의 명언 반환 (response: { text: 명언, author: 말한사람 })', async () => {
-    const response = await request(app.getHttpServer())
+    const response = await request(test.app.getHttpServer())
       .get('/quotes')
       .expect(200);
 

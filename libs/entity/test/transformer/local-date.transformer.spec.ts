@@ -2,7 +2,7 @@ import {Test} from '@nestjs/testing';
 import {TypeOrmModule} from '@nestjs/typeorm';
 import {getConnection,} from 'typeorm';
 import {LocalDate,} from 'js-joda';
-import {dbConfig} from '../../../../apps/api/test/db-config';
+import {dbConfig} from '../../../../apps/api/test/test-config';
 import {Quote} from 'lib/entity/domains/quote/quote.entity';
 
 describe('ts-joda local date transformer test', () => {

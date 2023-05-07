@@ -3,9 +3,8 @@ import {QuoteApi} from 'lib/infra/quote/quote.api';
 import {TranslatorApi} from 'lib/infra/translator/translator.api';
 import {QuoteRepository} from 'lib/entity/domains/quote/repository/quote.repository';
 import {todayQuoteRepository, TodayQuoteRepository} from 'lib/entity/domains/quote/repository/today-quote.repository';
-import {Test, TestingModule} from '@nestjs/testing';
-import {TypeOrmModule} from '@nestjs/typeorm';
-import {dbConfig} from '../../db-config';
+import {TestingModule} from '@nestjs/testing';
+import {getModule} from '../../test-config';
 import {QuoteApiModule} from '../../../src/quote/quote-api.module';
 import {instance, mock, when} from 'ts-mockito';
 import {getConnection} from 'typeorm';
@@ -23,9 +22,7 @@ describe('Quote Api Service Integration Test', () => {
   let todayQuoteRepo: TodayQuoteRepository;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(dbConfig), QuoteApiModule],
-    }).compile();
+    const module: TestingModule = await getModule(QuoteApiModule);
 
     quoteApi = mock(ZenQuoteApi);
     papagoApi = mock(PapagoApi);

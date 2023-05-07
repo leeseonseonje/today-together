@@ -1,24 +1,20 @@
-import {Test, TestingModule} from '@nestjs/testing';
-import {TypeOrmModule} from '@nestjs/typeorm';
-import {dbConfig} from '../../db-config';
+import {TestingModule} from '@nestjs/testing';
+import {getModule} from '../../test-config';
 import {instance, mock, when} from 'ts-mockito';
 import {getConnection} from 'typeorm';
 import {OauthApi} from 'lib/infra/oauth2/oauth.api';
 import {OauthApiService} from '../../../src/oauth2/service/oauth-api.service';
-import {OauthApiModule} from '../../../src/oauth2/oauth-api.module';
 import {OauthServerType} from 'lib/infra/oauth2/enum/oauth-server-type.enum';
 import {ResponseOauthMemberDto} from '../../../src/oauth2/service/dto/response-oauth-member.dto';
-import {MemberModule} from 'lib/entity/domains/member/member.module';
 import {Member} from 'lib/entity/domains/member/member.entity';
+import {OauthApiModule} from '../../../src/oauth2/oauth-api.module';
 
 describe('Oauth Api Service Integration Test', () => {
   let sut: OauthApiService;
   let oauthApi: OauthApi;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(dbConfig), OauthApiModule, MemberModule],
-    }).compile();
+    const module: TestingModule = await getModule(OauthApiModule);
 
     oauthApi = mock(OauthApi);
     sut = new OauthApiService(instance(oauthApi));

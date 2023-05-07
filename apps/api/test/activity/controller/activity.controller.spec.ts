@@ -1,20 +1,13 @@
-import {INestApplication} from '@nestjs/common';
-import {Test, TestingModule} from '@nestjs/testing';
-import {ApiModule} from '../../../src/api.module';
 import {getConnection} from 'typeorm';
 import * as request from 'supertest';
 import {ActivityType} from 'lib/entity/domains/activity/activity.type.enum';
+import {e2eTestConfig, TestApplication} from '../../test-config';
 
 describe('ActivityController (e2e)', () => {
-  let app: INestApplication;
+  let test: TestApplication;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [ApiModule],
-    }).compile();
-
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    test = await e2eTestConfig();
   });
 
   afterEach(async () => {
@@ -23,7 +16,7 @@ describe('ActivityController (e2e)', () => {
   });
 
   it('쿼리파라미터: activity type 전체(all)', async () => {
-    const response = await request(app.getHttpServer())
+    const response = await request(test.app.getHttpServer())
       .get('/activities')
       .query({type: ActivityType.ALL});
 
@@ -34,7 +27,7 @@ describe('ActivityController (e2e)', () => {
   });
 
   it('쿼리파라미터: activitiy type', async () => {
-    const response = await request(app.getHttpServer())
+    const response = await request(test.app.getHttpServer())
       .get('/activities')
       .query({
         type: ActivityType.EDUCATION
@@ -44,7 +37,7 @@ describe('ActivityController (e2e)', () => {
   });
 
   it('type파라미터가 없거나, ActivityType(enum)이 아닐 경우 BadRequest(400)', async () => {
-    await request(app.getHttpServer())
+    await request(test.app.getHttpServer())
       .get('/activities')
       .query({
         type: 'bad-request'

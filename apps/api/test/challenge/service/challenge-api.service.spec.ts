@@ -1,23 +1,19 @@
 import {ChallengeApiService} from '../../../src/challenge/service/challenge-api.service';
-import {Test, TestingModule} from '@nestjs/testing';
-import {ChallengeApiModule} from '../../../src/challenge/challenge-api.module';
-import {dbConfig} from '../../db-config';
-import {TypeOrmModule} from '@nestjs/typeorm';
+import {TestingModule} from '@nestjs/testing';
+import {getModule} from '../../test-config';
 import {getConnection} from 'typeorm';
 import {Challenge} from 'lib/entity/domains/challenge/challenge.entity';
 import {LocalDate, LocalDateTime} from 'js-joda';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
-import {TodoModule} from 'lib/entity/domains/todo/todo.module';
+import {ChallengeApiModule} from '../../../src/challenge/challenge-api.module';
 
 describe('challenge Api Service Integration Test', () => {
 
   let sut: ChallengeApiService;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(dbConfig), ChallengeApiModule, TodoModule],
-    }).compile();
+    const module: TestingModule = await getModule(ChallengeApiModule);
 
     sut = module.get<ChallengeApiService>(ChallengeApiService);
   });
