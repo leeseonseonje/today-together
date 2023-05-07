@@ -37,3 +37,4 @@ lerna-debug.log*
 /src/resources/translator.yml
 /libs/infra/yml/oauth2.yml
 /libs/infra/yml/translator.yml
+fcm-config.json

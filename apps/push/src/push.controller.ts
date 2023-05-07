@@ -1,12 +1,16 @@
 import { Controller, Get } from '@nestjs/common';
 import { PushService } from './push.service';
 
-@Controller()
+@Controller('/fcm')
 export class PushController {
   constructor(private readonly pushService: PushService) {}
 
-  @Get()
-  getHello(): string {
-    return this.pushService.getHello();
+  @Get('/init')
+  async init() {
+    // await this.pushService.fcmTest();
+  }
+  @Get('/send')
+  async getHello() {
+    await this.pushService.sendTest();
   }
 }
