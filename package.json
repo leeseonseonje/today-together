@@ -94,13 +94,7 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^lib/member(|/.*)$": "<rootDir>/libs/member/src/$1",
-      "^lib/activity(|/.*)$": "<rootDir>/libs/activity/src/$1",
-      "^lib/quote(|/.*)$": "<rootDir>/libs/quote/src/$1",
-      "^lib/todo(|/.*)$": "<rootDir>/libs/todo/src/$1",
-      "^lib/challenge(|/.*)$": "<rootDir>/libs/challenge/src/$1",
       "^lib/entity(|/.*)$": "<rootDir>/libs/entity/src/$1",
-      "^lib/util(|/.*)$": "<rootDir>/libs/util/src/$1",
       "^lib/infra(|/.*)$": "<rootDir>/libs/infra/src/$1",
       "^lib/common(|/.*)$": "<rootDir>/libs/common/src/$1"
     }

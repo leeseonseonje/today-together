@@ -2,10 +2,25 @@ version: "3"
 
 services:
   today-together-api:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.api
     ports:
       - 3000:3000
-    container_name: today-together
+    container_name: today-together-api
+    restart: always
+    depends_on:
+      - today-together-db
+    networks:
+      - today-together-network
+
+  today-together-push:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.push
+    ports:
+      - 3001:3001
+    container_name: today-together-push
     restart: always
     depends_on:
       - today-together-db
