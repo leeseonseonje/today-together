@@ -1,11 +1,12 @@
 import {ConfigModule, ConfigService} from '@nestjs/config';
+import {TypeOrmModule} from '@nestjs/typeorm';
 
-export const initConfigModule = {
+export const initConfigModule = ConfigModule.forRoot({
   isGlobal: true,
   envFilePath: `.env.${!process.env.NODE_ENV ? 'development' : process.env.NODE_ENV}`
-}
+});
 
-export const initDbModule = {
+export const initDbModule = TypeOrmModule.forRootAsync({
   imports: [ConfigModule],
   inject: [ConfigService],
   useFactory: (configService: ConfigService) => ({
@@ -20,4 +21,4 @@ export const initDbModule = {
     autoLoadEntities: configService.get<string>('DB_AUTO_LOAD_ENTITIES'),
     logging: configService.get<string>('DB_LOGGING'),
   }),
-}
+});

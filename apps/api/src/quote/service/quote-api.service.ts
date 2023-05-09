@@ -5,6 +5,7 @@ import {todayQuoteRepository, TodayQuoteRepository} from 'lib/entity/domains/quo
 import {Quote} from 'lib/entity/domains/quote/quote.entity';
 import {LocalDate} from 'js-joda';
 import {ResponseTodayQuoteDto} from './dto/response-today-quote.dto';
+import {ResponseQuoteApiDto} from 'lib/infra/quote/dto/response-quote-api.dto';
 
 @Injectable()
 export class QuoteApiService {
@@ -22,12 +23,16 @@ export class QuoteApiService {
   async refreshTodayQuote() {
     const todayQuote = await this.quoteApi.getQuote();
 
-    const translatedQuotes = await this.translatorApi.translation(todayQuote.toString());
-
-    const [text, author] = translatedQuotes.split('-');
-    const createQuote = new Quote(text, author, LocalDate.now());
+    const translatedQuote = await this.translatedQuote(todayQuote);
+    const createQuote = new Quote(translatedQuote.text, translatedQuote.author, LocalDate.now());
 
     return await this.todayQuoteRepository.save(createQuote);
+  }
+
+  private async translatedQuote(todayQuote: ResponseQuoteApiDto): Promise<ResponseQuoteApiDto> {
+    const translatedText = await this.translatorApi.translation(todayQuote.text);
+    const translatedAuthor = await this.translatorApi.translation(todayQuote.author);
+    return {text: translatedText, author: translatedAuthor}
   }
 
   async cacheTodayQuote() {

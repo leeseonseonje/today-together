@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {LocalDate} from 'js-joda';
 import {getConnection} from 'typeorm';
-import {ChallengeApiRepository} from '../repository/challenge-api.repository';
+import {ChallengeRepository} from 'lib/entity/domains/challenge/repository/challenge.repository';
 
 @Injectable()
 export class ChallengeApiService {
@@ -23,6 +23,6 @@ export class ChallengeApiService {
   }
 
   private getChallengeRepository() {
-    return getConnection().getCustomRepository(ChallengeApiRepository);
+    return getConnection().getCustomRepository(ChallengeRepository);
   }
 }

@@ -9,8 +9,7 @@ import {getConnection} from 'typeorm';
 import {PapagoApi} from 'lib/infra/translator/papago.api';
 import {Activity} from 'lib/entity/domains/activity/activity.entity';
 import {ActivityApiModule} from '../../../src/activity/activity-api.module';
-import {TypeOrmModule} from '@nestjs/typeorm';
-import {dbConfig} from '../../../../../libs/common/test/test-config';
+import {initDbModule} from 'lib/common/config/module-config';
 
 describe('Activity Api Service Integration Test', () => {
 
@@ -22,7 +21,7 @@ describe('Activity Api Service Integration Test', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(dbConfig), ActivityApiModule],
+      imports: [initDbModule, ActivityApiModule],
     }).compile()
 
     response = {

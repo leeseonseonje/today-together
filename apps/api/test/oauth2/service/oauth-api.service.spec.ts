@@ -7,9 +7,9 @@ import {OauthServerType} from 'lib/infra/oauth2/enum/oauth-server-type.enum';
 import {ResponseOauthMemberDto} from '../../../src/oauth2/service/dto/response-oauth-member.dto';
 import {Member} from 'lib/entity/domains/member/member.entity';
 import {OauthApiModule} from '../../../src/oauth2/oauth-api.module';
-import {dbConfig} from '../../../../../libs/common/test/test-config';
-import {TypeOrmModule} from '@nestjs/typeorm';
+
 import {MemberModule} from 'lib/entity/domains/member/member.module';
+import {initDbModule} from 'lib/common/config/module-config';
 
 describe('Oauth Api Service Integration Test', () => {
   let sut: OauthApiService;
@@ -17,7 +17,7 @@ describe('Oauth Api Service Integration Test', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(dbConfig), OauthApiModule, MemberModule],
+      imports: [initDbModule, OauthApiModule, MemberModule],
     }).compile()
 
     oauthApi = mock(OauthApi);
@@ -26,7 +26,6 @@ describe('Oauth Api Service Integration Test', () => {
   });
 
   afterEach(async () => {
-    await getConnection().dropDatabase();
     await getConnection().close();
   })
 

@@ -6,9 +6,9 @@ import {LocalDate, LocalDateTime} from 'js-joda';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
 import {ChallengeApiModule} from '../../../src/challenge/challenge-api.module';
-import {dbConfig} from '../../../../../libs/common/test/test-config';
-import {TypeOrmModule} from '@nestjs/typeorm';
+
 import {TodoModule} from 'lib/entity/domains/todo/todo.module';
+import {initDbModule} from 'lib/common/config/module-config';
 
 describe('challenge Api Service Integration Test', () => {
 
@@ -16,14 +16,15 @@ describe('challenge Api Service Integration Test', () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(dbConfig), ChallengeApiModule, TodoModule],
+      imports: [initDbModule, ChallengeApiModule, TodoModule],
     }).compile()
 
     sut = module.get<ChallengeApiService>(ChallengeApiService);
   });
 
   afterEach(async () => {
-    await getConnection().dropDatabase();
+    await getConnection().query('delete from todo');
+    await getConnection().query('delete from challenge');
     await getConnection().close();
   });
 
@@ -64,13 +65,13 @@ describe('challenge Api Service Integration Test', () => {
   it('요청 받은 날짜의 commit 상세 내역 (하루 단위)', async () => {
     const challengeRepository = getConnection().getRepository(Challenge);
     const todoRepository = getConnection().getRepository(Todo)
-    for (let i = 1; i <= 10; i++) {
-      await todoRepository.save(new Todo('memberA', 'todo', LocalDate.now(), TodoStatus.COMPLETE));
-      await challengeRepository.save(new Challenge(i, 'memberA', LocalDateTime.now()));
+    for (let i = 0; i < 10; i++) {
+      const todo = await todoRepository.save(new Todo('memberA', 'todo', LocalDate.now(), TodoStatus.COMPLETE));
+      await challengeRepository.save(new Challenge(todo.id, 'memberA', LocalDateTime.now()));
     }
-    for (let i = 11; i < 50; i++) {
-      await todoRepository.save(new Todo('memberA', 'todo', LocalDate.now().plusDays(1), TodoStatus.COMPLETE));
-      await challengeRepository.save(new Challenge(i, 'memberA', LocalDateTime.now().plusDays(1)));
+    for (let i = 0; i < 50; i++) {
+      const todo = await todoRepository.save(new Todo('memberA', 'todo', LocalDate.now().plusDays(1), TodoStatus.COMPLETE));
+      await challengeRepository.save(new Challenge(todo.id, 'memberA', LocalDateTime.now().plusDays(1)));
     }
 
     const result = await sut.dayCommitHistory('memberA', LocalDate.now());

@@ -16,7 +16,7 @@ import {ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags} from '@nestjs/sw
 import {CreateTodoDto} from './dto/create-todo.dto';
 import {UpdateTodoDto} from './dto/update-todo.dto';
 import {CompleteTodoDto} from './dto/complete-todo.dto';
-import {FindDayTodosDto} from '../service/dto/find-day-todos.dto';
+import {FindDayTodoDto} from 'lib/entity/domains/todo/repository/dto/find-day-todo.dto';
 import {DateTimeUtil} from 'lib/entity/util/date-time.util';
 import {DateParameter} from 'lib/common/dto/date-parameter';
 
@@ -74,7 +74,7 @@ export class TodoController {
   @ApiParam({name: 'memberId', type: 'number', example: '1', description: 'oauth id'})
   @ApiResponse({
     status: 200,
-    type: FindDayTodosDto,
+    type: FindDayTodoDto,
   })
   @Get('/today/:memberId')
   async todayTodo(@Param('memberId') memberId: string) {
@@ -86,7 +86,7 @@ export class TodoController {
   @ApiQuery({name: 'day', type: 'date', example: '2021-11-25', description: '조회하려는 날짜'})
   @ApiResponse({
     status: 200,
-    type: FindDayTodosDto,
+    type: FindDayTodoDto,
   })
   @Get('/:memberId')
   async dayTodo(@Param('memberId') memberId: string,

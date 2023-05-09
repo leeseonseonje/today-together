@@ -3,20 +3,20 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import {getConnection} from 'typeorm';
 import {LocalDateTime} from 'js-joda';
 import {Challenge} from 'lib/entity/domains/challenge/challenge.entity';
-import {dbConfig} from '../../../common/test/test-config';
+import {initDbModule} from 'lib/common/config/module-config';
 
 describe('ts-joda local date time transformer test', () => {
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(dbConfig),
+      imports: [initDbModule,
         TypeOrmModule.forFeature([Challenge])
       ],
     }).compile();
   })
 
   afterEach(async () => {
-    await getConnection().dropDatabase();
+    //await getConnection().dropDatabase();
     await getConnection().close();
   });
 

@@ -1,11 +1,10 @@
 import {PushRepository} from '../../../src/repository/push.repository';
 import {getConnection} from 'typeorm';
 import {PushToken} from 'lib/entity/domains/member/push/push-token.entity';
-import {dbConfig} from '../../../../../libs/common/test/test-config';
 import {Test, TestingModule} from '@nestjs/testing';
-import {TypeOrmModule} from '@nestjs/typeorm';
 import {PushModule} from '../../../src/push.module';
 import {TodoModule} from 'lib/entity/domains/todo/todo.module';
+import {initDbModule} from 'lib/common/config/module-config';
 
 describe('Push Repository Test', () => {
 
@@ -13,14 +12,14 @@ describe('Push Repository Test', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(dbConfig), PushModule, TodoModule],
+      imports: [initDbModule, PushModule, TodoModule],
     }).compile()
 
     sut = module.get<PushRepository>(PushRepository);
   });
 
   afterEach(async () => {
-    await getConnection().dropDatabase();
+    //await getConnection().dropDatabase();
   })
 
   it('memberId로 pushToken 조회', async () => {

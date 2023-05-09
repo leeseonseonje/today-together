@@ -1,6 +1,4 @@
 import {Test, TestingModule} from '@nestjs/testing';
-import {HttpModule} from '@nestjs/axios';
-import {ZenQuoteApi} from 'lib/infra/quote/zen-quote.api';
 import {QuoteInfraModule} from 'lib/infra/quote/quote-infra.module';
 import {quoteApi, QuoteApi} from 'lib/infra/quote/quote.api';
 

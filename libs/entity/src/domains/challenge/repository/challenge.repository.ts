@@ -7,7 +7,7 @@ import {DateTimeUtil} from 'lib/entity/util/date-time.util';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
 
 @EntityRepository(Challenge)
-export class ChallengeApiRepository extends Repository<Challenge> {
+export class ChallengeRepository extends Repository<Challenge> {
 
   async commit(memberId: string, todoId: number) {
     return await this.save(new Challenge(todoId, memberId, LocalDateTime.now()));
@@ -56,6 +56,7 @@ export class ChallengeApiRepository extends Repository<Challenge> {
       })
       .getRawMany<{ todoId: number, commitTime: Date, description: string }>();
 
+    console.log(result);
     return result.map(r => {
       return new DayCommitHistoryDto(r.todoId, DateTimeUtil.toLocalDateTime(r.commitTime), r.description);
     })

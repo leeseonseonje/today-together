@@ -5,7 +5,7 @@ import {TodoApiModule} from './todo/todo-api.module';
 import {ChallengeApiModule} from './challenge/challenge-api.module';
 import {OauthApiModule} from './oauth2/oauth-api.module';
 import {ConfigModule, ConfigService} from '@nestjs/config';
-import {TypeOrmModule} from '@nestjs/typeorm';
+
 import {APP_FILTER} from '@nestjs/core';
 import {ErrorFilter} from 'lib/common/filter/error.filter';
 import {MemberModule} from 'lib/entity/domains/member/member.module';
@@ -15,8 +15,8 @@ import {initConfigModule, initDbModule} from 'lib/common/config/module-config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(initConfigModule),
-    TypeOrmModule.forRootAsync(initDbModule),
+    initConfigModule,
+    initDbModule,
     ActivityApiModule,
     QuoteApiModule,
     TodoApiModule,

@@ -1,11 +1,11 @@
 import {EntityRepository, Repository} from 'typeorm';
 import {LocalDate} from 'js-joda';
-import {FindDayTodosDto} from '../service/dto/find-day-todos.dto';
+import {FindDayTodoDto} from './dto/find-day-todo.dto';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 
 @EntityRepository(Todo)
-export class TodoApiRepository extends Repository<Todo> {
+export class TodoRepository extends Repository<Todo> {
 
   async findIncompleteTodos(memberId: string) {
     return await this
@@ -24,7 +24,7 @@ export class TodoApiRepository extends Repository<Todo> {
       .getMany();
 
     return result.map(todo => {
-      return new FindDayTodosDto(todo.id, todo.text, todo.status);
+      return new FindDayTodoDto(todo.id, todo.text, todo.status);
     });
   }
 }

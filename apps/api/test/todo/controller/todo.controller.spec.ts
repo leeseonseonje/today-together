@@ -17,7 +17,6 @@ describe('TodoController (e2e)', () => {
   });
 
   afterEach(async () => {
-    await getConnection().dropDatabase();
     await getConnection().close();
   })
 

@@ -3,8 +3,8 @@ import {LocalDate} from 'js-joda';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 import {getConnection, getManager} from 'typeorm';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
-import {TodoApiRepository} from '../repository/todo-api.repository';
-import {ChallengeApiRepository} from '../../challenge/repository/challenge-api.repository';
+import {TodoRepository} from 'lib/entity/domains/todo/repository/todo.repository';
+import {ChallengeRepository} from 'lib/entity/domains/challenge/repository/challenge.repository';
 
 @Injectable()
 export class TodoApiService {
@@ -26,10 +26,10 @@ export class TodoApiService {
 
   async complete(memberId: string, todoId: number) {
     return await getManager().transaction(async manager => {
-      const todoRepository = manager.getCustomRepository(TodoApiRepository);
+      const todoRepository = manager.getCustomRepository(TodoRepository);
       await todoRepository.update(todoId, {status: TodoStatus.COMPLETE});
 
-      await manager.getCustomRepository(ChallengeApiRepository).commit(memberId, todoId);
+      await manager.getCustomRepository(ChallengeRepository).commit(memberId, todoId);
 
       return todoId;
     });
@@ -37,7 +37,7 @@ export class TodoApiService {
 
   async getTodayTodos(memberId: string) {
     return await getManager().transaction(async manager => {
-      const todoRepository = manager.getCustomRepository(TodoApiRepository);
+      const todoRepository = manager.getCustomRepository(TodoRepository);
 
       const incompleteTodos = await todoRepository.findIncompleteTodos(memberId);
       for (const todo of incompleteTodos) {
@@ -54,6 +54,6 @@ export class TodoApiService {
   }
 
   private getTodoRepository() {
-    return getConnection().getCustomRepository(TodoApiRepository);
+    return getConnection().getCustomRepository(TodoRepository);
   }
 }

@@ -1,12 +1,11 @@
 import {TodoApiService} from '../../../src/todo/service/todo-api.service';
 import {Test, TestingModule} from '@nestjs/testing';
 import {TodoApiModule} from '../../../src/todo/todo-api.module';
-import {getConnection} from 'typeorm';
+import {getConnection, getManager} from 'typeorm';
 import {LocalDate} from 'js-joda';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 import {Todo} from 'lib/entity/domains/todo/todo.entity';
-import {TypeOrmModule} from '@nestjs/typeorm';
-import {dbConfig} from '../../../../../libs/common/test/test-config';
+import {initDbModule} from 'lib/common/config/module-config';
 
 describe('Todo Api Service Integration Test', () => {
 
@@ -14,14 +13,13 @@ describe('Todo Api Service Integration Test', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRoot(dbConfig), TodoApiModule],
+      imports: [initDbModule, TodoApiModule],
     }).compile()
 
     sut = module.get<TodoApiService>(TodoApiService);
   });
 
   afterEach(async () => {
-    await getConnection().dropDatabase();
     await getConnection().close();
   })
 

@@ -1,7 +1,7 @@
 import {ApiProperty} from '@nestjs/swagger';
 import {TodoStatus} from 'lib/entity/domains/todo/todo-status.enum';
 
-export class FindDayTodosDto {
+export class FindDayTodoDto {
 
   @ApiProperty({
     example: '1',
