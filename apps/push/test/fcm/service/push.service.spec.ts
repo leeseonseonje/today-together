@@ -2,6 +2,7 @@ import {PushModule} from '../../../src/push.module';
 import {PushService} from '../../../src/service/push.service';
 import {Test, TestingModule} from '@nestjs/testing';
 import {initDbModule} from 'lib/common/config/module-config';
+import {createNotificationMessage} from '../../../src/type/notification-message.type';
 
 describe('Push Service Test', () => {
 
@@ -15,6 +16,6 @@ describe('Push Service Test', () => {
   });
 
   it('fcm push send', async () => {
-    await sut.send();
+    await sut.send(createNotificationMessage('title', 'body'));
   });
 });

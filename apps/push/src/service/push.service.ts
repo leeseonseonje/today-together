@@ -4,6 +4,7 @@ import {PushRepository} from '../repository/push.repository';
 import {LocalDate} from 'js-joda';
 import {getConnection} from 'typeorm';
 import {PushToken} from 'lib/entity/domains/member/push/push-token.entity';
+import {NotificationMessage} from '../type/notification-message.type';
 
 @Injectable()
 export class PushService {
@@ -18,22 +19,18 @@ export class PushService {
     await getConnection().getRepository(PushToken).save(new PushToken(token, memberId));
   }
 
-  async send() {
+  async send(message: NotificationMessage) {
     let memberIds = await this.pushRepository.findIncompleteMemberIds(LocalDate.now());
     const tokens = await this.pushRepository.findPushToken(memberIds);
-    const payloads = this.createPayload(tokens);
-    return await this.fcm.messaging.sendEach(payloads);
+    return await this.fcm.messaging.sendEach(this.createPayload(tokens, message));
   }
 
-  private createPayload(tokens: string[]) {
+  private createPayload(tokens: string[], message: NotificationMessage) {
     const payloads = [];
     for (const token of tokens) {
       payloads.push({
         token: token,
-        notification: {
-          title: '미완료 할 일',
-          body: '하지 못한 일이 있어요'
-        }
+        notification: message
       });
     }
     return payloads;

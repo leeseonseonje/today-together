@@ -1,9 +1,15 @@
 import { Injectable } from "@nestjs/common";
 import {Cron, CronExpression} from '@nestjs/schedule';
 import {PushService} from '../service/push.service';
+import {createNotificationMessage} from '../type/notification-message.type';
+import {DateTimeFormatter} from 'js-joda';
 
 @Injectable()
 export class PushAlarmScheduler {
+
+  private readonly messageTitle: string = '미완료 할 일';
+  private readonly messageBody: string = '하지 못한 일이 있어요';
+
   constructor(
     private readonly pushService: PushService,
   ) {}
@@ -12,15 +18,19 @@ export class PushAlarmScheduler {
     timeZone: 'Asia/Seoul',
   })
   async todayTodoNotificationAt5pm() {
-    const response = await this.pushService.send();
-    console.log(`success count: ${response.successCount}`);
+    await this.TodayTodoNotificationSend();
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_10PM, {
     timeZone: 'Asia/Seoul',
   })
   async todayTodoNotificationAt10pm() {
-    const response = await this.pushService.send();
+    await this.TodayTodoNotificationSend();
+  }
+
+  private async TodayTodoNotificationSend() {
+    const message = createNotificationMessage(this.messageTitle, this.messageBody);
+    const response = await this.pushService.send(message);
     console.log(`success count: ${response.successCount}`);
   }
 }
