@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import {Cron, CronExpression} from '@nestjs/schedule';
 import {PushService} from '../service/push.service';
-import {createNotificationMessage} from '../type/notification-message.type';
+import {createNotificationMessage} from '../type/notification-message';
 import {DateTimeFormatter} from 'js-joda';
 
 @Injectable()

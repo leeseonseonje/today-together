@@ -4,7 +4,7 @@ import {PushRepository} from '../repository/push.repository';
 import {LocalDate} from 'js-joda';
 import {getConnection} from 'typeorm';
 import {PushToken} from 'lib/entity/domains/member/push/push-token.entity';
-import {NotificationMessage} from '../type/notification-message.type';
+import {NotificationMessage} from '../type/notification-message';
 
 @Injectable()
 export class PushService {

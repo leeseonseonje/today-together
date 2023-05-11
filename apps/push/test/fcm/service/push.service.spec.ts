@@ -2,7 +2,7 @@ import {PushModule} from '../../../src/push.module';
 import {PushService} from '../../../src/service/push.service';
 import {Test, TestingModule} from '@nestjs/testing';
 import {initDbModule} from 'lib/common/config/module-config';
-import {createNotificationMessage} from '../../../src/type/notification-message.type';
+import {createNotificationMessage} from '../../../src/type/notification-message';
 
 describe('Push Service Test', () => {
 
