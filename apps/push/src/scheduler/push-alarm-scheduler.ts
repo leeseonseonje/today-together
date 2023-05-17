@@ -18,17 +18,17 @@ export class PushAlarmScheduler {
     timeZone: 'Asia/Seoul',
   })
   async todayTodoNotificationAt5pm() {
-    await this.TodayTodoNotificationSend();
+    await this.todayTodoNotificationSend();
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_10PM, {
     timeZone: 'Asia/Seoul',
   })
   async todayTodoNotificationAt10pm() {
-    await this.TodayTodoNotificationSend();
+    await this.todayTodoNotificationSend();
   }
 
-  private async TodayTodoNotificationSend() {
+  private async todayTodoNotificationSend() {
     const message = createNotificationMessage(this.messageTitle, this.messageBody);
     const response = await this.pushService.send(message);
     console.log(`success count: ${response.successCount}`);
