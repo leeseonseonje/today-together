@@ -18,10 +18,6 @@ describe('Push Repository Test', () => {
     sut = module.get<PushRepository>(PushRepository);
   });
 
-  afterEach(async () => {
-    //await getConnection().dropDatabase();
-  })
-
   it('memberId로 pushToken 조회', async () => {
     const repository = await getConnection().getRepository(PushToken);
     const memberIds = [];

@@ -10,10 +10,6 @@ describe('PushController (e2e)', () => {
     test = await e2eTestConfig(PushModule);
   });
 
-  afterEach(async () => {
-    //await getConnection().dropDatabase();
-  });
-
   it('push 토큰 저장', async () => {
     await request(test.app.getHttpServer())
       .post('/push/token')
