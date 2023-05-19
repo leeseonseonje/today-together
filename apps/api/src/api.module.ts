@@ -4,7 +4,6 @@ import {QuoteApiModule} from './quote/quote-api.module';
 import {TodoApiModule} from './todo/todo-api.module';
 import {ChallengeApiModule} from './challenge/challenge-api.module';
 import {OauthApiModule} from './oauth2/oauth-api.module';
-import {ConfigModule, ConfigService} from '@nestjs/config';
 
 import {APP_FILTER} from '@nestjs/core';
 import {ErrorFilter} from 'lib/common/filter/error.filter';

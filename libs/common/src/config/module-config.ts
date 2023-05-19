@@ -19,6 +19,6 @@ export const initDbModule = TypeOrmModule.forRootAsync({
     synchronize: configService.get<boolean>('DB_SYNCHRONIZE'),
     entities: [],
     autoLoadEntities: configService.get<boolean>('DB_AUTO_LOAD_ENTITIES'),
-    logging: configService.get<boolean>('DB_LOGGING'),
+    logging: configService.get<string>('DB_LOGGING') === 'true',
   }),
 });
