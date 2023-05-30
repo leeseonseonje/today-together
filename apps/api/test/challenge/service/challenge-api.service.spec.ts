@@ -9,6 +9,7 @@ import {ChallengeApiModule} from '../../../src/challenge/challenge-api.module';
 
 import {TodoModule} from 'lib/entity/domains/todo/todo.module';
 import {initDbModule} from 'lib/common/config/module-config';
+import {createChallenge, createTodo} from '../../fixture/factory/test.factory';
 
 describe('challenge Api Service Integration Test', () => {
 
@@ -31,13 +32,13 @@ describe('challenge Api Service Integration Test', () => {
   it('하루에 commit을 몇 번 한지 조회 (횟수만 반환)', async () => {
     const repository = getConnection().getRepository(Challenge);
     for (let i = 0; i < 100; i++) {
-      await repository.save(new Challenge(2, 'memberA', LocalDateTime.now()));
+      await repository.save(createChallenge(2, 'memberA', LocalDateTime.now()));
     }
     for (let i = 0; i < 30; i++) {
-      await repository.save(new Challenge(2, 'memberB', LocalDateTime.now()));
+      await repository.save(createChallenge(2, 'memberB', LocalDateTime.now()));
     }
     for (let i = 0; i < 50; i++) {
-      await repository.save(new Challenge(2, 'memberA', LocalDateTime.now().plusDays(1)));
+      await repository.save(createChallenge(2, 'memberA', LocalDateTime.now().plusDays(1)));
     }
 
     const result = await sut.getDayCommitCount('memberA', LocalDate.now());
@@ -48,13 +49,13 @@ describe('challenge Api Service Integration Test', () => {
   it('요청 받은 달의 commit 횟수 조회 (한달 단위)', async () => {
     const repository = getConnection().getRepository(Challenge);
     for (let i = 0; i < 100; i++) {
-      await repository.save(new Challenge(2, 'memberA', LocalDateTime.now()));
+      await repository.save(createChallenge(2, 'memberA', LocalDateTime.now()));
     }
     for (let i = 0; i < 30; i++) {
-      await repository.save(new Challenge(2, 'memberA', LocalDateTime.now()));
+      await repository.save(createChallenge(2, 'memberA', LocalDateTime.now()));
     }
     for (let i = 0; i < 50; i++) {
-      await repository.save(new Challenge(2, 'memberA', LocalDateTime.now().plusMonths(1)));
+      await repository.save(createChallenge(2, 'memberA', LocalDateTime.now().plusMonths(1)));
     }
 
     const result = await sut.getMonthCommit('memberA', LocalDate.now());
@@ -65,13 +66,14 @@ describe('challenge Api Service Integration Test', () => {
   it('요청 받은 날짜의 commit 상세 내역 (하루 단위)', async () => {
     const challengeRepository = getConnection().getRepository(Challenge);
     const todoRepository = getConnection().getRepository(Todo)
+
     for (let i = 0; i < 10; i++) {
-      const todo = await todoRepository.save(new Todo('memberA', 'todo', LocalDate.now(), TodoStatus.COMPLETE));
-      await challengeRepository.save(new Challenge(todo.id, 'memberA', LocalDateTime.now()));
+      const todo = await todoRepository.save(createTodo('memberA', 'todo', LocalDate.now(), TodoStatus.COMPLETE));
+      await challengeRepository.save(createChallenge(todo.id, 'memberA', LocalDateTime.now()));
     }
     for (let i = 0; i < 50; i++) {
-      const todo = await todoRepository.save(new Todo('memberA', 'todo', LocalDate.now().plusDays(1), TodoStatus.COMPLETE));
-      await challengeRepository.save(new Challenge(todo.id, 'memberA', LocalDateTime.now().plusDays(1)));
+      const todo = await todoRepository.save(createTodo('memberA', 'todo', LocalDate.now().plusDays(1), TodoStatus.COMPLETE));
+      await challengeRepository.save(createChallenge(todo.id, 'memberA', LocalDateTime.now().plusDays(1)));
     }
 
     const result = await sut.dayCommitHistory('memberA', LocalDate.now());
